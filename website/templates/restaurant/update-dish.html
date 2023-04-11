@@ -1,0 +1,195 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block dish %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="container-dish w-100 h-100 modal-update modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h2 class="modal-title fs-2 text-center " id="EditarPlatilloLabel">Editar Platillo</h2>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" class="position-relative" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div id="Update-dish-form" class="d-flex justify-content-center flex-column">
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Nombre del platillo -->
+              <div>
+                <label class="form-label" for="saveName">Ingrese el nombre del platillo:</label>
+                {{form.dish_name}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Descripcion -->
+              <div>
+                <label class="form-label" for="saveDescription">Descripción del platillo:</label>
+                {{form.description}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Precio -->
+              <div>
+                <label class="form-label" for="saveDescription">Precio del platillo:</label>
+                {{form.price}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Etiquetas -->
+              <div>
+                <label class="form-label" for="saveDescription">Etiquetas:</label>
+                {{form.tags}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Cantidad -->
+              <div>
+                <label class="form-label" for="saveDescription">Cantidad disponible:</label>
+                {{form.amount}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center">
+              <!-- Activo -->
+              <div>
+                <div class="form-check">
+                  {{form.active}}
+                  <label class="form-check-label" for="CheckActive">Mostrar platillo</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-outline mb-3">
+              <p class="form-label">Imagenes:</p>
+              <label for="formDish_img" class="form-dish-img {% if imgs == 'None' %}none-img{% endif %} d-flex align-items-center justify-content-md-start">
+                <div class="position-relative d-flex align-items-center column-gap-1 row-gap-1 flex-wrap">
+                  {% for img in dish_imgs %}
+                    <div class="position-relative">
+                      <a href="#{{img.folder}}_{{img.order}}" data-bs-toggle="modal" data-bs-target="#UpdateDishImg">
+                        <img class="current-img" src="{% static img.img %}" width="100" height="100">
+                        <div class="edit-img"><img src="{% static '/img/icon/edit.png' %}" width="20" height="20"></div>
+                      </a> 
+                    </div>
+                  {% endfor %}
+                </div>
+              </label>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center">
+              <!-- Disparador -->
+              <button type="button" class="btn btn-delete-trigger p-0 border-0 d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#DeleteDish">
+                <img src="{% static 'icon/delete.png' %}" width="12" class="img-trash">
+                <p class="text-decoration-underline delete-text">Eliminar</p>
+              </button>
+            </div>
+          </div>
+          {% for message in messages %}
+            {% if message.tags != "error_img" and message.tags != "error_upload_img" %}
+              <p class="message-{{message.tags}}">{{message}}</p>
+            {% endif %}
+          {% endfor %}
+          <div class="modal-bttn update-modal-bttn">
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="{% url 'platillos' %}" class="btn btn-close-modal">Cancelar</a>
+              <input type="submit" class="btn btn-accept" value="Aceptar" name="Update">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Elimiar -->
+<div class="modal fade" id="DeleteDish" tabindex="-1" aria-labelledby="EliminarPlatilloLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-4 text-center" id="EliminarPlatilloLabel">Eliminar</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <h3 class="fs-5 p-3">¿Estás seguro que quiere eliminar el platillo "{{item}}"?</h3>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <input type="submit" class="btn btn-danger" value="Eliminar" name="Delete">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modificar Imagen -->
+<div class="modal fade" id="UpdateDishImg" tabindex="-1" aria-labelledby="EditarPlatilloImgLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-4 text-center" id="EditarPlatilloImgLabel">Galeria de imagenes de {{item}}</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <!-- Menu de Galleria -->
+        <ul class="nav nav-tabs" id="NavImgs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="gallery-tab" data-bs-toggle="tab" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="true">Galleria</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload" type="button" role="tab" aria-controls="upload" aria-selected="false">Subir</button>
+          </li>
+        </ul>
+        <!-- Contenido del menu -->
+        <div class="tab-content" id="NavImgsContent">
+          <!-- Selccionar Imagenes -->
+          <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
+            <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="gallery d-flex justify-content-md-start align-items-center column-gap-2 row-gap-2 flex-wrap p-4">
+                {% for edit_img in all_imgs %}
+                  <div class="d-flex justify-content-center align-items-center">
+                    <img id="{{edit_img.id}}_{{edit_img.order}}" class="item-img {% if edit_img.select == True %}select-img{% endif %}" src="{% static edit_img.img %}" alt="" width="200" height="200">
+                  </div>
+                {% endfor %}
+              </div>
+              <div class="hidden">
+                <input type="text" name="updateSelect" class="form-control d-none">
+              </div>
+              {% for message in messages %}
+                {% if message.tags == "error_img" %}
+                  <p class="message-error">{{message}}</p>
+                {% endif %}
+              {% endfor %}
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-modal-accept" value="Actualizar" name="UpdateImg">
+              </div>
+            </form>
+          </div>
+          <!-- Subir imagenes -->
+          <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="Upload-tab">
+            <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="upload d-flex justify-content-center align-items-center column-gap-2 row-gap-2 p-4 flex-column">
+                <label for="formUpload_img" class="form-upload-img d-flex justify-content-center align-items-center">
+                  <input type="file" id="upload-img" name="upload-img" accept="image/*" multiple>
+                </label>
+                <div id="preview-imgs" class="d-flex justify-content-center align-items-center column-gap-2 row-gap-2 flex-wrap">
+                </div>
+              </div>
+
+              {% for message in messages %}
+                {% if message.tags == "error_upload_img" %}
+                  <p class="message-error">{{message}}</p>
+                {% endif %}
+              {% endfor %}
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-modal-accept" value="Subir" name="UploadImg">
+              </div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

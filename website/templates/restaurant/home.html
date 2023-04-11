@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/footer.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/home.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Afilia tu restaurante</title>
+</head>
+<body>
+  <div class="page-container">
+    {% include 'header.html' %}
+    <div class="container-fluid">
+      <div id="Register">
+        <h1 class="title-meta">Afilia tu restaurante</h1>
+        <div class="form-container d-flex align-items-center {% if auth == False %} justify-content-md-end {% else %}justify-content-center full_height{% endif %}">
+          {% if auth == False %}
+            <div class="form">
+              <div class="form-title d-flex justify-content-center align-items-center"><h2>Regista tu local</h2></div>
+              <form id="regForm" action="" method="POST">
+                {% csrf_token %}
+                <fieldset class="contact-form__block current">
+                  <!-- Nombre -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerName">Nombre del restaurante</label>
+                    {{form.name}}
+                  </div>
+                  <!-- Email -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerEmail">Email</label>
+                    {{form.email}}
+                  </div>
+                  <!-- Teléfono -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerPhone">Teléfono</label>
+                    {{form.phone}}
+                  </div>
+                  <!-- Plan -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerPlan">Plan</label>
+                    {{form.plan}}
+                  </div>
+                </fieldset>
+                <fieldset class="contact-form__block">
+                  <!-- Estado -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerState">Estado</label>
+                    {{form.state}}
+                  </div>
+                  <!-- Ciudad -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerCity">Ciudad</label>
+                    {{form.city}}
+                  </div>
+                  <!-- Parroquia -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerParish">Parroquia</label>
+                    {{form.parish}}
+                  </div>
+                </fieldset>
+                <fieldset class="contact-form__block">
+                  <!-- Contraseña -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerPassword">Contraseña</label>
+                    {{form.password1}}
+                  </div>
+                  <!-- Confirmar contraseña -->
+                  <div class="form-outline mb-3">
+                    <label class="form-label" for="registerRepeatPassword">Confirme la contraseña</label>
+                    {{form.password2}}
+                  </div>
+
+                  <!-- Mapa -->
+                  <!-- <div id="Map" class="w-100 d-none">
+                    <iframe width="100%" height="400" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="">
+                    </iframe>
+                  </div> -->
+
+                  <!-- Checkbox -->
+                  <div class="form-check d-flex justify-content-center align-items-center mb-4 mt-4">
+                    <input class="form-check-input me-2" type="checkbox" value="cheched" id="registerCheck" name="checkbox" aria-describedby="registerCheck"/>
+                    <label class="form-check-label" for="registerCheck">Leyo nuestros Terminos y condiciones</label>
+                  </div>
+                </fieldset>
+                <div class="w-100" style="overflow:auto;">
+                  <div class="w-100" style="float:right;">
+                    <button type="button" id="prevBtn" class="btn-default" onclick="nextPrev(-1)"><img src="{% static '/img/icon/prev.png' %}" width="40" height="40"></button>
+                    <button type="button" id="nextBtn" class="btn-default" onclick="nextPrev(1)"><img src="{% static '/img/icon/next.png' %}" width="40" height="40"></button>
+                    <!-- Registarse -->
+                    <button type="submit" id="submitBtn" class="btn btn-block btn-restaurant-register d-none" onclick="validateForm()">Registrar</button>
+                  </div>
+                </div>
+                {{form.errors}}
+                {% for message in messages %}
+                  <p class="message-{{message.tags}}">{{message}}</p>
+                {% endfor %}
+              </form>
+            </div>
+          {% else %}
+            {% include 'restaurant/plan.html' with auth=auth only %}
+          {% endif %}
+        </div>
+      </div>
+      {% if auth == False %}
+        <div class="strike">
+          <div class="strike-container">
+            <div class="card-title">
+              <h2 class="card-title-h2 text-center">Registrate ahora para poder crear</h2>
+            </div>
+            <div class="card-info card-info-restaurant d-flex justify-content-md-center align-items-md-center">
+              <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+                <div class="card-img d-flex justify-content-center align-items-center">
+                  <img src="{% static '/img/icon/card.png' %}" width="60">
+                </div>
+                <div class="card-description">
+                  <h3 class="text-md-center">Menus</h3>
+                  <p class="text-md-center">Crea tus propios menus.</p>
+                </div>
+              </div>
+              <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+                <div class="card-img d-flex justify-content-center align-items-center">
+                  <img src="{% static '/img/icon/restaurant.png' %}" width="64" height="42">
+                </div>
+                <div class="card-description">
+                  <h3 class="text-md-center">Platillos</h3>
+                  <p class="text-md-center">Añade nuevos platillos a tus menus.</p>
+                </div>
+              </div>
+              <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+                <div class="card-img d-flex justify-content-center align-items-center">
+                  <img src="{% static '/img/icon/sale.png' %}" width="55" style="margin-left: 2px;margin-top: 2px;">
+                </div>
+                <div class="card-description">
+                  <h3 class="text-md-center">Promociones</h3>
+                  <p class="text-md-center">Crea promociones a tus platillos</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% include 'restaurant/plan.html' %}
+      {% endif %}
+    </div>
+  </div>
+</body>
+<footer>
+  {% include 'footer.html' %}
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+  {% if auth == False %}<script src="{% static '/js/restaurantHome.js' %}"></script>{% endif %}
+</footer>
+</html>

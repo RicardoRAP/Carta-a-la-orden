@@ -1,0 +1,116 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block menu %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="container-menu w-100 h-100 modal-update modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h2 class="modal-title fs-2 text-center " id="EditarPlatilloLabel">Editar Platillo</h2>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" class="position-relative needs-validation" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div id="Update-menu-form" class="d-flex justify-content-center flex-column">
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Nombre del menu -->
+              <div>
+                <label class="form-label" for="Name_menu">Ingrese el nombre del menú:</label>
+                {{form.menu_name}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex justify-content-center flex-column">
+              <!-- Seleccione los platillos -->
+              <div>
+                <label class="form-label" for="">Seleccione los platillos:</label>
+                {{form.dishes}}
+              </div>
+              <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                <a class="btn btn-primary" onclick="SelectAll('#id_dishes')">Seleccionar Todo</a>
+                <a class="btn btn-secondary" onclick="ResetAll('#id_dishes')">Desmarcar todo</a>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex justify-content-center flex-column">
+              <!-- Seleccione las sucursales -->
+              <div>
+                <label class="form-label select-label" for="id_brands">Seleccione las sucursales:</label>
+                {{form.brands}}
+              </div>
+              <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                <a class="btn btn-primary"  onclick="SelectAll('#id_brands')">Seleccionar Todo</a>
+                <a class="btn btn-secondary"  onclick="ResetAll('#id_brands')">Desmarcar todo</a>
+              </div>
+            </div>
+            <div class="register_menu_img form-outline mb-3 d-flex align-content-center flex-column">
+              <!-- Imagen -->
+              <p class="form-label">Imagen de portada:</p>
+              <div>
+                <label class="form-label" for="Menu_img">
+                    {{form.imagen}}
+                  <div class="form-menu-img">
+                    <div class="icon-upload-imgs">
+                      <img src="{% static item.imagen %}" width="100" height="100" style="object-fit: contain;border: 1px solid #28A745;background-color: #fff;">
+                    </div>
+                    <div class="edit-img">
+                      <img src="/static/img/icon/edit.png" width="20" height="20">
+                    </div>
+                  </div>
+                </label>
+                <p class="recommend">El tamaño de la imagen recomendada es de 250x250</p>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center">
+              <!-- Publicar -->
+              <div>
+                <div class="form-check">
+                  {{form.active}}
+                  <label class="form-check-label" for="CheckActive">Publicar Menú</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center">
+              <!-- Disparador -->
+              <button type="button" class="btn btn-delete-trigger p-0 border-0 d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#DeleteMenu">
+                <img src="{% static 'icon/delete.png' %}" width="12" class="img-trash">
+                <p class="text-decoration-underline delete-text">Eliminar</p>
+              </button>
+            </div>
+          </div>
+          {% for message in messages %}
+            {% if message.tags != "error_img" and message.tags != "error_upload_img" %}
+              <p class="message-{{message.tags}}">{{message}}</p>
+            {% endif %}
+          {% endfor %}
+          <div class="modal-bttn update-modal-bttn">
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="{% url 'menus' %}" class="btn btn-close-modal">Cancelar</a>
+              <input type="submit" class="btn btn-accept" value="Aceptar" name="Update">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Elimiar -->
+<div class="modal fade" id="DeleteMenu" tabindex="-1" aria-labelledby="EliminarPlatilloLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-4 text-center" id="EliminarPlatilloLabel">Eliminar</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <h3 class="fs-5 p-3">¿Estás seguro que quiere eliminar el platillo "{{item}}"?</h3>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <input type="submit" class="btn btn-danger" value="Eliminar" name="Delete">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

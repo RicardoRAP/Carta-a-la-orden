@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/footer.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/home.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Carta a la Orden</title>
+</head>
+<body>
+  <div class="page-container">
+    {% include 'header.html' %}
+    <div class="container-fluid">
+      <div id="Hero">
+        <h1 class="title-meta">Carta a la orden</h1>
+        <div class="d-flex flex-column justify-content-center align-items-center h-100">
+          <div>
+            <h2 class="title-address">Selecciona tu ubicación</h2>
+          </div>
+          <div class="dropdown-address w-100">
+            <form action="" method="POST" class="d-flex justify-content-center position-relative">
+              {% csrf_token %}
+              <div class="dropdown-states">
+                <div class="dropdown">
+                  <button class="btn btn-address dropdown-toggle select-address" id="BtnState" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span>Estado</span>
+                  </button>
+                  <ul class="dropdown-menu" id="ListState">
+                    {% for state in alphabet %}
+                      {% if state|length <= 1 %}
+                        <li><span class="dropdown-item-text">{{state}}</span></li>
+                      {% else %}
+                        <li><a class="dropdown-item" onclick="javascript:SelectAddress(event)">{{state}}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+                <select name="state" id="SelectState" class="form-select btn-address" aria-placeholder="Estado" required hidden>
+                  <option value="" selected disabled hidden>Estado</option>
+                  {% for state in alphabet %}
+                    {% if state|length <= 1 %}
+                      <optgroup label="{{state}}"></optgroup>
+                    {% else %}
+                      <option value="{{state}}" class="dropdown-item">{{state}}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="dropdown-zone position-relative">
+                <input type="text" name="address" id="TextAddress" class="form-control" placeholder="Dirección: Ciudad, Parroquia, Avenida, Calle..." disabled>
+                <input type="submit" name="Buscar" class="btn-search" value="" disabled hidden>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="strike">
+        <div class="strike-container">
+          <div class="card-title">
+            <h2 class="card-title-h2 text-center">Muy facil de user</h2>
+            <p class="card-text-p text-center">Sigue los siguientes pasos:</p>
+          </div>
+          <div class="card-info d-flex justify-content-md-center align-items-md-center">
+            <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+              <div class="card-img d-flex justify-content-center align-items-center">
+                <img src="{% static '/img/icon/map.png' %}" width="38" height="52">
+              </div>
+              <div class="card-description">
+                <h3 class="text-md-center">Busca</h3>
+                <p class="text-md-center">los restaurantes que hay en tu área.</p>
+              </div>
+            </div>
+            <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+              <div class="card-img d-flex justify-content-center align-items-center">
+                <img src="{% static '/img/icon/restaurant.png' %}" width="64" height="42">
+              </div>
+              <div class="card-description">
+                <h3 class="text-md-center">Escoge</h3>
+                <p class="text-md-center">las comidas de tu preferencia.</p>
+              </div>
+            </div>
+            <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
+              <div class="card-img d-flex justify-content-center align-items-center">
+                <img src="{% static '/img/icon/method.png' %}" width="55" height="39">
+              </div>
+              <div class="card-description">
+                <h3 class="text-md-center">Paga</h3>
+                <p class="text-md-center">con los metodos que tenemos disponibles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<footer>
+  {% include 'footer.html' %}
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+  <script src="{% static '/js/select-address.js' %}"></script>
+</footer>
+</html>

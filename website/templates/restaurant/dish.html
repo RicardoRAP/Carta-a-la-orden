@@ -1,0 +1,174 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block dish %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="title">
+    <h3>Platillos</h3>
+  </div>
+  <button class="btn btn-filter-open d-flex align-items-center justify-content-center bg-green position-relative mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    Filtros
+    <i class="bi-funnel-fill"></i>
+  </button>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Filtros</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="filters-container">
+        <form method="GET">
+          {% for f in filters.form %}
+            <div class="filter d-flex flex-column justify-content-center mb-3">
+              {{f.label}}
+              {{f}}
+            </div>
+          {% endfor %}
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+            <button class="btn btn-accept btn-filter" type="submit" name="Filter">Filtrar</button>
+            <a href="{% url 'platillos' %}" class="link-info">Vaciar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-dishes w-100 h-100">
+    <div class="dishes">
+      {% for d in dishes %}
+        <a href="{% url 'editar-platillo' d.0.id %}">
+          <div class="other-dish position-relative">
+            <div class="content-dish">
+              <div class="img-dish">
+                <img src="{% static d.1.img %}" width="250" height="250"></div>
+              <div class="info-dish">
+                <h4 class="title-dish">{{d.0.dish_name}}</h4>
+                <p class="description-dish">{{d.0.description}}</p>
+                <p class="tags-dish">{{d.0.tags}}</p>
+                <p class="price-dish">{{d.0.price}}$</p>
+              </div>
+            </div>
+            <div class="edit position-absolute"><img src="{% static '/img/icon/edit.png' %}" width="40" height="40"></div>
+          </div>
+        </a>
+      {% endfor %}
+      <!-- Disparador -->
+      <a href="" class="d-flex justify-content-center align-items-center flex-column" data-bs-toggle="modal" data-bs-target="#Agregar_platillo">
+        <div class="add-dish">
+          <div class="d-flex justify-content-center align-items-center flex-column">
+            <div class="title-add"><p>Agrege otro platillo:</p></div>
+            <div class="icon-add d-flex justify-content-center align-items-center"><img src="{% static '/img/icon/plus.png' %}" width="23" height="23"></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Agregar -->
+<div class="modal fade" id="Agregar_platillo" tabindex="-1" aria-labelledby="AgregarPlatilloLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+          <h2 class="modal-title fs-2 text-center " id="AgregarPlatilloLabel">Nuevo Platillo</h2>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" class="position-relative needs-validation" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for hidden in add_dish.hidden_fields %}
+            {{hidden}}
+          {% endfor%}
+          <div id="Add-dish-form" class="d-flex justify-content-center flex-column">
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Nombre del platillo -->
+              <div>
+                <label class="form-label" for="registerName">Ingrese el nombre del platillo:</label>
+                {{add_dish.dish_name}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Descripcion -->
+              <div>
+                <label class="form-label" for="registerDescription">Descripción del platillo:</label>
+                {{add_dish.description}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Precio -->
+              <div>
+                <label class="form-label" for="registerDescription">Precio del platillo:</label>
+                {{add_dish.price}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Etiquetas -->
+              <div>
+                <label class="form-label" for="registerTags">Etiquetas:</label>
+                {{add_dish.tags}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Cantidad -->
+              <div>
+                <label class="form-label" for="registerAmount">Cantidad disponible:</label>
+                {{add_dish.amount}}
+              </div>
+              <div></div>
+            </div>
+            <div class="register_multiple_imgs form-outline mb-3 d-flex align-content-center flex-column">
+              <!-- Imagenes -->
+              {{add_img.management_form}}
+              <p class="form-label">Imagenes:</p>
+              <div class="container-multiple_imgs">
+                <label class="form-label" for="multipleImg">
+                  {% for form in add_img %}
+                    {{form}}
+                  {% endfor %}
+                  <div class="form-multiple-img">
+                    <div class="icon-upload-imgs">
+                      <img src="{% static '/img/icon/upload.png' %}" width="40" height="28">
+                    </div>
+                  </div>
+                </label>
+                <p class="recommend">Mínimo 2 imagenes. El tamaño de la imagen recomendada es de 250x250</p>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center mt-3">
+              <!-- Activo -->
+              <div>
+                <div class="form-check">
+                  {{add_dish.active}}
+                  <label class="form-check-label" for="CheckActive">Mostrar platillo</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="messages-info">
+            {% for message in messages %}
+              <p class="message-{{message.tags}}">{{message}}</p>
+              <script>
+                document.addEventListener("DOMContentLoaded", function(){
+                  var modal = new bootstrap.Modal(document.querySelector('#Agregar_platillo'))
+                  modal.show()
+                });
+              </script>
+            {% endfor %}
+          </div>
+          <div class="modal-bttn">
+            <div class="d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
+              <input type="submit" class="btn btn-accept" value="Aceptar">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% if add_dish.errors %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var modal = new bootstrap.Modal(document.querySelector('#Agregar_platillo'))
+    modal.show()
+  });
+</script>
+{% endif %}
+{% endblock %}

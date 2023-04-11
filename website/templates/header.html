@@ -1,0 +1,32 @@
+{% load static %}
+<nav id="Header-nav" class="navbar navbar-expand-lg sticky-top d-flex" id="Header">
+  <a class="navbar-brand desktop" href="{% url 'home' %}"><img src="{% static 'img/Logo.png' %}" id="Logo"></a>
+  <a class="navbar-brand mobile" href="{% url 'home' %}"><img src="{% static 'img/favicon.png' %}" id="Logo"></a>
+  {% if request.user.is_authenticated %}
+  <div class="dropdown-center justify-content-end">
+    <button class="btn dropdown-toggle header-profile d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <p class="header-username desktop">{% if request.user.username != None %}{{request.user.username}}{% else %}{{request.user.restaurant.name}}{% endif %}</p>
+      <img class="header-profile-img" src="{% if tab == 'profile' %}{% static img %}{% else %}{% static request.user.profile_img %}{% endif %}" width="40" height="40">
+    </button>
+    <ul class="dropdown-menu position-absolute profile-menu">
+      <li><a class="dropdown-item {% if tab == 'profile' %}active{% endif %}" href="{% url 'perfil' %}">Perfil</a></li>
+      <li><a class="dropdown-item {% if tab == 'brand' %}active{% endif %}" href="{% url 'sucursales' %}">Sucursales</a></li>
+      <li><a class="dropdown-item {% if tab == 'menu' %}active{% endif %}" href="{% url 'menus' %}">Menus</a></li>
+      <li><a class="dropdown-item {% if tab == 'dish' %}active{% endif %}" href="{% url 'platillos' %}">Platillos</a></li>
+      <li><a class="dropdown-item {% if tab == 'promo' %}active{% endif %}" href="{% url 'promociones' %}">Promociones</a></li>
+      <li><a class="dropdown-item" href="{% url 'cerrar-sesion' %}">Cerrar sesión</a></li>
+    </ul>
+  </div>
+  {% else %}
+  <div class="container-btn">
+    <div class="d-flex desktop">
+      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'inicio-de-sesion' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}">Iniciar sesión</a></button>
+      <button class="btn btn-register"><a href="{% if commensal == True %}{% url 'registrarse' %}{% else %}#Register{% endif %}">Registrase</a></button>
+    </div>
+    <div class="d-flex mobile">
+      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'inicio-de-sesion' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}"><img src="{% static 'img/icon/login.png' %}" class="icon"></a></button>
+      <button class="btn btn-register"><a href="{% url 'registrarse' %}"><img src="{% static 'img/icon/register.png' %}" class="icon"></a></button>
+    </div>
+  </div>
+  {% endif %}
+</nav>

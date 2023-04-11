@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/commensal-login-register.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Inicio de sesión</title>
+</head>
+<body>
+  <div class="bg-img">
+    <div class="container-form">
+      <div class="logo">
+        <a href="{% url 'home' %}"><img src="{% static '/img/Logo.png' %}"></a>
+      </div>
+      <div class="form">
+        <form action="" method="POST">
+          <!-- Nombre de usuario -->
+          <div class="form-outline mb-4">
+            <input type="text" id="registerUsername" class="form-control" placeholder="Nombre de usuario" />
+          </div>
+
+          <!-- Contraseña -->
+          <div class="form-outline mb-4">
+            <input type="password" id="registerPassword" class="form-control" placeholder="Contraseña"/>
+          </div>
+
+          <!-- Iniciar sesión -->
+          <button type="submit" class="btn btn-block btn-submit mb-3">Iniciar sesión</button>
+        </form>
+        <!-- Olvido su contraseña -->
+        <div class="d-flex justify-content-center align-item-center">
+          <a href="#">¿Olvido su contraseña?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

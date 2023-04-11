@@ -1,0 +1,153 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block brand-office %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="title">
+    <h3>Sucursales</h3>
+  </div>
+  <button class="btn btn-filter-open d-flex align-items-center justify-content-center bg-green position-relative mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    Filtros
+    <i class="bi-funnel-fill"></i>
+  </button>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Filtros</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="filters-container">
+        <form method="GET">
+          {% for f in filters.form %}
+            <div class="filter d-flex flex-column justify-content-center mb-3">
+              {{f.label}}
+              {{f}}
+            </div>
+          {% endfor %}
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+            <button class="btn btn-accept btn-filter" type="submit" name="Filter">Filtrar</button>
+            <a href="{% url 'sucursales' %}" class="link-info">Vaciar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-brand w-100 h-100">
+    <div class="brands">
+      <div class="principal-brand position-relative">
+        <a href="{% url 'perfil' %}" class="w-100">
+          <div class="content-brand">
+            <div class="address-brand">
+              <h4>Sede principal: </h4>
+              <p>{{request.user.restaurant.full_address}}</p>
+            </div>
+            <div class="description-brand d-flex align-items-center">
+              <div class="menu-brand d-flex align-items-end">
+                <h4>Menús: </h4>
+                <p>{{info_sede.0}}</p>
+              </div>
+              <div class="dish-brand d-flex align-items-end">
+                <h4>Platillos: </h4>
+                <p>{{info_sede.1}}</p>
+              </div>
+              <div class="promo-brand d-flex align-items-end">
+                <h4>Promociones: </h4>
+                <p>{{info_sede.2}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit position-absolute"><img src="{% static '/img/icon/edit.png' %}" width="40" height="40"></div>
+        </a>  
+      </div>
+      {% for b in brands %}
+      <div class="other-offices position-relative">
+        <a href="{% url 'editar-sucursal' b.3.id %}" class="w-100">
+          <div class="content-brand">
+            <div class="name_address">
+              <div class="name-brand">
+                <h4>Nombre: </h4>
+                <p>{{b.3.brand_name}}</p>
+              </div>
+              <div class="address-brand">
+                <h4>Ubicación: </h4>
+                <p>{{b.3.full_address}}</p>
+              </div>
+            </div>
+            <div class="description-brand d-flex align-items-center">
+              <div class="menu-brand d-flex align-items-end">
+                <h4>Menús: </h4>
+                <p>{{b.0}}</p>
+              </div>
+              <div class="dish-brand d-flex align-items-end">
+                <h4>Platillos: </h4>
+                <p>{{b.1}}</p>
+              </div>
+              <div class="promo-brand d-flex align-items-end">
+                <h4>Promociones: </h4>
+                <p>{{b.2}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="edit position-absolute"><img src="{% static '/img/icon/edit.png' %}" width="40" height="40"></div>
+        </a>  
+      </div>
+      {% endfor %}
+      <div class="add-brand">
+        <!-- Disparador -->
+        <a data-bs-toggle="modal" data-bs-target="#Agregar_sucursal">
+          <div class="content-brand">
+            <div class="d-flex justify-content-center align-items-center flex-column">
+              <div class="title-add"><p>Agrege otra sucursal:</p></div>
+              <div class="icon-add d-flex justify-content-center align-items-center"><img src="{% static '/img/icon/plus.png' %}" width="23" height="23"></div>
+            </div>
+          </div>
+        </a>  
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Agregar -->
+<div class="modal fade" id="Agregar_sucursal" tabindex="-1" aria-labelledby="AgregarSucursalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable {% if limit == True %}modal-xl{% endif %}">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        {% if limit == False %}
+          <h2 class="modal-title fs-2 text-center " id="AgregarSucursalLabel">Nueva Sucursal</h2>
+        {% else %}
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        {% endif %}
+      </div>
+      <div class="modal-body">
+        {% if limit == False %}
+          <form action="" method="POST" class="position-relative">
+            {% csrf_token %}
+            {{add_brand.management_form}}
+            <div id="Add-brand-form" class="d-flex justify-content-center flex-wrap">
+              {{add_brand.as_div}}
+            </div>
+            {{form.errors}}
+            {% for message in messages %}
+              <p class="message-{{message.tags}}">{{message}}</p>
+            {% endfor %}
+            <div class="modal-bttn">
+              <div class="d-flex justify-content-center align-items-center">
+                <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-accept" value="Aceptar">
+              </div>
+            </div>
+          </form>
+        {% else %}
+          {% include 'restaurant/plan.html' with auth=auth only %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% if add_brand.errors %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var modal = new bootstrap.Modal(document.querySelector('#Agregar_sucursal'))
+    modal.show()
+  });
+</script>
+{% endif %}
+{% endblock %}

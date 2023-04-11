@@ -1,0 +1,172 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block promo %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="title">
+    <h3>Promociones</h3>
+  </div>
+  <button class="btn btn-filter-open d-flex align-items-center justify-content-center bg-green position-relative mb-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    Filtros
+    <i class="bi-funnel-fill"></i>
+  </button>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Filtros</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="filters-container">
+        <form method="GET">
+          {% for f in filters.form %}
+            <div class="filter d-flex flex-column justify-content-center mb-3">
+              {{f.label}}
+              {{f}}
+            </div>
+          {% endfor %}
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+            <button class="btn btn-accept btn-filter" type="submit" name="Filter">Filtrar</button>
+            <a href="{% url 'promociones' %}" class="link-info">Vaciar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-menu w-100 h-100">
+    <div class="menu">
+      {% for p in promos %}
+      <a href="{% url 'editar-promo' p.id %}">
+        <div class="other-menu position-relative">
+          <div class="content-menu">
+            <div class="img-menu"><img src="{% static p.imagen %}" width="250" height="210"></div>
+            <div class="description-menu">
+              <h4>{{p.menu_name}}</h4>
+            </div>
+          </div>
+          <div class="edit position-absolute"><img src="{% static '/img/icon/edit.png' %}" width="40" height="40"></div>
+        </div>
+      </a>
+      {% endfor %}
+      <!-- Disparador -->
+      <a href="" class="d-flex justify-content-center align-items-center flex-column" data-bs-toggle="modal" data-bs-target="#Agregar_promo">
+        <div class="add-menu">
+          <div class="d-flex justify-content-center align-items-center flex-column">
+            <div class="title-add"><p>Agrege otra promoción:</p></div>
+            <div class="icon-add d-flex justify-content-center align-items-center"><img src="{% static '/img/icon/plus.png' %}" width="23" height="23"></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- Agregar -->
+<div class="modal fade" id="Agregar_promo" tabindex="-1" aria-labelledby="AgregarPromoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h2 class="modal-title fs-2 text-center " id="AgregarPromoLabel">Nueva Promoción</h2>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST" class="position-relative needs-validation" onsubmit="return validateForm()" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div id="Add-menu-form" class="d-flex justify-content-center flex-column">
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Nombre de la promocion -->
+              <div>
+                <label class="form-label" for="Name_menu">Ingrese el nombre de la promoción:</label>
+                {{form.menu_name}}
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+              <!-- Descuento -->
+              <div>
+                <label class="form-label" for="discount">Descuento:</label>
+                {{form.discount}}
+              </div>
+              <div></div>
+            </div>
+            <div class="form-outline mb-3 d-flex justify-content-center flex-column">
+              <!-- Seleccione los platillos -->
+              <div>
+                <label class="form-label" for="id_dishes">Seleccione los platillos:</label>
+                {{form.dishes}}
+              </div>
+              <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                <a class="btn btn-primary" onclick="SelectAll('#id_dishes')">Seleccionar Todo</a>
+                <a class="btn btn-secondary" onclick="ResetAll('#id_dishes')">Desmarcar todo</a>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex justify-content-center flex-column">
+              <!-- Seleccione las sucursales -->
+              <div>
+                <label class="form-label" for="id_brands">Seleccione las sucursales:</label>
+                {{form.brands}}
+              </div>
+              <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                <a class="btn btn-primary"  onclick="SelectAll('#id_brands')">Seleccionar Todo</a>
+                <a class="btn btn-secondary"  onclick="ResetAll('#id_brands')">Desmarcar todo</a>
+              </div>
+            </div>
+            <div class="register_promo_img form-outline mb-3 d-flex align-item-md-center column-gap-md-3">
+              <!-- Imagen de portada -->
+              <div class="front-img">
+                <p class="form-label">Imagen de portada:</p>
+                <label class="form-label" for="Menu_img" >
+                  {{form.imagen}}
+                  <div class="form-promo-img">
+                    <div class="icon-upload-imgs">
+                      <img src="{% static '/img/icon/upload.png' %}" width="40" height="28">
+                    </div>
+                  </div>
+                </label>
+                <p class="recommend">El tamaño de la imagen de la portada recomendada es de 250x250</p>
+              </div>
+              <!-- Imagen de la promocion -->
+              <div class="promo_img">
+                <p class="form-label">Imagen de la promoción:</p>
+                <label class="form-label" for="Menu_promo_img" >
+                  {{form.imagen_promo}}
+                  <div class="form-promo-img">
+                    <div class="icon-upload-imgs">
+                      <img src="{% static '/img/icon/upload.png' %}" width="40" height="28">
+                    </div>
+                  </div>
+                </label>
+                <p class="recommend">El tamaño de la imagen de promoción recomendado es de 1200x2500</p>
+              </div>
+            </div>
+            <div class="form-outline mb-3 d-flex align-content-center">
+              <!-- Publicar -->
+              <div>
+                <div class="form-check">
+                  {{form.active}}
+                  <label class="form-check-label" for="CheckActive">Publicar Promoción</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% for message in messages %}
+            <p class="message-{{message.tags}}">{{message}}</p>
+          {% endfor %}
+          <div class="modal-bttn">
+            <div class="d-flex justify-content-center align-items-center">
+              <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
+              <input type="submit" class="btn btn-accept" value="Aceptar">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% if form.errors or messages %}
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var modal = new bootstrap.Modal(document.querySelector('#Agregar_promo'))
+    modal.show()
+    setTimeout(function(){
+      document.querySelector(".message-error").scrollIntoView()
+    },500)
+  })
+</script>
+{% endif %}
+{% endblock %}

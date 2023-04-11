@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/commensal-login-register.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Registrase</title>
+</head>
+<body>
+  <div class="bg-img">
+    <div class="container-form">
+      <div class="logo">
+        <a href="{% url 'home' %}"><img src="{% static '/img/Logo.png' %}"></a>
+      </div>
+      <div class="form">
+        <form action="" method="POST">
+          <!-- Nombre -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="registerName">Nombre</label>
+            <input type="text" id="registerName" class="form-control" placeholder="Nombre"/>
+          </div>
+    
+          <!-- Nombre de usuario -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="registerUsername">Nombre de usuario</label>
+            <input type="text" id="registerUsername" class="form-control" placeholder="Nombre de usuario" />
+          </div>
+    
+          <!-- Email -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" class="form-control" placeholder="Email"/>
+          </div>
+    
+          <!-- Contraseña -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="registerPassword">Contraseña</label>
+            <input type="password" id="registerPassword" class="form-control" placeholder="Contraseña"/>
+          </div>
+    
+          <!-- Confirmar contraseña -->
+          <div class="form-outline mb-3">
+            <label class="form-label" for="registerRepeatPassword">Confirme la contraseña</label>
+            <input type="password" id="registerRepeatPassword" class="form-control" placeholder="Confirme la contraseña"/>
+          </div>
+    
+          <!-- Checkbox -->
+          <div class="form-check d-flex justify-content-center align-items-center mb-4 mt-4">
+            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" aria-describedby="registerCheckHelpText"/>
+            <label class="form-check-label" for="registerCheck">Leyo nuestros Terminos y condiciones</label>
+          </div>
+    
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-block btn-submit">Registrar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

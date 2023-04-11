@@ -1,0 +1,124 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/dashboard.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Perfil</title>
+</head>
+<body>
+  <!-- <div id="loader">
+    <div class="loader-spin"></div>
+  </div> -->
+  <div class="page-container">
+    {% include 'header.html' %}
+    <div class="container-fluid">
+      <div id="Container-content" class="d-flex">
+        <div id="Sidebar" class="h-100">
+          <div class="sidebar-content position-relative d-flex align-items-center flex-column justify-content-start">
+            <div class="profile-img position-relative">
+              <div class="img d-flex justify-content-center align-items-center"><img src="{% if tab == 'profile' %}{% static img %}{% else %}{% static request.user.profile_img %}{% endif %}" width="150" height="150"></div>
+              <div class="replace-img"><a href="{% url 'perfil' %}"><img src="{% static '/img/icon/plus.png' %}" width="20" height="20"></a></div>
+            </div>
+            <div class="name-restaurant d-flex justify-content-center align-items-center desktop">
+              <h2>{{request.user.restaurant}}</h2>
+            </div>
+            <div class="nav flex-column nav-pills w-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+              <a href="{% url 'perfil' %}">
+                <button class="nav-link {% if tab == 'profile' %}active{% endif %}" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="true">
+                  <p class="desktop">Perfil</p>
+                  <img class="mobile" src="{% static '/img/icon/profile.png' %}" height="30">
+                </button>
+              </a>
+              <a href="{% url 'sucursales' %}">
+                <button class="nav-link {% if tab == 'brand' %}active{% endif %}" id="v-pills-branchs-tab" data-bs-toggle="pill" data-bs-target="#v-pills-branchs" type="button" role="tab" aria-controls="v-pills-branchs" aria-selected="false">
+                  <p class="desktop">Sucursales</p>
+                  <img class="mobile" src="{% static '/img/icon/brand-office.png' %}" height="30">
+                </button>
+              </a>
+              <a href="{% url 'menus' %}">
+                <button class="nav-link {% if tab == 'menu' %}active{% endif %}" id="v-pills-menus-tab" data-bs-toggle="pill" data-bs-target="#v-pills-menus" type="button" role="tab" aria-controls="v-pills-menus" aria-selected="false">
+                  <p class="desktop">Menús</p>
+                  <img class="mobile" src="{% static '/img/icon/menu.png' %}" height="30">
+                </button>
+              </a>
+              <a href="{% url 'platillos' %}">
+                <button class="nav-link {% if tab == 'dish' %}active{% endif %}" id="v-pills-dishes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dishes" type="button" role="tab" aria-controls="v-pills-dishes" aria-selected="false">
+                  <p class="desktop">Platillos</p>
+                  <img class="mobile" src="{% static '/img/icon/dish.png' %}" height="30">
+                </button>
+              </a>
+              <a href="{% url 'promociones' %}">
+                <button class="nav-link {% if tab == 'promo' %}active{% endif %}" id="v-pills-promo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-promo" type="button" role="tab" aria-controls="v-pills-promo" aria-selected="false">
+                  <p class="desktop">Promociones</p>
+                  <img class="mobile" src="{% static '/img/icon/sale.png' %}" height="30">
+                </button>
+              </a>
+            </div>
+            <div class="contact-container w-100">
+              <div class="contact d-flex flex-row align-items-center justify-content-md-between">
+                <a class="desktop">Contactenos</a>
+                <img src="{% static '/img/icon/contact.png' %}" width="33.75" height="33.75">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="Content" class="d-flex align-items-start">
+          <div class="tab-content w-100" id="v-pills-tabContent">
+            <div class="tab-pane fade {% if tab == 'profile' %}show active{% endif %}" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+              {% block profile %}
+              {% endblock %}
+            </div>
+            <div class="tab-pane fade {% if tab == 'brand' %}show active{% endif %}" id="v-pills-branchs" role="tabpanel" aria-labelledby="v-pills-branchs-tab" tabindex="0">
+              {% block brand-office %}
+              {% endblock %}
+            </div>
+            <div class="tab-pane fade {% if tab == 'menu' %}show active{% endif %}" id="v-pills-menus" role="tabpanel" aria-labelledby="v-pills-menus-tab" tabindex="0">
+              {% block menu %}
+              {% endblock %}
+            </div>
+            <div class="tab-pane fade {% if tab == 'dish' %}show active{% endif %}" id="v-pills-dishes" role="tabpanel" aria-labelledby="v-pills-dishes-tab" tabindex="0">
+              {% block dish %}
+              {% endblock %}
+            </div>
+            <div class="tab-pane fade {% if tab == 'promo' %}show active{% endif %}" id="v-pills-promo" role="tabpanel" aria-labelledby="v-pills-promo-tab" tabindex="0">
+              {% block promo %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<footer>
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}" crossorigin="anonymous"></script>
+  <script src="{% static '/js/loader.js' %}"></script>
+  {% if tab == 'profile' %}
+    <script src="{% static '/js/profile.js' %}"></script>
+  {% elif tab == 'brand' and update == False %}
+    <script src="{% static '/js/brand.js' %}"></script>
+  {% elif tab == 'brand' and update == True %}
+    <script src="{% static '/js/brand-update.js' %}"></script>
+  {% elif tab == 'menu' and update == False %}
+    <script src="{% static '/js/menu.js' %}"></script>
+  {% elif tab == 'menu' and update == True %}
+    <script src="{% static '/js/menu-update.js' %}"></script>
+  {% elif tab == 'dish' and update == False %}
+    <script src="{% static '/js/dish.js' %}"></script>
+  {% elif tab == 'dish' and update == True %}
+    <script src="{% static '/js/dish-update.js' %}"></script>
+  {% elif tab == 'promo' and update == False %}
+    <script src="{% static '/js/promo.js' %}"></script>
+  {% elif tab == 'promo' and update == True %}
+    <script src="{% static '/js/promo-update.js' %}"></script>
+  {% endif %}
+</footer>
+</html>

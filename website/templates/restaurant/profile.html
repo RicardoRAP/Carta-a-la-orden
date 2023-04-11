@@ -1,0 +1,148 @@
+{% extends "restaurant/dashboard.html" %}
+{% load static %}
+{% block profile %}
+<div class="content-tab d-flex align-items-center flex-column w-100">
+  <div class="title">
+    <h3>Perfil</h3>
+  </div>
+  <div class="container-form position-relative w-100 h-100">
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- Img  -->
+      <div class="form-outline mb-3">
+        <p class="form-label">Ingrese logo:</p>
+        <label for="formProfile_img" class="form-profile-img {% if img == 'None' %}none-img{% endif %} d-flex justify-content-center align-items-center">
+          {{form.profile_img}}
+          {% if img != 'None' %}
+            <div class="position-relative">
+              <img class="current-img" src="{% static img %}" width="200" height="200">
+              <div class="edit-img"><img src="{% static '/img/icon/edit.png' %}" width="30" height="30"></div>
+            </div>
+          {% else %}
+            <img src="{% static '/img/icon/upload.png' %}" width="58" height="40">
+          {% endif %}
+        </label>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Nombre de usuario -->
+        <div>
+          <label class="form-label" for="saveUsername">Ingrese el nombre de usuario:</label>
+          {{form.username}}
+        </div>
+        <!-- Nombre del restaurante -->
+        <div>
+          <label class="form-label" for="saveName">Ingrese el nombre del restaurante:</label>
+          {{form.name}}
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Email -->
+        <div>
+          <label class="form-label" for="saveEmail">Email:</label>
+          {{form.email}}
+        </div>
+        <!-- Teléfono -->
+        <div>
+          <label class="form-label" for="savePhone">Número de teléfono:</label>
+          {{form.phone}}
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Comienzo del Horario  -->
+        <div>
+          <label class="form-label" for="saveStart_schedule">Comienzo del Horario:</label>
+          {{form.start_schedule}}
+        </div>
+        <!-- Final del Horario -->
+        <div>
+          <label class="form-label" for="saveEnd_schedule">Final del Horario:</label>
+          {{form.end_schedule}}
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Estado -->
+        <div>
+          <label class="form-label" for="saveState">Estado:</label>
+          {{form.state}}
+        </div>
+        <!-- Ciudad -->
+        <div>
+          <label class="form-label" for="saveCity">Ciudad:</label>
+          {{form.city}}
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Parroquia -->
+        <div>
+          <label class="form-label" for="saveParish">Parroquia:</label>
+          {{form.parish}}
+        </div>
+        <!-- Avenida -->
+        <div>
+          <label class="form-label" for="saveAvenue">Avenida:</label>
+          {{form.avenue}}
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Calle -->
+        <div>
+          <label class="form-label" for="saveStreet">Calle:</label>
+          {{form.street}}
+        </div>
+        <!-- Direccion completa -->
+        <div>
+          <label class="form-label" for="saveFull_address">Dirección completa:</label>
+          {{form.full_address}}
+          <input type="text" name="show_address" id="showFull_address" class="form-control input-disabled" placeholder="Dirección completa" maxlength="500" disabled >
+        </div>
+      </div>
+      <div class="form-outline mb-3 d-flex align-content-center inputs_2">
+        <!-- Plan -->
+        <div>
+          <label class="form-label" for="savePlan">Plan:</label>
+          {{form.plan}}
+        </div>
+        <!-- Servicios -->
+        <div>
+          <label class="form-label">Servicios que posee:</label>
+          <div class="d-flex align-items-start flex-column">
+            <div class="form-check">
+              {{form.pick_up}}
+              <label class="form-check-label" for="flexCheckPickUp">Pick-up</label>
+            </div>
+            <div class="form-check">
+              {{form.my_delivery}}
+              <label class="form-check-label" for="flexCheckMyDelivery">Delivery propio</label>
+            </div>
+            <div class="form-check">
+              {{form.external_delivery}}
+              <label class="form-check-label" for="flexCheckExternalDelivery">Servicio de delivey externo</label>
+            </div>
+            <div class="form-check">
+              {{form.others_services}}
+              <label class="form-check-label" for="flexCheckOthersServices">Otro tipo de servicio</label>
+            </div>
+          </div>
+          <div class="{% if show == 'False' %}d-none{% endif %}">
+            <!-- Otros servicios -->
+            {{form.delivery}}
+          </div>
+        </div>
+      </div>
+      <div class="w-100 mb-3" style="height: 40px;">
+        <!-- Guardar -->
+        <button type="submit" class="btn btn-block btn-save">Guardar</button>
+      </div>
+      <!-- Mensajes -->
+      {% for message in messages %}
+        <p class="message-{{message.tags}}">{{message}}</p>
+      {% endfor %}
+    </form>
+    <!-- Olvido su contraseña -->
+    <div class="forgot_pass d-flex align-items-center">
+      <p>Olvido su contrseña:</p>
+      <a href="{% url 'password_change' %}" class="d-flex justify-content-center align-items-center">Restablecer contraseña</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
