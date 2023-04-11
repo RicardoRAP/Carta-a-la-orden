@@ -137,9 +137,9 @@ mimetypes.add_type("text/html", ".html", True)
 MEDIA_URL = '/img/'
 
 STATICFILES_DIRS =[
-    os.path.join(BASE_DIR,'static'),
     os.path.join(BASE_DIR,'static/img/'),
 ]
+STATIC_ROOT = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/img')
 
