@@ -9,18 +9,24 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
+import mimetypes
 import dj_database_url
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@**xmu4(i+rh70*oyqp$k5uagdw^#%onvq@7@u(-^o!y3j%w(s'
+# SECRET_KEY = 'django-insecure-@**xmu4(i+rh70*oyqp$k5uagdw^#%onvq@7@u(-^o!y3j%w(s'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,10 +57,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Carta_a_la_orden.urls'
 
+AUTHENTICATION_BACKENDS = ['website.backends.EmailBackend']
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,7 +89,7 @@ WSGI_APPLICATION = 'Carta_a_la_orden.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://admin_tesis:BiPfvvosR0gVbnqdD9KueCFPZjIvIp7o@dpg-cgqrecaut4mde4op1pd0-a.oregon-postgres.render.com/carta_a_la_orden')
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 
@@ -107,7 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-ve'
+
+DATE_INPUT_FORMATS =  ['%d-%m-%Y %T']
 
 TIME_ZONE = 'UTC'
 
@@ -121,7 +131,28 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".html", True)
+
+MEDIA_URL = '/img/'
+
+STATICFILES_DIRS =[
+    os.path.join(BASE_DIR,'static'),
+    os.path.join(BASE_DIR,'static/img/'),
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/img')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#SMTP Configuration
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
