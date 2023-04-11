@@ -37,6 +37,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'website.apps.WebsiteConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,9 +46,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'website.apps.WebsiteConfig',
     'django_filters'
 ]
+
+AUTH_USER_MODEL = 'website.ProfileUser'
+
+AUTHENTICATION_BACKENDS = ['website.backends.EmailBackend']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,8 +64,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Carta_a_la_orden.urls'
-
-AUTHENTICATION_BACKENDS = ['website.backends.EmailBackend']
 
 TEMPLATES = [
     {
@@ -140,9 +143,9 @@ mimetypes.add_type("text/html", ".html", True)
 MEDIA_URL = '/img/'
 
 STATICFILES_DIRS =[
+    os.path.join(BASE_DIR,'static/'),
     os.path.join(BASE_DIR,'static/img/'),
 ]
-STATIC_ROOT = 'static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/img')
 

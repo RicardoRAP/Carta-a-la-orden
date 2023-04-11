@@ -21,6 +21,7 @@
       <div id="Hero">
         <h1 class="title-meta">Carta a la orden</h1>
         <div class="d-flex flex-column justify-content-center align-items-center h-100">
+          {% if alphabet != "No se encuentran restaurantes disponibles" %}
           <div>
             <h2 class="title-address">Selecciona tu ubicación</h2>
           </div>
@@ -59,6 +60,11 @@
               </div>
             </form>
           </div>
+          {% else %}
+          <div>
+            <h2 class="title-address">{{alphabet}}</h2>
+          </div>
+          {% endif %}
         </div>
       </div>
       <div class="strike">

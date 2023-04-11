@@ -10,7 +10,7 @@ import os
 
 # Modelo de la base de datos
 
-class User(AbstractBaseUser, PermissionsMixin):
+class ProfileUser(AbstractBaseUser, PermissionsMixin):
     def img_upload_to(self, instance=None):
         if instance:
             return os.path.join('restaurants', str(self.email), instance)
@@ -44,7 +44,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 #   def __str__(self):
 #     return self.nombre_usuario
 
-class Restaurant(User):
+class Restaurant(ProfileUser):
     PLAN = (
         ('Plan Básico','Plan Básico'),
         ('Plan Plata', 'Plan Plata'),

@@ -13,7 +13,7 @@ import re
 
 class CustomUserCreationForm(UserCreationForm):
   class Meta:
-    model = User
+    model = ProfileUser
     fields = ("email",)
   
   def clean_email(self):
@@ -22,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
   class Meta:
-    model = User
+    model = ProfileUser
     fields = ("email",)
   
   def clean_email(self):

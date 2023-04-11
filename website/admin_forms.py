@@ -5,7 +5,7 @@ from .forms import CustomUserCreationForm, CustomUserChangeForm
 class CustomUserAdmin(UserAdmin):
   add_form = CustomUserCreationForm
   form = CustomUserChangeForm
-  model = User
+  model = ProfileUser
   list_display = ("username", "email", "first_name","phone", "is_staff", "is_active", "is_superuser", "last_login")
   list_filter = ("username", "email", "first_name","phone", "is_staff", "is_active", "is_superuser", "last_login")
   fieldsets = (

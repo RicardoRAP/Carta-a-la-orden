@@ -27,22 +27,25 @@ def Home(request):
   menus = MenuBrand.objects.all().distinct("brand_id").values_list('brand_id', flat=True)
   states = list(BrandOffice.objects.filter(id__in=menus, active=True, start_schedule__isnull=False, end_schedule__isnull=False).exclude(restaurant__profile_img='restaurants/profile.png').order_by('state').values_list('state', flat=True).distinct())
   alphabet = []
-  for state in states:
-    if state[0] not in alphabet:
-      alphabet.append(state[0])
-    alphabet.append(state)
-  if request.method == 'POST':
-    state_select = request.POST.get('state')
-    if state_select != None:
-      full_address = request.POST.get('address')
-      params = {
-        'state_select':state_select,
-        'full_address':full_address
-      }
-      new_url = urllib.parse.urlencode(params)
-      return redirect('restaurantes_encontrados/?'+ new_url)
-    else:
-      messages.error(request,"Seleccione un Estado")
+  if len(menus) > 0:
+    for state in states:
+      if state[0] not in alphabet:
+        alphabet.append(state[0])
+      alphabet.append(state)
+    if request.method == 'POST':
+      state_select = request.POST.get('state')
+      if state_select != None:
+        full_address = request.POST.get('address')
+        params = {
+          'state_select':state_select,
+          'full_address':full_address
+        }
+        new_url = urllib.parse.urlencode(params)
+        return redirect('restaurantes_encontrados/?'+ new_url)
+      else:
+        messages.error(request,"Seleccione un Estado")
+  else:
+    alphabet = "No se encuentran restaurantes disponibles" 
   context = {"commensal":True,'alphabet':alphabet}
   return render(request,'home.html', context)
 

@@ -7,5 +7,5 @@ from .models import *
 
 # Vista de los modelos en la vista del administrador
 
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(ProfileUser, CustomUserAdmin)
 admin.site.register(Restaurant, CustomUserRestaurant)
