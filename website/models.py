@@ -13,7 +13,7 @@ import os
 class ProfileUser(AbstractBaseUser, PermissionsMixin):
     def img_upload_to(self, instance=None):
         if instance:
-            return os.path.join('restaurants', str(self.email), instance)
+            return os.path.join('restaurants/', str(self.email), instance)
         return None
     # password = models.CharField(max_length=200, verbose_name='Contraseña')
     last_login = models.DateTimeField(blank=True, null=True, verbose_name='Último inicio de sesión')

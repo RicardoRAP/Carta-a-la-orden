@@ -141,12 +141,9 @@ mimetypes.add_type("text/javascript", ".js", True)
 mimetypes.add_type("text/css", ".css", True)
 mimetypes.add_type("text/html", ".html", True)
 
-MEDIA_URL = '/img/'
+STATIC_ROOT = 'static/'
 
-STATICFILES_DIRS =[
-    os.path.join(BASE_DIR,'static/'),
-    os.path.join(BASE_DIR,'static/img/'),
-]
+MEDIA_URL = '/img/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'static/img')
 
