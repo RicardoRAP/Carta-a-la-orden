@@ -92,9 +92,9 @@
                   </div>
                 </div>
                 {% if form.errors %}
-                  <p class="message-error">{{form.errors.email}}</p>
+                  <p class="message-error">hola {{form.errors.email}}</p>
                 {% endif %}
-                {% if form.errors.email == "Profile user con esta Email ya existe." %}
+                {% if "Profile user con esta Email ya existe." in form.errors %}
                   <p class="message-error">Ese email ya existe</p>
                 {% endif %}
                 {% for message in messages %}
