@@ -453,6 +453,7 @@ class ProfileForm(ModelForm):
     user_exists = (Restaurant.objects.filter(email = cleaned_data.get('email')).count() > 0)
     if user_exists:
       self.add_error('email', 'ese email ya existe')
+    return self
 
 #  Formulario de las Sucursales
 class BrandForm(ModelForm):
