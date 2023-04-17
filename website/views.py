@@ -23,6 +23,10 @@ import urllib.parse
 def Error404(request,exception):
   return render(request,'404.html')
 
+def Maintenance(request):
+  context = {}
+  return render(request, 'maintenance.html', context)
+
 def Home(request):
   menus = MenuBrand.objects.all().distinct("brand_id").values_list('brand_id', flat=True)
   states = list(BrandOffice.objects.filter(id__in=menus, active=True, start_schedule__isnull=False, end_schedule__isnull=False).exclude(restaurant__profile_img='restaurants/profile.png').order_by('state').values_list('state', flat=True).distinct())

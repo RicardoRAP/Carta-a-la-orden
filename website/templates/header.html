@@ -20,12 +20,12 @@
   {% else %}
   <div class="container-btn">
     <div class="d-flex desktop">
-      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'inicio-de-sesion' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}">Iniciar sesión</a></button>
-      <button class="btn btn-register"><a href="{% if commensal == True %}{% url 'registrarse' %}{% else %}#Register{% endif %}">Registrase</a></button>
+      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'mantenimiento' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}">Iniciar sesión</a></button>
+      <button class="btn btn-register"><a href="{% if commensal == True %}{% url 'mantenimiento' %}{% else %}#Register{% endif %}">Registrase</a></button>
     </div>
     <div class="d-flex mobile">
-      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'inicio-de-sesion' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}"><img src="{% static 'img/icon/login.png' %}" class="icon"></a></button>
-      <button class="btn btn-register"><a href="{% url 'registrarse' %}"><img src="{% static 'img/icon/register.png' %}" class="icon"></a></button>
+      <button class="btn btn-login"><a href="{% if commensal == True %}{% url 'mantenimiento' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}"><img src="{% static 'img/icon/login.png' %}" class="icon"></a></button>
+      <button class="btn btn-register"><a href="{% if commensal == True %}{% url 'mantenimiento' %}{% else %}#Register{% endif %}"><img src="{% static 'img/icon/register.png' %}" class="icon"></a></button>
     </div>
   </div>
   {% endif %}
