@@ -2,6 +2,11 @@
 {% load static %}
 {% block profile %}
 <div class="content-tab d-flex align-items-center flex-column w-100">
+  {% if alarm == "on" %}
+    <div class="alert">
+      <h5>Su Restaurante todavia no es visible hasta que complete la información pertienete en el perfil</h5>
+    </div>
+  {% endif %}
   <div class="title">
     <h3>Perfil</h3>
   </div>

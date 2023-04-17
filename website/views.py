@@ -336,12 +336,26 @@ def Logout(request):
 def RestaurantProfile(request):
   restaurant = Restaurant.objects.get(id=request.user.id)
   brand_restaurant = restaurant.brandoffice_set.filter(is_restaurant=True)
+  username = restaurant.username
+  phone = restaurant.phone
+  start_schedule_r = restaurant.start_schedule
+  end_schedule_r = restaurant.end_schedule
+  pick_up_r = restaurant.pick_up
+  my_delivery_r = restaurant.my_delivery
+  delivery_r = restaurant.delivery
   old_img = restaurant.profile_img
   ex_delivery = restaurant.external_delivery
   ot_services = restaurant.others_services
   show = 'False'
+  alarm = "on"
   if ex_delivery or ot_services:
     show = 'True'
+  if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and old_img not in "restaurants/profile.png":
+    if (ex_delivery or ot_services) and delivery_r != "":
+      if len(delivery_r.replace(" ","")) > 0:
+        alarm = "off"
+    else:
+      alarm = "off"
   form = ProfileForm(instance=restaurant)
   if request.method == 'POST':
     form = ProfileForm(data=request.POST,files=request.FILES,instance=restaurant)
@@ -380,7 +394,7 @@ def RestaurantProfile(request):
   img = 'None'
   if photo != 'None' and 'restaurant/profile.png' not in photo:
     img = os.path.join('img', photo)
-  context = {"commensal":False, 'tab':'profile', 'form':form, 'img':img, 'show':show}
+  context = {"commensal":False, 'tab':'profile', 'form':form, 'img':img, 'show':show, 'alarm':alarm}
   return render(request,'restaurant/profile.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')
