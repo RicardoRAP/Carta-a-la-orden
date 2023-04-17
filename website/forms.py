@@ -450,9 +450,9 @@ class ProfileForm(ModelForm):
   
   def clean(self):
     cleaned_data = super(ProfileForm, self).clean()
-    user_exists = (Restaurant.objects.filter(email = cleaned_data.get('email')).count() > 0)
+    user_exists = (Restaurant.objects.filter(email=self.cleaned_data['email']).count() > 0)
     if user_exists:
-      self.add_error('email', 'ese email ya existe')
+      self.add_error(field='email', error='ese email ya existe')
     return cleaned_data
 
 #  Formulario de las Sucursales

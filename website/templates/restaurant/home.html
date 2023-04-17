@@ -92,6 +92,7 @@
                   </div>
                 </div>
                 {{form.errors}}
+                {{form.errors.email}}
                 {% for message in messages %}
                   <p class="message-{{message.tags}}">{{message}}</p>
                 {% endfor %}
