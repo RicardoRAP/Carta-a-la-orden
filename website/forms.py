@@ -447,6 +447,12 @@ class ProfileForm(ModelForm):
   
   def clean_full_address(self):
     return self.cleaned_data['full_address'].lower().capitalize()
+  
+  def clean(self):
+    cleaned_data = super(ProfileForm, self).clean()
+    user_exists = (Restaurant.objects.filter(email = cleaned_data.get('email')).count() > 0)
+    if user_exists:
+      self.add_error('email', 'ese email ya existe')
 
 #  Formulario de las Sucursales
 class BrandForm(ModelForm):
