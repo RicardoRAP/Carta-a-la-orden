@@ -91,10 +91,7 @@
                     <button type="submit" id="submitBtn" class="btn btn-block btn-restaurant-register d-none" onclick="validateForm()">Registrar</button>
                   </div>
                 </div>
-                {% if form.errors %}
-                  <p class="message-error">hola {{form.errors.email}}</p>
-                {% endif %}
-                {% if "Profile user con esta Email ya existe." in form.errors %}
+                {% if "email" in form.errors %}
                   <p class="message-error">Ese email ya existe</p>
                 {% endif %}
                 {% for message in messages %}
