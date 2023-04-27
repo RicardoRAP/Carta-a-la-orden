@@ -15,6 +15,7 @@ urlpatterns = [
   path('registrarse/', views.CommensalRegister, name="registrarse"), # Url de la pagina donde se registran los comensales
 
   path('mantenimiento/', views.Maintenance, name="mantenimiento"),
+  path('proximamente/', views.CommingSoon, name="proximamente"),
 
   path('afiliacion/', views.RestaurantHome, name="afiliacion"), # Url de la pagina principal de los restaurantes
   path('afiliacion/inicio-de-sesion/', views.RestaurantLogin, name="r-inicio-de-sesion"), # Url de la pagina de Inicio de sesión de los comensales

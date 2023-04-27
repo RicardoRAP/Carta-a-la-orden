@@ -20,7 +20,7 @@
     <div class="container-fluid">
       <div id="Register">
         <h1 class="title-meta">Afilia tu restaurante</h1>
-        <div class="form-container d-flex align-items-center {% if auth == False %} justify-content-md-end {% else %}justify-content-center full_height{% endif %}">
+        <div class="form-container d-flex align-items-center {% if auth == False %} justify-content-md-end {% else %}justify-content-center flex-column {% endif %}">
           {% if auth == False %}
             <div class="form">
               <div class="form-title d-flex justify-content-center align-items-center"><h2>Regista tu local</h2></div>
@@ -76,19 +76,21 @@
                     <label class="form-label" for="registerRepeatPassword">Confirme la contraseña</label>
                     {{form.password2}}
                   </div>
-
+                  <div class="form-outline mb-0">
+                    <input type="checkbox" onclick="ShowPass()" name="showPass"><label class="form-label mb-0 mx-2" for="showPass">Mostrar contraseña</label>
+                  </div>
                   <!-- Checkbox -->
                   <div class="form-check d-flex justify-content-center align-items-center mb-4 mt-4">
                     <input class="form-check-input me-2" type="checkbox" value="cheched" id="registerCheck" name="checkbox" aria-describedby="registerCheck"/>
                     <label class="form-check-label" for="registerCheck">Acepta nuestros Terminos y condiciones</label>
                   </div>
                 </fieldset>
-                <div class="w-100" style="overflow:auto;">
+                <div class="w-100" style="overflow:auto;" id="Container-btn">
                   <div class="w-100" style="float:right;">
                     <button type="button" id="prevBtn" class="btn-default" onclick="nextPrev(-1)"><img src="{% static '/img/icon/prev.png' %}" width="40" height="40"></button>
                     <button type="button" id="nextBtn" class="btn-default" onclick="nextPrev(1)"><img src="{% static '/img/icon/next.png' %}" width="40" height="40"></button>
                     <!-- Registarse -->
-                    <button type="submit" id="submitBtn" class="btn btn-block btn-restaurant-register d-none" onclick="validateForm()">Registrar</button>
+                    <button type="button" id="submitBtn" class="btn btn-block btn-restaurant-register d-none" onclick="nextPrev(1)">Registrar</button>
                   </div>
                 </div>
                 {% if "email" in form.errors %}
@@ -100,6 +102,24 @@
               </form>
             </div>
           {% else %}
+            <div class="d-flex justify-content-center align-items-center flex-column py-4 row-gap-3">
+              <div>
+                <div>
+                  <a href="{% url 'perfil' %}"><img class="img-home" src="{% static restaurant.profile_img %}" width="200" height="200"></a>
+                </div>
+              </div>
+              <div>
+                <a class="title-restaurant" href="{% url 'perfil' %}">{{restaurant.name}}</a>
+              </div>
+              <div class="menu-profile">
+                <ul class="list-unstyled mb-0">
+                  <li><a class="" href="{% url 'sucursales' %}">Sucursales</a></li>
+                  <li><a class="" href="{% url 'menus' %}">Menús</a></li>
+                  <li><a class="" href="{% url 'platillos' %}">Platillos</a></li>
+                  <li><a class="" href="{% url 'promociones' %}">Promociones</a></li>
+                </ul>
+              </div>
+            </div>
             {% include 'restaurant/plan.html' with auth=auth only %}
           {% endif %}
         </div>
@@ -116,8 +136,8 @@
                   <img src="{% static '/img/icon/card.png' %}" width="60">
                 </div>
                 <div class="card-description">
-                  <h3 class="text-md-center">Menus</h3>
-                  <p class="text-md-center">Crea tus propios menus.</p>
+                  <h3 class="text-md-center">Menús</h3>
+                  <p class="text-md-center">Crea tus propios menús.</p>
                 </div>
               </div>
               <div class="col col-md-4 d-flex justify-content-md-center align-items-center">
@@ -126,7 +146,7 @@
                 </div>
                 <div class="card-description">
                   <h3 class="text-md-center">Platillos</h3>
-                  <p class="text-md-center">Añade nuevos platillos a tus menus.</p>
+                  <p class="text-md-center">Añade nuevos platillos a tus menús.</p>
                 </div>
               </div>
               <div class="col col-md-4 d-flex justify-content-md-center align-items-center">

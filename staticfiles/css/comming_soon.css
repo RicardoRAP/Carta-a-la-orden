@@ -1,0 +1,31 @@
+.title{
+  line-height: 1 !important;
+}
+.btn{
+  width: 128px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+.btn-login{
+  background-color: #FFFFFF;
+  border: 1px solid #7F30FF;
+  border-radius: 6px;
+  padding: 0;
+}
+.btn-login:hover, .btn-login:active, .btn-login:focus{
+  border: 1px solid #7F30FF !important;
+}
+.btn-register{
+  background-color: #28A745;
+  border: 1px solid #28A745;
+  color: #fff;
+  border-radius: 6px;
+  padding: 0;
+}
+.btn-register:hover, .btn-register:active, .btn-register:focus{
+  background: #28A745 !important;
+  border: 1px solid #28A745 !important;
+}

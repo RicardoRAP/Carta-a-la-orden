@@ -23,6 +23,10 @@ import urllib.parse
 def Error404(request,exception):
   return render(request,'404.html')
 
+def CommingSoon(request):
+  context = {}
+  return render(request, 'comming_soon.html',context)
+
 def Maintenance(request):
   context = {}
   return render(request, 'maintenance.html', context)
@@ -267,9 +271,11 @@ def CommensalRegister(request):
 
 def RestaurantHome(request):
   auth = False
+  restaurant = None
   if request.user.is_authenticated:
     auth = True
     form = None
+    restaurant = Restaurant.objects.get(id=request.user.id)
   else:
     form = CreateRestaurantForm()
     if request.method == 'POST':
@@ -291,11 +297,11 @@ def RestaurantHome(request):
 
           BrandOffice.objects.create(restaurant=user, is_restaurant=True, brand_name="Sede principal", state=user.state, city=user.city, parish=user.parish, full_address=user.full_address, active=True)
 
-          messages.success(request,"La cuenta ha sido creada con el siguente correo: " + email)
+          messages.success(request,"La cuenta ha sido creada exitosamente, con el siguente correo: " + email)
           return redirect('r-inicio-de-sesion')
         else:
           messages.error(request,"Acepte nuestros terminos y condiciones")
-  context = {"commensal":False, 'auth':auth, 'form':form}
+  context = {"commensal":False, 'auth':auth, 'form':form, 'restaurant':restaurant}
   return render(request,'restaurant/home.html', context)
 
 @unauthenticated_user

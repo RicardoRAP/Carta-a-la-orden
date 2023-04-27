@@ -76,6 +76,7 @@ input[type="checkbox"]:focus{
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 140px;
+  font-size: 1.2rem;
 }
 .select-address::after{
   float: right;
@@ -219,6 +220,15 @@ p.recommend{
   background-color: #e9ecef;
   cursor: default;
 }
+.form-label{
+  font-size: 1.2rem;
+}
+input, input::placeholder, select, option, select::placeholder{
+  font-size: 1.2rem !important;
+}
+select::placeholder{
+  opacity: 0.6;
+}
 /* Loader */
 #loader{
   position: fixed;
@@ -256,6 +266,16 @@ p.recommend{
 /* Responsive */
 @media only screen and (min-width:769px){
   .mobile{
+    display: none !important;
+  }
+}
+@media only screen and (max-width:1079px){
+  .tablet-hidden{
+    display: none !important;
+  }
+}
+@media only screen and (min-width:1080px){
+  .tablet-show{
     display: none !important;
   }
 }

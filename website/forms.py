@@ -84,7 +84,7 @@ class CreateRestaurantForm(UserCreationForm):
       attrs = {
         'id': 'registerPlan',
         'class': 'form-select', 
-        'aria-label': 'Selecciona tu plan'
+        'placeholder': 'Selecciona tu plan'
       }
     )
   )
@@ -133,7 +133,7 @@ class CreateRestaurantForm(UserCreationForm):
     widget = forms.PasswordInput(
       attrs = {
         'id': 'registerPassword',
-        'class': 'form-control',
+        'class': 'form-control input-pass',
         'placeholder': 'Contraseña'
       }
     ),
@@ -144,7 +144,7 @@ class CreateRestaurantForm(UserCreationForm):
     widget = forms.PasswordInput(
       attrs = {
         'id': 'registerRepeatPassword',
-        'class': 'form-control',
+        'class': 'form-control input-pass',
         'placeholder': 'Confirme la contraseña'
       }
     )
