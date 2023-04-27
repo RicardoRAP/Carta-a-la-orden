@@ -102,12 +102,12 @@
   padding: 15px 45px 15px 20px;
 }
 .full_height{
-  height: calc(100vh - (81px + 183px));
+  height: calc(100vh - (81px + 119px));
 }
 .form{
   background-color: #fff;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
   border: 1px solid #000;
   border-radius: 20px;
   padding: 20px;
@@ -199,6 +199,48 @@ input.invalid, select.invalid {
   color: #fff;
   width: 150px;
 }
+.title-restaurant{
+  color: #fff;
+  font-weight: 700;
+  font-size: 40px;
+  background-color: #7F30FF;
+  border-radius: 20px;
+  border: 2px solid #28A745;
+  padding: 6px 12px;
+}
+.menu-profile{
+  padding-bottom: 15px;
+}
+.title-restaurant:hover,.menu-profile ul li:hover{
+  background-color: #28A745;
+  border: 2px solid #7F30FF;
+}
+.menu-profile ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+.menu-profile ul li{
+  background-color: #7F30FF;
+  border-radius: 20px;
+  border: 2px solid #28A745;
+}
+.menu-profile ul li a{
+  font-size: 18px;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+a .img-home{
+  border:2px solid #28A745;
+}
+a:hover .img-home{
+  border:2px solid #7F30FF;
+}
+.message-error{
+  margin-top: 20px;
+}
 /* Responsive */
 /* Mobile */
 @media only screen and (max-width:1200px){
@@ -224,6 +266,11 @@ input.invalid, select.invalid {
 @media only screen and (min-width:769px) and (max-width:992px){
   .card-info{
     column-gap: 20px;
+  }
+  .menu-profile ul{
+    column-gap: 0;
+    row-gap: 20px;
+    flex-direction: column;
   }
 }
 @media only screen and (max-width:768px){
@@ -297,5 +344,10 @@ input.invalid, select.invalid {
   .card-info-restaurant .col {
     width: 100%;
     max-width: 280px;
+  }
+  .menu-profile ul{
+    column-gap: 0;
+    row-gap: 20px;
+    flex-direction: column;
   }
 }

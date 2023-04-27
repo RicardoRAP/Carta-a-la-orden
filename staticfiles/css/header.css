@@ -75,6 +75,28 @@
   left: 0 !important;
   margin: 0 !important;
 }
+.menu-list-header{
+  display: flex;
+  padding: 0;
+  margin: 0;
+  column-gap: 20px;
+}
+.menu-list-header li{
+  float: left;
+}
+.menu-list-header li a{
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+.menu-list-header li a.active{
+  padding-bottom: 27px;
+  border-bottom: 5px solid #7F30FF;
+}
+.menu-list-header li:hover a{
+  padding-bottom: 27px;
+  border-bottom: 5px solid #28A745;
+}
 /* Responsive */
 @media only screen and (max-width:796px){
   .navbar{
