@@ -167,7 +167,6 @@ class CreateRestaurantForm(UserCreationForm):
     return self.cleaned_data['parish'].lower().capitalize()
   
 
-
 #  Formulario del Perfil
 class ProfileForm(ModelForm):
   profile_img = forms.ImageField(
@@ -448,9 +447,9 @@ class ProfileForm(ModelForm):
   def clean_full_address(self):
     return self.cleaned_data['full_address'].lower().capitalize()
   
-  def clean(self):
+  def ValidateEmail(self, id):
     super(ProfileForm, self).clean()
-    user_exists = (Restaurant.objects.filter(email=self.cleaned_data.get('email')).count() > 0)
+    user_exists = (Restaurant.objects.filter(email=self.cleaned_data.get('email')).exclude(id=id).count() > 0)
     if user_exists:
       self._errors['email'] = self.error_class(['Ese email ya existe'])
     return self.cleaned_data

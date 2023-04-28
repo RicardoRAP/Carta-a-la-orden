@@ -372,33 +372,36 @@ def RestaurantProfile(request):
     end_schedule = request.POST.get("end_schedule")
     if not (start_schedule >= end_schedule):
       if form.is_valid():
-        if form.NormalizeUsarname():
-          profile = form.save(commit=False)
-          profile.profile_img = request.POST.get("profile_img")
-          profile.username = request.POST.get("username")
-          brand_restaurant.update(
-            start_schedule = request.POST.get("start_schedule"),
-            end_schedule = request.POST.get("end_schedule"),
-            pick_up = profile.pick_up,
-            my_delivery = profile.my_delivery,
-            external_delivery = profile.external_delivery,
-            others_services = profile.others_services,
-            delivery = request.POST.get("delivery"),
-            state = request.POST.get("state"),
-            city = request.POST.get("city"),
-            parish = request.POST.get("parish"),
-            avenue = request.POST.get("avenue"),
-            street = request.POST.get("street"),
-            full_address = request.POST.get("full_address")
-          )
-          profile.save()
-          messages.success(request,"Los cambios se han guardado con exito")
-          restaurant.refresh_from_db()
-          if (request.FILES.get("profile_img") != None and str(old_img) not in "restaurants/profile.png"):
-            os.remove(old_img)
-          redirect("perfil")
+        if form.ValidateEmail(request.user.id):
+          if form.NormalizeUsarname():
+            profile = form.save(commit=False)
+            profile.profile_img = request.POST.get("profile_img")
+            profile.username = request.POST.get("username")
+            brand_restaurant.update(
+              start_schedule = request.POST.get("start_schedule"),
+              end_schedule = request.POST.get("end_schedule"),
+              pick_up = profile.pick_up,
+              my_delivery = profile.my_delivery,
+              external_delivery = profile.external_delivery,
+              others_services = profile.others_services,
+              delivery = request.POST.get("delivery"),
+              state = request.POST.get("state"),
+              city = request.POST.get("city"),
+              parish = request.POST.get("parish"),
+              avenue = request.POST.get("avenue"),
+              street = request.POST.get("street"),
+              full_address = request.POST.get("full_address")
+            )
+            profile.save()
+            messages.success(request,"Los cambios se han guardado con exito")
+            restaurant.refresh_from_db()
+            if (request.FILES.get("profile_img") != None and str(old_img) not in "restaurants/profile.png"):
+              os.remove(old_img)
+            redirect("perfil")
+          else:
+            messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
         else:
-          messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
+          messages.error(request,"Ese correo ya existe")
       else:
         messages.error(request,"Ha ocurrido un error")
         print(form.errors)
