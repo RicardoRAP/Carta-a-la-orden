@@ -359,7 +359,7 @@ def RestaurantProfile(request):
   alarm = "on"
   if ex_delivery or ot_services:
     show = 'True'
-  if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and old_img not in "restaurants/profile.png":
+  if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and str(old_img) not in "restaurants/profile.png":
     if (ex_delivery or ot_services) and delivery_r != "":
       if len(delivery_r.replace(" ","")) > 0:
         alarm = "off"
