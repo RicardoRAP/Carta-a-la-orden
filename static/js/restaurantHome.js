@@ -55,7 +55,7 @@ function validateForm() {
   // valida los input por cada pestaña del formulario
   for (i = 0; i <= y.length; i++) {
     if(i < y.length){
-      if (y[i].value == "") {
+      if (y[i].value == "" || y[i].value == " ") {
         y[i].className += " invalid"
         return [false,"Algún campo esta vacío."]
       }

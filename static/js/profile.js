@@ -86,7 +86,7 @@ function ValidateBefore() {
 }
 
 function validateForm() {
-  var x, y, i, j, z, img, patt, result
+  var v, w, x, y, z, i, j, img, patt, result
   x = document.getElementById("FormProfile")
   y = x.getElementsByTagName("input")
   z = x.getElementsByTagName("select")
@@ -105,7 +105,7 @@ function validateForm() {
   // valida los input por cada pestaña del formulario
   for (i = 0; i <= y.length; i++) {
     if(i < y.length){
-      if (y[i].value == "") {
+      if (y[i].value == "" || y[i].value == " ") {
         y[i].className += " invalid"
         if(y[i].type == "file"){
           if (img.src.toString().includes("/restaurants/profile.png")){
@@ -140,6 +140,15 @@ function validateForm() {
         return [false, "Seleccione uno de nuestros planes."]
       }
     } 
+  }
+  w = x.querySelectorAll("input[type='checkbox']")
+  v = x.querySelector("input[name='delivery']")
+  if (w[0].checked == false && w[1].checked == false && w[2].checked == false && w[3].checked == false){
+    return [false, "Marque que tipo de servicio posee"]
+  }else if(w[2].checked || w[3].checked){
+    if(v.value == "" || v.value == " "){
+      return [false, "Indique que tipo de servicio posse"]
+    }
   }
   return [true, "Se ha guardado con exito"]
 }
