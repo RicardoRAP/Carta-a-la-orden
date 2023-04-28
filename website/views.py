@@ -374,6 +374,8 @@ def RestaurantProfile(request):
       if form.is_valid():
         if form.NormalizeUsarname():
           profile = form.save(commit=False)
+          profile.profile_img = request.POST.get("profile_img")
+          profile.username = request.POST.get("username")
           brand_restaurant.update(
             start_schedule = request.POST.get("start_schedule"),
             end_schedule = request.POST.get("end_schedule"),
