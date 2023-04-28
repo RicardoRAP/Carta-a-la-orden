@@ -92,11 +92,11 @@
   color: #000;
 }
 .menu-list-header li a.active{
-  padding-bottom: 27px;
+  padding-bottom: 19px;
   border-bottom: 5px solid #7F30FF;
 }
 .menu-list-header li:hover a{
-  padding-bottom: 27px;
+  padding-bottom: 19px;
   border-bottom: 5px solid #28A745;
 }
 /* Responsive */
