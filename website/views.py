@@ -400,6 +400,7 @@ def RestaurantProfile(request):
     else:
       messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario")
   photo = str(restaurant.profile_img)
+  print(photo)
   img = 'None'
   if photo != 'None' and 'restaurant/profile.png' not in photo:
     img = os.path.join('img', photo)

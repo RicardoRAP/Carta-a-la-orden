@@ -37,6 +37,10 @@
 .btn-login:hover{
   border: 1px solid #7F30FF;
 }
+.btn-login:disabled{
+  background-color: #FFFFFF;
+  border: 1px solid #7F30FF;
+}
 .btn-register{
   background-color: #28A745;
   border: 1px solid #28A745;
@@ -45,6 +49,10 @@
 }
 .btn-register:hover{
   background: #28A745;
+}
+.btn-register:disabled{
+  background-color: #28A745;
+  border: 1px solid #28A745;
 }
 .btn-register a{
   color: #fff;
