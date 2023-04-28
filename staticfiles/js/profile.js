@@ -86,7 +86,7 @@ function ValidateBefore() {
 }
 
 function validateForm() {
-  var x, y, i, z, img, patt, result
+  var x, y, i, j, z, img, patt, result
   x = document.getElementById("FormProfile")
   y = x.getElementsByTagName("input")
   z = x.getElementsByTagName("select")
@@ -95,13 +95,21 @@ function validateForm() {
     var p = document.querySelector(".message-error")
     p.remove()
   }catch{}
+  for(j = 0; j < y.length; j++){
+    y[j].classList.remove("invalid")
+    if(y[j].type == "file"){
+      y[j].parentNode.classList.remove("invalid")
+    }
+  }
+  z[0].classList.remove("invalid")
   // valida los input por cada pestaña del formulario
   for (i = 0; i <= y.length; i++) {
     if(i < y.length){
       if (y[i].value == "") {
         y[i].className += " invalid"
         if(y[i].type == "file"){
-          if (img.src == "/static/img/restaurants/profile.png"){
+          if (img.src.toString().includes("/restaurants/profile.png")){
+            img.parentNode.className += " invalid"
             return [false,"Ingrese una imagen"]
           }
         }else{
