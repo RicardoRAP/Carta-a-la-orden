@@ -1,31 +1,3 @@
-/*function validateForm() {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("contact-form__block")
-  y = x[currentTab].getElementsByTagName("input")
-  if(currentTab == 0){
-    z = x[currentTab].getElementsByTagName("select")
-  }
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i <= y.length; i++) {
-    if(i < y.length){
-      if (y[i].value == "") {
-        // add an "invalid" class to the field:
-        y[i].className += " invalid"
-        // and set the current valid status to false:
-        valid = false
-      }
-    }else{
-      if (z[0].value == "") {
-        // add an "invalid" class to the field:
-        z[0].className += " invalid"
-        // and set the current valid status to false:
-        valid = false
-      }
-    } 
-  }
-  return valid // return the valid status
-}*/
 var input_profile_img = document.querySelector('#formProfile_img')
 var img = document.querySelector('.form-profile-img .current-img')
 
@@ -100,5 +72,87 @@ window.addEventListener('load', function(e){
   else{
     others_s.parentElement.classList.add("d-none")
     others_s.value = ''
+  }
+})
+function ValidateBefore() {
+  var valid = validateForm()
+  if (!valid[0]) return showMessage(valid[1])
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  document.getElementById("FormProfile").submit()
+  return false;
+}
+
+function validateForm() {
+  var x, y, i, z, img, patt, result
+  x = document.getElementById("FormProfile")
+  y = x.getElementsByTagName("input")
+  z = x.getElementsByTagName("select")
+  img = document.querySelector(".current-img")
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  // valida los input por cada pestaña del formulario
+  for (i = 0; i <= y.length; i++) {
+    if(i < y.length){
+      if (y[i].value == "") {
+        y[i].className += " invalid"
+        if(y[i].type == "file"){
+          if (img.src == "/static/img/restaurants/profile.png"){
+            return [false,"Ingrese una imagen"]
+          }
+        }else{
+          return [false,"Algún campo esta vacío."]
+        }
+      }
+      if(y[i].type == "email"){
+        // valida el formato del email
+        patt = new RegExp("^[a-zA-Z0-9\.\-\_]+[\@][a-zA-Z0-9]+[\.][a-zA-Z\-]{3,5}$", "g");
+        result = patt.test(y[i].value)
+        if(result == false){
+          y[i].className += " invalid"
+          return [false, "El email no cumple con el formato."]
+        }
+      }
+      if(y[i].type == "tel"){
+        // valida que el número de teléfono tenga 11 o mas números y es opcional el +
+        patt = new RegExp("^[+]?[0-9]{11,}$", "g");
+        result = patt.test(y[i].value)
+        if(result == false){
+          y[i].className += " invalid"
+          return [false, "El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX"]
+        }
+      }
+    }else{
+      if (z[0].value == "") {
+        z[0].className += " invalid"
+        return [false, "Seleccione uno de nuestros planes."]
+      }
+    } 
+  }
+  return [true, "Se ha guardado con exito"]
+}
+
+function showMessage(message){
+  var form = document.querySelector("#FormProfile")
+  var p = document.querySelector(".message-error")
+  if (p == null){
+    p = document.createElement("p")
+    p.className = "message-error"
+    p.textContent = message
+    form.appendChild(p)
+  }else{
+    p.textContent = message
+  }
+  return false
+}
+
+var select = document.querySelector("#savePlan")
+select.addEventListener("input",function(){
+  if(this.classList.contains("invalid")){
+    this.classList.remove("invalid")
   }
 })

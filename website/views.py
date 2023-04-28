@@ -399,6 +399,8 @@ def RestaurantProfile(request):
           redirect("perfil")
         else:
           messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
+      else:
+        messages.error(request,"Ha ocurrido un error")
     else:
       messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario")
   photo = str(restaurant.profile_img)
@@ -406,6 +408,7 @@ def RestaurantProfile(request):
   img = 'None'
   if photo != 'None' and 'restaurant/profile.png' not in photo:
     img = os.path.join('img', photo)
+  print(img)
   context = {"commensal":False, 'tab':'profile', 'form':form, 'img':img, 'show':show, 'alarm':alarm}
   return render(request,'restaurant/profile.html', context)
 
