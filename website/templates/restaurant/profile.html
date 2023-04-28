@@ -139,6 +139,7 @@
         <button type="button" class="btn btn-block btn-save" onclick="ValidateBefore()">Guardar</button>
       </div>
       <!-- Mensajes -->
+      {{form.errors}}
       {% for message in messages %}
         <p class="message-{{message.tags}}">{{message}}</p>
       {% endfor %}

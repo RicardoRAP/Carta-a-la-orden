@@ -400,7 +400,8 @@ def RestaurantProfile(request):
         else:
           messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
       else:
-        messages.error(request,"Ha ocurrido un error: " + form.errors)
+        messages.error(request,"Ha ocurrido un error")
+        print(form.errors)
     else:
       messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario")
   photo = str(restaurant.profile_img)
