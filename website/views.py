@@ -357,7 +357,7 @@ def RestaurantProfile(request):
   ot_services = restaurant.others_services
   show = 'False'
   alarm = "on"
-  print("old_img",old_img)
+  print("old_img",old_img, old_img.path)
   if ex_delivery or ot_services:
     show = 'True'
   if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and str(old_img) not in "restaurants/profile.png":
@@ -395,7 +395,8 @@ def RestaurantProfile(request):
             messages.success(request,"Los cambios se han guardado con exito")
             restaurant.refresh_from_db()
             if (request.FILES.get("profile_img") != None and str(old_img) not in "restaurants/profile.png"):
-              os.remove(old_img)
+              path = os.path.join('/static/img',str(old_img))
+              os.remove(path)
             redirect("perfil")
           else:
             messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
