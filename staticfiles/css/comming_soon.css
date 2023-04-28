@@ -2,12 +2,23 @@
   line-height: 1 !important;
 }
 .btn{
-  width: 128px;
-  height: 38px;
+  width: 184.32px;
+  height: 54.75px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;
+  font-size: 1.5rem;
+}
+.btn a{
+  text-decoration: none;
+  line-height: 0.8;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5px;
 }
 .btn-login{
   background-color: #FFFFFF;
@@ -18,14 +29,19 @@
 .btn-login:hover, .btn-login:active, .btn-login:focus{
   border: 1px solid #7F30FF !important;
 }
+.btn-login a{
+  color: #000;
+}
 .btn-register{
   background-color: #28A745;
   border: 1px solid #28A745;
-  color: #fff;
   border-radius: 6px;
   padding: 0;
 }
 .btn-register:hover, .btn-register:active, .btn-register:focus{
   background: #28A745 !important;
   border: 1px solid #28A745 !important;
+}
+.btn-register a, .btn-primary a{
+  color: #fff;
 }

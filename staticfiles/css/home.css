@@ -47,7 +47,7 @@
   margin-bottom: 0;
 }
 .card-text-p{
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
 }
 .card-info{
@@ -58,7 +58,7 @@
 .col{
   min-height: 255px;
   flex: 1;
-  max-width: 186px;
+  max-width: 250px;
   background-color: #7F30FF;
   border-radius: 10px;
   flex-direction: column;
@@ -85,8 +85,8 @@
 }
 .card-description p{
   font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
+  font-size: 18px;
+  line-height: 1.2;
   letter-spacing: 0.04em;
   color: #FFFFFF;
 }
@@ -189,8 +189,8 @@ input.invalid, select.invalid {
 .fa-list{
   content: url(/static/img/icon/list.png);
   display:inline-block;
-  width: 8px;
-  height: 14px;
+  width: 11px;
+  height: 17px;
   margin-top: 2px;
 }
 #Pricing .btncolor{
@@ -240,6 +240,25 @@ a:hover .img-home{
 }
 .message-error{
   margin-top: 20px;
+}
+.tootlip-plan{
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px solid #000;
+  position: absolute;
+  top: -87px;
+  left: calc(50% - 140px);
+}
+.tootlip-plan::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
 }
 /* Responsive */
 /* Mobile */

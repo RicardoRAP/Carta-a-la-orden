@@ -7,6 +7,8 @@
 }
 .navbar-brand{
   cursor: pointer;
+  padding: 0;
+  margin-top: -4px;
 }
 #Logo{
   width: 350px;
@@ -90,21 +92,29 @@
   color: #000;
 }
 .menu-list-header li a.active{
-  padding-bottom: 27px;
+  padding-bottom: 19px;
   border-bottom: 5px solid #7F30FF;
 }
 .menu-list-header li:hover a{
-  padding-bottom: 27px;
+  padding-bottom: 19px;
   border-bottom: 5px solid #28A745;
 }
 /* Responsive */
-@media only screen and (max-width:796px){
+
+@media only screen and (max-width:992px){
   .navbar{
     padding: 20px;
+  }
+  #Logo{
+    width: 300px;
   }
 }
 /* Mobile */
 @media only screen and (max-width:768px){
+  .navbar-brand{
+    padding: 5px 0;
+    margin-top: 0;
+  }
   #Logo{
     width: 57px;
   }

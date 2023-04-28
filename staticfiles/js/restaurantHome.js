@@ -131,6 +131,14 @@ select.addEventListener("input",function(){
     this.classList.remove("invalid")
   }
 })
+select.addEventListener("mouseover", function(){
+  var tootlip = document.querySelector(".tootlip-plan")
+  tootlip.classList.remove("d-none")
+})
+select.addEventListener("mouseout", function(){
+  var tootlip = document.querySelector(".tootlip-plan")
+  tootlip.classList.add("d-none")
+})
 
 function ShowPass(){
   var x = document.querySelectorAll(".input-pass");
@@ -142,3 +150,4 @@ function ShowPass(){
     }
   })
 }
+

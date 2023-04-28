@@ -91,7 +91,7 @@
 }
 /* Form */
 .inputs_2{
-  column-gap: 10px;
+  column-gap: 20px;
 }
 .inputs_2 > div{
   flex: 1 1 50%;
@@ -99,6 +99,10 @@
 .form-label{
   font-family: 'Roboto';
   position: relative;
+}
+#Agregar_sucursal label{
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 .form-profile-img{
   width: 200px;
@@ -272,6 +276,7 @@
   content: 'Servicios que posee la sucursal:';
   width: 100%;
   margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 #Add-brand-form div:nth-child(8), #Add-brand-form div:nth-child(9),
 #Add-brand-form div:nth-child(10), #Add-brand-form div:nth-child(11), 
