@@ -98,7 +98,7 @@ function validateForm() {
   for(j = 0; j < y.length; j++){
     y[j].classList.remove("invalid")
     if(y[j].type == "file"){
-      y[j].parentNode.classList.remove("invalid")
+      img.parentNode.classList.remove("invalid")
     }
   }
   z[0].classList.remove("invalid")
