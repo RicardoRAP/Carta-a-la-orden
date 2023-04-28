@@ -21,7 +21,7 @@ import urllib.parse
 # Asignacion y Renderizado de las vistas
 
 def Error404(request,exception):
-  return render(request,'404.html')
+  return render(request,'404.html',status=404)
 
 def CommingSoon(request):
   auth = True
