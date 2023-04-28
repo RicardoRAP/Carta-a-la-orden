@@ -626,6 +626,7 @@ def RestaurantUpdateDish(request, pk_param):
           all_dish_imgs.filter(id=int(img_id)).update(select=True,order=j)
           j += 1
         dish.refresh_from_db()
+        messages.success(request,"Se han actualizado las imagenes exitosamente")
         redirect('platillos/' + str(pk_param) + "/")
       else:
         messages.error(request,"Debe seleccionar por lo menos 2 imagenes","error_img")
@@ -639,7 +640,7 @@ def RestaurantUpdateDish(request, pk_param):
           ImgDish.objects.create(dish=dish,img=m,select=True,order=k,folder=pk_param)
           k += 1
         dish.refresh_from_db()
-        messages.success(request,"Se han montado y seleccionado las imagenes")
+        messages.success(request,"Se han montado y seleccionado las imagenes exitosamente")
       else:
         messages.error(request,"Debe seleccionar por lo menos una imagen","error_upload_img")
     if 'Update' in request.POST:
