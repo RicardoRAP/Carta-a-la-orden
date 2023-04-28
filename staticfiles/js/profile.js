@@ -144,9 +144,22 @@ function validateForm() {
   w = x.querySelectorAll("input[type='checkbox']")
   v = x.querySelector("input[name='delivery']")
   if (w[0].checked == false && w[1].checked == false && w[2].checked == false && w[3].checked == false){
+    if(w[0].checked == false){
+      w[0].className += " invalid"
+    }
+    if(w[1].checked == false){
+      w[1].className += " invalid"
+    }
+    if(w[2].checked == false){
+      w[2].className += " invalid"
+    }
+    if(w[3].checked == false){
+      w[3].className += " invalid"
+    }
     return [false, "Marque que tipo de servicio posee"]
   }else if(w[2].checked || w[3].checked){
     if(v.value == "" || v.value == " "){
+      v.className += " invalid"
       return [false, "Indique que tipo de servicio posse"]
     }
   }
