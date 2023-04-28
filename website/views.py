@@ -357,6 +357,7 @@ def RestaurantProfile(request):
   ot_services = restaurant.others_services
   show = 'False'
   alarm = "on"
+  print("old_img",old_img)
   if ex_delivery or ot_services:
     show = 'True'
   if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and str(old_img) not in "restaurants/profile.png":
@@ -375,8 +376,6 @@ def RestaurantProfile(request):
         if form.ValidateEmail(request.user.id):
           if form.NormalizeUsarname():
             profile = form.save(commit=False)
-            profile.profile_img = request.POST.get("profile_img")
-            profile.username = request.POST.get("username")
             brand_restaurant.update(
               start_schedule = request.POST.get("start_schedule"),
               end_schedule = request.POST.get("end_schedule"),
@@ -408,11 +407,11 @@ def RestaurantProfile(request):
     else:
       messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario")
   photo = str(restaurant.profile_img)
-  print(photo)
+  print("photo:",photo)
   img = 'None'
   if photo != 'None' and 'restaurant/profile.png' not in photo:
     img = os.path.join('img', photo)
-  print(img)
+  print("img",img)
   context = {"commensal":False, 'tab':'profile', 'form':form, 'img':img, 'show':show, 'alarm':alarm}
   return render(request,'restaurant/profile.html', context)
 
