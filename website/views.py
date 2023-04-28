@@ -24,7 +24,10 @@ def Error404(request,exception):
   return render(request,'404.html')
 
 def CommingSoon(request):
-  context = {}
+  auth = True
+  if not request.user.is_authenticated:
+    auth = False
+  context = {"auth":auth}
   return render(request, 'comming_soon.html',context)
 
 def Maintenance(request):
@@ -54,7 +57,7 @@ def Home(request):
         messages.error(request,"Seleccione un Estado")
   else:
     alphabet = "No se encuentran restaurantes disponibles" 
-  context = {"commensal":True,'alphabet':alphabet}
+  context = {'commensal':True, 'home':True,'alphabet':alphabet}
   return render(request,'home.html', context)
 
 def ListRestaurants(request):

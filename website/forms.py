@@ -84,7 +84,7 @@ class CreateRestaurantForm(UserCreationForm):
       attrs = {
         'id': 'registerPlan',
         'class': 'form-select', 
-        'placeholder': 'Selecciona tu plan'
+        'placeholder': 'Selecciona tu plan',
       }
     )
   )

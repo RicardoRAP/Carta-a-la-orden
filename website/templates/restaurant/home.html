@@ -43,9 +43,15 @@
                     {{form.phone}}
                   </div>
                   <!-- Plan -->
-                  <div class="form-outline mb-3">
+                  <div class="form-outline mb-3 position-relative">
                     <label class="form-label" for="registerPlan">Plan</label>
                     {{form.plan}}
+                    <div class="d-flex flex-column tootlip-plan d-none">
+                      <div class="d-flex column-gap-2 w-100 justify-content-between"><p class="text-start" style="width: 98px;">Plan Básico</p><p class="text-end" style="width: 114px;">2 sucursales</p><p class="text-end" style="width: 30px;">5$</p></div>
+                      <div class="d-flex column-gap-2 w-100 justify-content-between"><p class="text-start" style="width: 98px;">Plan Plata</p><p class="text-end" style="width: 114px;">5 sucursales</p><p class="text-end" style="width: 30px;">7$</p></div>
+                      <div class="d-flex column-gap-2 w-100 justify-content-between"><p class="text-start" style="width: 98px;">Plan Oro</p><p class="text-end" style="width: 114px;">10 sucursales</p><p class="text-end" style="width: 30px;">13$</p></div>
+                      <div class="d-flex column-gap-2 w-100 justify-content-between"><p class="text-start" style="width: 98px;">Plan Platino</p><p class="text-end" style="width: 114px;">+10 sucursales</p><p class="text-end" style="width: 30px;">20$</p></div>
+                    </div>
                   </div>
                 </fieldset>
                 <fieldset class="contact-form__block">
