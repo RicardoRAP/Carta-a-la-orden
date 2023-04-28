@@ -112,7 +112,7 @@ function validateForm() {
             img.parentNode.className += " invalid"
             return [false,"Ingrese una imagen"]
           }
-        }else{
+        }else if (y[i].type != "checkbox" && y[i].name != "delivery"){
           return [false,"Algún campo esta vacío."]
         }
       }
