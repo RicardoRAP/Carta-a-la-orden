@@ -41,6 +41,10 @@ input[type="checkbox"]:focus{
 .bg-green{
   background-color: #28A745;
 }
+.alert{
+  margin-bottom: 0 !important;
+  margin-top: 16px;
+}
 .page-container{
   width: 100%;
 }

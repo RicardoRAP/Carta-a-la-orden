@@ -357,7 +357,6 @@ def RestaurantProfile(request):
   ot_services = restaurant.others_services
   show = 'False'
   alarm = "on"
-  print("old_img",old_img, old_img.path)
   if ex_delivery or ot_services:
     show = 'True'
   if username != None and phone != None and start_schedule_r != None and end_schedule_r != None and (pick_up_r or my_delivery_r or ex_delivery or ot_services) and old_img != None and str(old_img) not in "restaurants/profile.png":
@@ -574,6 +573,10 @@ def RestaurantBrandPreview(request,name_param,pk_param):
 @allowed_users(allowed_roles=['Restaurant'])
 def RestaurantMenu(request):
   restaurant = Restaurant.objects.get(id=request.user.id)
+  alarm = "on"
+  dishes = restaurant.dish_set.all()
+  if len(dishes) > 0:
+    alarm = "off"
   # Crear Menu
   if request.method == 'POST':
     form = MenuForm(request.user.id, data=request.POST, files=request.FILES)
@@ -595,7 +598,7 @@ def RestaurantMenu(request):
   menus = restaurant.menu_set.filter(promo=False)
   menu_filter = MenuFilter(request.GET, queryset=menus, current_user=request)
   menus = menu_filter.qs
-  context = {"commensal":False, 'update':False, 'tab':'menu', 'menus':menus, 'filters':menu_filter, 'form':form}
+  context = {"commensal":False, 'update':False, 'tab':'menu', 'alarm':alarm, 'menus':menus, 'filters':menu_filter, 'form':form}
   return render(request,'restaurant/menu.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')
@@ -729,6 +732,10 @@ def RestaurantUpdateDish(request, pk_param):
 @allowed_users(allowed_roles=['Restaurant'])
 def RestaurantPromo(request):
   restaurant = Restaurant.objects.get(id=request.user.id)
+  alarm = "on"
+  dishes = restaurant.dish_set.all()
+  if len(dishes) > 0:
+    alarm = "off"
   # Crear Menu
   if request.method == 'POST':
     form = PromoForm(request.user.id, data=request.POST, files=request.FILES)
@@ -755,7 +762,7 @@ def RestaurantPromo(request):
   promos = restaurant.menu_set.filter(promo=True)
   promos_filter = PromoFilter(request.GET, queryset=promos, current_user=request)
   promos = promos_filter.qs
-  context = {"commensal":False, 'update':False, 'tab':'promo', 'promos':promos, 'filters':promos_filter, 'form':form}
+  context = {"commensal":False, 'update':False, 'tab':'promo', 'alarm':alarm, 'promos':promos, 'filters':promos_filter, 'form':form}
   return render(request,'restaurant/promo.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')

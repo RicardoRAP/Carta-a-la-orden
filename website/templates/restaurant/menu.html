@@ -2,6 +2,11 @@
 {% load static %}
 {% block menu %}
 <div class="content-tab d-flex align-items-center flex-column w-100">
+  {% if alarm == "on" %}
+    <div class="alert alert-primary" role="alert">
+      <h5>Para crear un menú, primero cree un platillo</h5>
+    </div>
+  {% endif %}
   <div class="title">
     <h3>Menús</h3>
   </div>

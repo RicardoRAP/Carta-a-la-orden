@@ -2,6 +2,11 @@
 {% load static %}
 {% block promo %}
 <div class="content-tab d-flex align-items-center flex-column w-100">
+  {% if alarm == "on" %}
+    <div class="alert alert-primary" role="alert">
+      <h5>Para crear una promoción, primero cree un platillo</h5>
+    </div>
+  {% endif %}
   <div class="title">
     <h3>Promociones</h3>
   </div>
@@ -79,7 +84,7 @@
             <div class="form-outline mb-3 d-flex align-content-center">
               <!-- Descuento -->
               <div>
-                <label class="form-label" for="discount">Descuento:</label>
+                <label class="form-label" for="Discount">Descuento:</label>
                 {{form.discount}}
               </div>
               <div></div>

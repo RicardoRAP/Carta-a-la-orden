@@ -3,7 +3,7 @@
 {% block profile %}
 <div class="content-tab d-flex align-items-center flex-column w-100">
   {% if alarm == "on" %}
-    <div class="alert">
+    <div class="alert alert-primary" role="alert">
       <h5>Su Restaurante todavia no es visible hasta que complete la información pertinente en el perfil y cree un Menú</h5>
     </div>
   {% endif %}
@@ -114,7 +114,7 @@
         </div>
         <!-- Servicios -->
         <div>
-          <label class="form-label">Servicios que posee:</label>
+          <p class="form-label">Servicios que posee:</p>
           <div class="d-flex align-items-start flex-column">
             <div class="form-check">
               {{form.pick_up}}

@@ -1,3 +1,68 @@
+function ValidateBefore() {
+  var valid = validateForm()
+  if (!valid[0]) return showMessage(valid[1])
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  document.getElementById("DishForm").submit()
+  return false;
+}
+
+function validateForm() {
+  var v, w, x, y, z, i, j, img
+  x = document.getElementById("DishForm")
+  y = x.getElementsByTagName("input")
+  z = x.getElementsByTagName("textarea")
+  img = document.querySelector(".icon-upload-imgs img")
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  for(j = 0; j < y.length; j++){
+    y[j].classList.remove("invalid")
+    if(y[j].type == "file"){
+      img.parentNode.classList.remove("invalid")
+    }
+  }
+  z[0].classList.remove("invalid")
+  // valida los input por cada pestaña del formulario
+  for (i = 0; i <= y.length; i++) {
+    if(i < y.length){
+      if (y[i].value == "" || y[i].value == " ") {
+        if(y[i].type == "file"){
+          img.parentNode.className += " invalid"
+          return [false,"Ingrese por lo menos 2 imagenes."]
+        }else if (y[i].type != "checkbox" && y[i].name != "tags" && y[i].name != "amount"){
+          y[i].className += " invalid"
+          return [false,"Uno de los campos está vacío."]
+        }
+      }
+    }else{
+      if (z[0].value == "") {
+        z[0].className += " invalid"
+        return [false, "De una descripción del platillo."]
+      }
+    } 
+  }
+  return [true, "Se ha guardado con exito."]
+}
+
+function showMessage(message){
+  var form = document.querySelector("#DishForm")
+  var lastnode = document.querySelector(".modal-bttn")
+  var p = document.querySelector(".message-error")
+  if (p == null){
+    p = document.createElement("p")
+    p.className = "message-error"
+    p.textContent = message
+    form.insertBefore(p,lastnode)
+  }else{
+    p.textContent = message
+  }
+  return false
+}
+
 var input_multiple_img = document.querySelector('#multipleImg')
 var img = document.querySelector('.form-multiple-img')
 

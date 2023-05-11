@@ -4,17 +4,22 @@
 <div class="content-tab d-flex align-items-center flex-column w-100">
   <div class="container-brand w-100 h-100 modal-update modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header justify-content-center">
-        <h2 class="modal-title fs-2 text-center " id="EditarSucursalLabel">Editar Sucursal</h2>
+      <div class="modal-header justify-content-center position-relative">
+        <h2 class="modal-title fs-2 text-center" id="EditarSucursalLabel">Editar Sucursal</h2>
+        <div class="brand-link-to-page position-absolute">
+          <a href="{% url 'vista-sucursal' item.restaurant.name item.id %}">
+            <img src="{% static '/img/icon/link.png' %}" width="30" height="30">
+          </a>
+        </div>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" class="position-relative">
+        <form action="" method="POST" class="position-relative" id="FormBrand">
           {% csrf_token %}
           <div id="Update-brand-form" class="d-flex justify-content-center flex-column">
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Nombre de la sucursal -->
               <div>
-                <label class="form-label" for="saveName">Ingrese el nombre de la sucursal:</label>
+                <label class="form-label" for="registerName">Ingrese el nombre de la sucursal:</label>
                 {{form.brand_name}}
               </div>
               <div></div>
@@ -22,19 +27,19 @@
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Comienzo del Horario  -->
               <div>
-                <label class="form-label" for="saveStart_schedule">Comienzo del Horario:</label>
+                <label class="form-label" for="registerStart_schedule">Comienzo del Horario:</label>
                 {{form.start_schedule}}
               </div>
               <!-- Final del Horario -->
               <div>
-                <label class="form-label" for="saveEnd_schedule">Final del Horario:</label>
+                <label class="form-label" for="registerEnd_schedule">Final del Horario:</label>
                 {{form.end_schedule}}
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center">
               <!-- Servicios -->
               <div class="w-100">
-                <label class="form-label">Servicios que posee:</label>
+                <p class="form-label">Servicios que posee:</p>
                 <div class="d-flex align-items-start flex-column">
                   <div class="form-check">
                     {{form.pick_up}}
@@ -62,31 +67,31 @@
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Estado -->
               <div>
-                <label class="form-label" for="saveState">Estado:</label>
+                <label class="form-label" for="registerState">Estado:</label>
                 {{form.state}}
               </div>
               <!-- Ciudad -->
               <div>
-                <label class="form-label" for="saveCity">Ciudad:</label>
+                <label class="form-label" for="registerCity">Ciudad:</label>
                 {{form.city}}
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Parroquia -->
               <div>
-                <label class="form-label" for="saveParish">Parroquia:</label>
+                <label class="form-label" for="registerParish">Parroquia:</label>
                 {{form.parish}}
               </div>
               <!-- Avenida -->
               <div>
-                <label class="form-label" for="saveAvenue">Avenida:</label>
+                <label class="form-label" for="registerAvenue">Avenida:</label>
                 {{form.avenue}}
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Calle -->
               <div>
-                <label class="form-label" for="saveStreet">Calle:</label>
+                <label class="form-label" for="registerStreet">Calle:</label>
                 {{form.street}}
               </div>
               <div></div>
@@ -94,7 +99,7 @@
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Direccion completa -->
               <div>
-                <label class="form-label" for="saveFull_address">Dirección completa:</label>
+                <label class="form-label" for="showFull_address">Dirección completa:</label>
                 {{form.full_address}}
                 <input type="text" name="show_address" id="showFull_address" class="form-control input-disabled" placeholder="{% if full != None%}{{full}}{% else %}Dirección completa{% endif %}" maxlength="500" disabled>
               </div>
@@ -122,7 +127,7 @@
           <div class="modal-bttn update-modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
               <a href="{% url 'sucursales' %}" class="btn btn-close-modal">Cancelar</a>
-              <input type="submit" class="btn btn-accept" value="Aceptar" name="Update">
+              <button type="button" class="btn btn-accept" onclick="ValidateBefore()" name="Update">Aceptar</button>
             </div>
           </div>
         </form>
