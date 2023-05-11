@@ -34,6 +34,7 @@ function nextPrev(n) {
       pass[j].type = "password";
     }
     document.getElementById("regForm").submit()
+    currentTab = 0
     return false;
   }else{
     showTab(currentTab)

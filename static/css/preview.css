@@ -1,0 +1,10 @@
+@media only screen and (min-width:992px){
+  .strike{
+    min-height: calc(100vh - 68px - 198px - 119px);
+  }
+}
+@media only screen and (min-height:658.65px) and (max-width:991px){
+  .strike{
+    min-height: calc(100vh - 91.17px - 198px - 290px);
+  }
+}

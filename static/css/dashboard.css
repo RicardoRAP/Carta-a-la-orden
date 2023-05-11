@@ -90,6 +90,10 @@
   text-transform: uppercase;
 }
 /* Form */
+.profile-link-to-page{
+  top: calc(50% - 15px);
+  right: -50px;
+}
 .inputs_2{
   column-gap: 20px;
 }

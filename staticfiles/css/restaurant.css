@@ -5,6 +5,9 @@
 #Hero > div{
   align-items: flex-start;
 }
+.separation{
+  gap: 3rem;
+}
 .logo img {
   display: block;
   margin: auto;
@@ -175,10 +178,18 @@
 }
 /* Responsive */
 /* Mobile */
+@media only screen and (max-width:992px){
+  .separation{
+    gap: 2.5rem;
+  }
+}
 @media only screen and (max-width:768px){
   #Hero{
     padding: 24px 20px;
     align-items: center;
+  }
+  .separation{
+    gap: 2rem;
   }
   .list_dishes{
     flex-wrap: wrap;
