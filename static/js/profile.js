@@ -200,6 +200,12 @@ function ValideateMessage(){
           inputerror.classList.add("invalid")
         }
       }
+      if(text.includes("email")){
+        inputerror = document.querySelector("input[name='email']")
+        if(!inputerror.classList.contains("invalid")){
+          inputerror.classList.add("invalid")
+        }
+      }
       if(text.includes("mayor o igual")){
         inputerror = document.querySelector("input[name='start_schedule']")
         if(!inputerror.classList.contains("invalid")){
