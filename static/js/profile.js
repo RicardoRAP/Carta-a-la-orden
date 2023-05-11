@@ -186,3 +186,30 @@ select.addEventListener("input",function(){
     this.classList.remove("invalid")
   }
 })
+window.addEventListener("load", ValideateMessage)
+function ValideateMessage(){
+  let text, inputerror
+  var messages = document.querySelectorAll(".message-error")
+  console.log(messages, "Error")
+  if (messages.length >= 1){
+    for(var i = 0; i < messages.length; i++){
+      text = messages[i].textContent
+      if(text.includes("nombre de usuario")){
+        inputerror = document.querySelector("input[name='username']")
+        if(!inputerror.classList.contains("invalid")){
+          inputerror.classList.add("invalid")
+        }
+      }
+      if(text.includes("mayor o igual")){
+        inputerror = document.querySelector("input[name='start_schedule']")
+        if(!inputerror.classList.contains("invalid")){
+          inputerror.classList.add("invalid")
+        }
+        inputerror = document.querySelector("input[name='end_schedule']")
+        if(!inputerror.classList.contains("invalid")){
+          inputerror.classList.add("invalid")
+        }
+      }
+    }
+  }
+}

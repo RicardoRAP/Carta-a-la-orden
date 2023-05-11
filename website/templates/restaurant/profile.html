@@ -144,11 +144,12 @@
         <button type="button" class="btn btn-block btn-save" onclick="ValidateBefore()">Guardar</button>
       </div>
       <!-- Mensajes -->
-      {{form.errors}}
       {% if "email" in form.errors %}
-        <p class="message-error">Ese email ya existe</p>
+        <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ese email ya existe</p>
       {% elif "username" in form.errors %}
-        <p class="message-error">Ese nombre se usuario ya existe</p>
+        <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ese nombre de usuario ya existe</p>
+      {% elif form.errors %}
+        <p class="message-error {% if messages != None %} mb-2 {% endif %}">{{form.errors}}</p>
       {% endif %}
       {% for message in messages %}
         <p class="message-{{message.tags}}">{{message}}</p>
