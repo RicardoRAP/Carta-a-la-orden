@@ -9,24 +9,28 @@
       <img class="header-profile-img" src="{% if tab == 'profile' %}{% static img %}{% else %}{% static request.user.profile_img %}{% endif %}" width="40" height="40">
     </button>
     <ul class="dropdown-menu position-absolute profile-menu">
-      {% if request.user.is_superuser %}
+      {% if !request.user.is_superuser %}
         <li><a class="dropdown-item {% if tab == 'profile' %}active{% endif %}" href="{% url 'perfil' %}">Perfil</a></li>
         <li><a class="dropdown-item {% if tab == 'brand' %}active{% endif %}" href="{% url 'sucursales' %}">Sucursales</a></li>
         <li><a class="dropdown-item {% if tab == 'menu' %}active{% endif %}" href="{% url 'menus' %}">Menús</a></li>
         <li><a class="dropdown-item {% if tab == 'dish' %}active{% endif %}" href="{% url 'platillos' %}">Platillos</a></li>
         <li><a class="dropdown-item {% if tab == 'promo' %}active{% endif %}" href="{% url 'promociones' %}">Promociones</a></li>
+      {% else %}
+        <li><a class="dropdown-item" href="{% url 'admin' %}">Administrador</a></li>
       {% endif %}
       <li><a class="dropdown-item" href="{% url 'cerrar-sesion' %}">Cerrar sesión</a></li>
     </ul>
   </div>
   <div class="desktop tablet-hidden">
     <ul class="list-unstyled menu-list-header">
-      {% if request.user.is_superuser %}
+      {% if !request.user.is_superuser %}
         <li><a class="{% if tab == 'profile' %}active{% endif %}" href="{% url 'perfil' %}">Perfil</a></li>
         <li><a class="{% if tab == 'brand' %}active{% endif %}" href="{% url 'sucursales' %}">Sucursales</a></li>
         <li><a class="{% if tab == 'menu' %}active{% endif %}" href="{% url 'menus' %}">Menús</a></li>
         <li><a class="{% if tab == 'dish' %}active{% endif %}" href="{% url 'platillos' %}">Platillos</a></li>
         <li><a class="{% if tab == 'promo' %}active{% endif %}" href="{% url 'promociones' %}">Promociones</a></li>
+      {% else %}
+        <li><a class="" href="{% url 'admin' %}">Administrador</a></li>
       {% endif %}
       <li><a class="" href="{% url 'cerrar-sesion' %}">Cerrar sesión</a></li>
     </ul>
