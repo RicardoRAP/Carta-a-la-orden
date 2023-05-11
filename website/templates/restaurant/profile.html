@@ -7,8 +7,13 @@
       <h5>Su Restaurante todavia no es visible hasta que complete la información pertinente en el perfil y cree un Menú</h5>
     </div>
   {% endif %}
-  <div class="title">
+  <div class="title position-relative">
     <h3>Perfil</h3>
+    <div class="link-to-page position-absolute">
+      <a href="{% url 'vista-sede-principal' request.user.restaurant.name %}">
+        <img src="{% static '/img/icon/link.png' %}" width="40" height="40">
+      </a>
+    </div>
   </div>
   <div class="container-form position-relative w-100 h-100">
     <form action="" method="POST" enctype="multipart/form-data" id="FormProfile">
