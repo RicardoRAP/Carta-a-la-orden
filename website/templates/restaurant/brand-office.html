@@ -132,7 +132,7 @@
       </div>
       <div class="modal-body">
         {% if limit == False %}
-          <form action="" method="POST" class="position-relative">
+          <form action="" method="POST" class="position-relative" id="FormBrand">
             {% csrf_token %}
             {{add_brand.management_form}}
             <div id="Add-brand-form" class="d-flex justify-content-center flex-wrap">
@@ -145,7 +145,7 @@
             <div class="modal-bttn">
               <div class="d-flex justify-content-center align-items-center">
                 <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
-                <input type="submit" class="btn btn-accept" value="Aceptar">
+                <button type="button" class="btn btn-accept" onclick="ValidateBefore()">Aceptar</button>
               </div>
             </div>
           </form>

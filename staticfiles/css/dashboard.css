@@ -506,6 +506,14 @@
 }
 /* Responsive */
 @media only screen and (max-width:992px){
+  .profile-link-to-page{
+    top: calc(50% - 12.5px);
+    right: -40px;
+  }
+  .profile-link-to-page img{
+    width: 25px;
+    height: 25px;
+  }
   .container-brand .brands .description-brand{
     column-gap: 0;
     justify-content: space-evenly;
@@ -591,6 +599,16 @@
     font-size: 25px;
   }
   /* Form */
+  .profile-link-to-page{
+    top: calc(50% - 13px);
+    right: -30px;
+    height: 20px;
+    width: 20px;
+  }
+  .profile-link-to-page img{
+    width: 20px;
+    height: 20px;
+  }
   .inputs_2{
     column-gap: 0;
     flex-direction: column;

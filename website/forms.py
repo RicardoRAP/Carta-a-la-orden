@@ -472,6 +472,7 @@ class BrandForm(ModelForm):
   )
   start_schedule = forms.TimeField(
     label = 'Comienzo del Horario:',
+    required = True, 
     widget = forms.TimeInput(
       attrs={
         'id': 'registerStart_schedule',
@@ -485,6 +486,7 @@ class BrandForm(ModelForm):
   )
   end_schedule = forms.TimeField(
     label = 'Final del Horario:',
+    required = True, 
     widget = forms.TimeInput(
       attrs = {
         'id': 'registerEnd_schedule',

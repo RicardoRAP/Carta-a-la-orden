@@ -392,20 +392,20 @@ def RestaurantProfile(request):
               full_address = request.POST.get("full_address")
             )
             profile.save()
-            messages.success(request,"Los cambios se han guardado con exito")
+            messages.success(request,"Los cambios se han guardado con éxito.")
             restaurant.refresh_from_db()
             if (request.FILES.get("profile_img") != None and "restaurants/profile.png" not in str(old_img)):
               os.remove(str(old_img.path))
             redirect("perfil")
           else:
-            messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&' ")
+            messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&'.")
         else:
-          messages.error(request,"Ese correo ya existe")
+          messages.error(request,"Ese correo ya existe.")
       else:
-        messages.error(request,"Ha ocurrido un error")
+        messages.error(request,"Ha ocurrido un error.")
         print(form.errors)
     else:
-      messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario")
+      messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario.")
   photo = str(restaurant.profile_img)
   img = 'None'
   if photo != 'None' and 'restaurant/profile.png' not in photo:
@@ -442,20 +442,6 @@ def RestaurantPreview(request,name_param):
       promos.append([sep,array_dish_img])
     else:
       menus.append([sep,array_dish_img])
-  if request.method == "POST":
-    names = request.POST.get("names")
-    prices = request.POST.get("prices")
-    if names == "" or prices == "":
-      messages.error(request,"No seleccionado ningun platillo")
-    else:
-      params = {
-        'name':name_param,
-        'id':pk_param,
-        'menu_dish':names,
-        'url':request.get_full_path()
-      }
-      new_url = urllib.parse.urlencode(params)
-      return redirect('/pagando/?' + new_url)
   context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
   return render(request,'restaurant/preview.html', context)
 
@@ -581,20 +567,6 @@ def RestaurantBrandPreview(request,name_param,pk_param):
       promos.append([sep,array_dish_img])
     else:
       menus.append([sep,array_dish_img])
-  if request.method == "POST":
-    names = request.POST.get("names")
-    prices = request.POST.get("prices")
-    if names == "" or prices == "":
-      messages.error(request,"No seleccionado ningun platillo")
-    else:
-      params = {
-        'name':name_param,
-        'id':pk_param,
-        'menu_dish':names,
-        'url':request.get_full_path()
-      }
-      new_url = urllib.parse.urlencode(params)
-      return redirect('/pagando/?' + new_url)
   context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
   return render(request,'restaurant/preview.html', context)
 

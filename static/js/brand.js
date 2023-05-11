@@ -1,3 +1,90 @@
+function ValidateBefore() {
+  var valid = validateForm()
+  if (!valid[0]) return showMessage(valid[1])
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  document.getElementById("FormBrand").submit()
+  return false;
+}
+
+function validateForm() {
+  var v, w, x, y, z, i, j, hms, hms2, target, target2
+  var now = new Date()
+  var nowDateTime = now.toISOString()
+  var nowDate = nowDateTime.split('T')[0]
+  x = document.getElementById("FormBrand")
+  y = x.getElementsByTagName("input")
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  for(j = 0; j < y.length; j++){
+    y[j].classList.remove("invalid")
+  }
+  // valida los input del formulario
+  for (i = 0; i <= y.length; i++) {
+    if(i < y.length){
+      if (y[i].value == "" || y[i].value == " ") {
+        y[i].className += " invalid"
+        if (y[i].type != "checkbox" && y[i].name != "brandoffice_set-0-delivery" && y[i].type != "hidden"){
+          return [false,"Uno de los campos está vacío."]
+        }
+      }
+    }
+  }
+  z = x.querySelectorAll("input[type='time']")
+  console.log(z)
+  hms = z[0].value
+  hms2 = z[1].value
+  target = new Date(nowDate + 'T' + hms)
+  target2 = new Date(nowDate + 'T' + hms2)
+  if(target >= target2){
+    z[0].className += " invalid"
+    z[1].className += " invalid"
+    return [false, "El comienzo del horario no puede ser mayor o igual al final del horario."]
+  }
+  w = x.querySelectorAll("input[type='checkbox']")
+  v = x.querySelector("input[name='brandoffice_set-0-delivery']")
+  if (w[0].checked == false && w[1].checked == false && w[2].checked == false && w[3].checked == false){
+    if(w[0].checked == false){
+      w[0].className += " invalid"
+    }
+    if(w[1].checked == false){
+      w[1].className += " invalid"
+    }
+    if(w[2].checked == false){
+      w[2].className += " invalid"
+    }
+    if(w[3].checked == false){
+      w[3].className += " invalid"
+    }
+    return [false, "Marque que tipo de servicio posee."]
+  }else if(w[2].checked || w[3].checked){
+    if(v.value == "" || v.value == " "){
+      v.className += " invalid"
+      return [false, "Indique que tipo de servicio posse."]
+    }
+  }
+  return [true, "Se ha guardado con exito."]
+}
+
+function showMessage(message){
+  var form = document.querySelector("#FormBrand")
+  var lastnode = document.querySelector(".modal-bttn")
+  var p = document.querySelector(".message-error")
+  if (p == null){
+    p = document.createElement("p")
+    p.className = "message-error"
+    p.textContent = message
+    form.insertBefore(p,lastnode)
+  }else{
+    p.textContent = message
+  }
+  return false
+}
+
 try{
   var others_serv = document.querySelectorAll('input.others-serv')
   var others_s = document.querySelector('input#registerDelivery')

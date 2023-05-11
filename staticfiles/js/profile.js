@@ -113,7 +113,7 @@ function validateForm() {
             return [false,"Ingrese una imagen"]
           }
         }else if (y[i].type != "checkbox" && y[i].name != "delivery"){
-          return [false,"Algún campo esta vacío."]
+          return [false,"Uno de los campos está vacío"]
         }
       }
       if(y[i].type == "email"){

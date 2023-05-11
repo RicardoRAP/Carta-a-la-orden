@@ -57,7 +57,7 @@ function validateForm() {
     if(i < y.length){
       if (y[i].value == "" || y[i].value == " ") {
         y[i].className += " invalid"
-        return [false,"Algún campo esta vacío."]
+        return [false,"Uno de los campos está vacío"]
       }
       if(y[i].type == "email"){
         // valida el formato del email
