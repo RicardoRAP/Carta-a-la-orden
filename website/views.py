@@ -275,7 +275,7 @@ def CommensalRegister(request):
 def RestaurantHome(request):
   auth = False
   restaurant = None
-  if request.user.is_authenticated:
+  if request.user.is_authenticated and not request.user.is_superuser:
     auth = True
     form = None
     restaurant = Restaurant.objects.get(id=request.user.id)
@@ -304,6 +304,8 @@ def RestaurantHome(request):
           return redirect('r-inicio-de-sesion')
         else:
           messages.error(request,"Acepte nuestros terminos y condiciones")
+      else:
+        messages.error(request,"{}".format(form.errors))
   context = {"commensal":False, 'auth':auth, 'form':form, 'restaurant':restaurant}
   return render(request,'restaurant/home.html', context)
 
@@ -415,6 +417,52 @@ def RestaurantProfile(request):
 
 @login_required(login_url='r-inicio-de-sesion')
 @allowed_users(allowed_roles=['Restaurant'])
+def RestaurantPreview(request,name_param):
+  principal = Restaurant.objects.get(name=name_param)
+  promos = []
+  menus = []
+  restaurant = principal.brandoffice_set.get(is_restaurant=True)
+  name = restaurant.restaurant.name
+  img = restaurant.restaurant.profile_img
+  delivery = restaurant.delivery
+  pk_param = restaurant.id
+  if delivery == "" or delivery == " ":
+    others = None
+  else:
+    others = True
+  all_menu = Menu.objects.filter(brands__id=pk_param, active=True).distinct()
+  for sep in all_menu:
+    array_dish_img = []
+    for dish in sep.dishes.all().distinct():
+      if sep.promo == True and sep.discount != None:
+        discount = sep.discount / 100
+        price_discount = dish.price - (dish.price * discount)
+      else:
+        price_discount = None
+      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list(dish.imgdish_set.filter(select=True).values_list('img', flat=True))]) 
+    if sep.promo == True:
+      promos.append([sep,array_dish_img])
+    else:
+      menus.append([sep,array_dish_img])
+  if request.method == "POST":
+    names = request.POST.get("names")
+    prices = request.POST.get("prices")
+    if names == "" or prices == "":
+      messages.error(request,"No seleccionado ningun platillo")
+    else:
+      params = {
+        'name':name_param,
+        'id':pk_param,
+        'menu_dish':names,
+        'url':request.get_full_path()
+      }
+      new_url = urllib.parse.urlencode(params)
+      return redirect('/pagando/?' + new_url)
+  context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
+  return render(request,'preview.html', context)
+
+@login_required(login_url='r-inicio-de-sesion')
+@allowed_users(allowed_roles=['Restaurant'])
 def RestaurantBrand(request):
   # Crear Sucursales
   AddBrandFormSet = inlineformset_factory(
@@ -507,6 +555,50 @@ def RestaurantUpdateBrand(request, pk_param):
       return redirect('sucursales')
   context = {"commensal":False, 'update':True, 'tab':'brand', 'form':form, 'show':show, 'full':full,'item':brand}
   return render(request,'restaurant/update-brand-office.html', context)
+
+@login_required(login_url='r-inicio-de-sesion')
+@allowed_users(allowed_roles=['Restaurant'])
+def RestaurantBrandPreview(request,name_param,pk_param):
+  promos = []
+  menus = []
+  restaurant = BrandOffice.objects.get(id=pk_param)
+  name = restaurant.restaurant.name
+  img = restaurant.restaurant.profile_img
+  delivery = restaurant.delivery
+  if delivery == "" or delivery == " ":
+    others = None
+  else:
+    others = True
+  all_menu = Menu.objects.filter(brands__id=pk_param, active=True).distinct()
+  for sep in all_menu:
+    array_dish_img = []
+    for dish in sep.dishes.all().distinct():
+      if sep.promo == True and sep.discount != None:
+        discount = sep.discount / 100
+        price_discount = dish.price - (dish.price * discount)
+      else:
+        price_discount = None
+      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list(dish.imgdish_set.filter(select=True).values_list('img', flat=True))]) 
+    if sep.promo == True:
+      promos.append([sep,array_dish_img])
+    else:
+      menus.append([sep,array_dish_img])
+  if request.method == "POST":
+    names = request.POST.get("names")
+    prices = request.POST.get("prices")
+    if names == "" or prices == "":
+      messages.error(request,"No seleccionado ningun platillo")
+    else:
+      params = {
+        'name':name_param,
+        'id':pk_param,
+        'menu_dish':names,
+        'url':request.get_full_path()
+      }
+      new_url = urllib.parse.urlencode(params)
+      return redirect('/pagando/?' + new_url)
+  context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
+  return render(request,'preview.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')
 @allowed_users(allowed_roles=['Restaurant'])

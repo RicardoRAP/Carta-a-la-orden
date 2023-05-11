@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" crossorigin="anonymous">
+  <link type="application/octet-stream" href="{% static 'bootstrap/css/bootstrap.min.css.map' %}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/font.css' %}" >
+  <link rel="stylesheet" type="text/css" href="{% static '/css/general.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/header.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/footer.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static '/css/restaurant.css' %}">
+  <link rel="shortcut icon" type="image/png" href="{% static '/img/favicon.png' %}"/>
+  <title>Vista Previa - {{name}}</title>
+</head>
+<body>
+  <div class="page-container">
+    {% include 'header.html' %}
+    <div class="container-fluid">
+      <div id="Hero">
+        <div class="d-flex justify-content-center h-100 gap-5">
+          <div class="logo">
+            <img src="{% static img %}" width="150" height="150">
+          </div>
+          <div class="w-100 restaurant_info">
+            <h2 class="restaurant_name">{{name}}</h2>
+            <div class="schedule">Horario: {{restaurant.start_schedule}} - {{restaurant.end_schedule}}</div>
+            <div class="tags-restaurant">
+              {% if restaurant.pick_up != None %}Pick-up{% endif %}{% if restaurant.my_delivery != None and restaurant.pick_up != None %}, Delivery propio{% endif %}{% if restaurant.my_delivery != None and restaurant.pick_up == None %}Delivery propio{% endif %}{% if restaurant.external_delivery != None or restaurant.others_services != None %}{% if restaurant.my_delivery != None or restaurant.pick_up != None %}{% if others != None %}, {{restaurant.delivery}}{% endif %}{% else %}{{restaurant.delivery}}{% endif %}{% endif %}
+            </div>
+            <div class="address">Ubicación: {{restaurant.full_address}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="strike">
+        <div class="strike-container d-flex gap-3">
+          <div class="sidebar"></div>
+          <div class="menus">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div class="list_menu">
+                {% for promo in promos %}
+                <div class="item-menu">
+                  <div class="title_menu">
+                    <h4>{{promo.0.menu_name}}</h4>
+                  </div>
+                  <div class="img-promo">
+                    <img src="{% static promo.0.imagen_promo %}" alt="" srcset="" >
+                  </div>
+                  <div class="list_dishes">
+                    {% for dish in promo.1 %}
+                    <div class="item-dish">
+                      <a onclick='ShowModal(this,"{{dish.0.dish_name}}", "{{dish.0.tags}}", "{{dish.0.description}}", "{{dish.1}}", "{{dish.0.price}}", "{{dish.3}}", "{{promo.0.discount}}", "{{promo.0.id}}_{{dish.0.id}}")'>
+                        <div class="dish_img">
+                          <img src="{% static dish.2.img %}" alt="" srcset="" width="150" height="150">
+                        </div>
+                        <div class="dish_info">
+                          <h5 class="title-dish">{{dish.0.dish_name}}</h5>
+                          <p class="description">{{dish.0.description}}</p>
+                          <p class="price">{% if dish.1 != None %}{{dish.1|floatformat:"-2"}}$ <span class="discount">{{dish.0.price|floatformat:"-2"}}$</span>{% else %}{{dish.0.price|floatformat:"-2"}}${% endif %}</p>
+                        </div>
+                      </a>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+                {% for menu in menus %}
+                <div class="item-menu">
+                  <div class="title_menu">
+                    <h4>{{menu.0.menu_name}}</h4>
+                  </div>
+                  <div class="list_dishes">
+                    {% for dish in menu.1 %}
+                    <div class="item-dish">
+                      <a onclick='ShowModal(this,"{{dish.0.dish_name}}", "{{dish.0.tags}}", "{{dish.0.description}}", "{{dish.1}}", "{{dish.0.price}}", "{{dish.3}}", "{{menu.0.discount}}", "{{menu.0.id}}_{{dish.0.id}}")'>
+                        <div class="dish_img">
+                          <img src="{% static dish.2.img %}" alt="" srcset="" width="150" height="150">
+                        </div>
+                        <div class="dish_info">
+                          <h5 class="title-dish">{{dish.0.dish_name}}</h5>
+                          <p class="description">{{dish.0.description}}</p>
+                          <p class="price">{{dish.0.price|floatformat:"-2"}}$</p>
+                        </div>
+                      </a>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <input type="text" id="Names" name="names" hidden>
+              <div id="Pay" hidden>
+                <div class="position-relative">
+                  <input type="submit" name="Checkout" class="btn" value="">
+                  <span id="Count_dishes">0</span>
+                </div>
+              </div>         
+            </form>
+          </div>
+          <div class="checkout"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="DishModal" tabindex="-1" aria-labelledby="DishModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-3" id="DishModalLabel"></h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="carousel position-relative" id="Carousel_imgs">
+            <div id="carouselIndicators" class="carousel slide carousel-dark" data-bs-ride="true">
+              <div class="carousel-indicators">
+              </div>
+              <div class="carousel-inner">
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+              </button>
+            </div>
+            <div class="offer">
+              <span></span>
+            </div>
+          </div>
+          <div id="ModalPrice"></div>
+          <div id="ModalDescription"></div>
+          <div id="ModalTags"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="AddCart">Añadir a la cuenta</button>
+          <button type="button" class="btn btn-danger" id="RemoveCart" hidden>Sacar de la cuenta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<footer>
+  {% include 'footer.html' %}
+  <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</footer>
+</html>

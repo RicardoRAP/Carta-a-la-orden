@@ -21,9 +21,11 @@ urlpatterns = [
   path('afiliacion/inicio-de-sesion/', views.RestaurantLogin, name="r-inicio-de-sesion"), # Url de la pagina de Inicio de sesión de los comensales
   path('cerrar-sesion/', views.Logout, name="cerrar-sesion"), # Url para cerrar sesion
   path('perfil/', views.RestaurantProfile, name="perfil"), # Url de la pagina del perfil del restaurante
+  path('vista-previa/<str:name_param>/', views.RestaurantPreview, name="vista-sede-principal"), #Vista previa de la pagina de la sede principal
   
   path('perfil/sucursales/', views.RestaurantBrand, name="sucursales"), # Url de la pagina del las sucursales del restaurante
   path('perfil/sucursales/<str:pk_param>/', views.RestaurantUpdateBrand, name="editar-sucursal"), # Url de la pagina para editar una sucursal del restaurante
+  path('vista-previa/<str:name_param>/<str:pk_param>/', views.RestaurantBrandPreview, name="vista-sucursal"), # Vista previa de la pagina de la sucursal
 
   path('perfil/menus/', views.RestaurantMenu, name="menus"), # Url de la pagina del las menus del restaurante
   path('perfil/menus/<str:pk_param>/', views.RestaurantUpdateMenu, name="editar-menu"), # Url de la pagina para editar un menu del restaurante
