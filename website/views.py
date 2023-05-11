@@ -335,10 +335,10 @@ def Logout(request):
   group = request.user.groups.all()
   logout(request)
   print(group)
-  if 'Restaurant' in group[0].name:
-    return redirect('afiliacion')
-  else:
-    return redirect('home')
+  if len(group) >= 1:
+    if 'Restaurant' in group[0].name:
+      return redirect('afiliacion')
+  return redirect('home')
 
 @login_required(login_url='r-inicio-de-sesion')
 @allowed_users(allowed_roles=['Restaurant'])
