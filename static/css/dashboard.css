@@ -521,6 +521,17 @@
     flex: 1 1 50%;
     width: 50%;
   }
+  .edit img{
+    width: 25px;
+    height: 25px;
+  }
+  .link-to-page {
+    right: 35px;
+  }
+  .link-to-page img{
+    width: 25px;
+    height: 25px;
+  }
 }
 @media only screen and (max-width:768px){
   /* html{
@@ -622,6 +633,10 @@
   }
   .modal-body #Pricing .col-lg-4 {
     width: calc(50% - 10px);
+  }
+  .link-to-page {
+    top: 35px;
+    right: 0;
   }
   /* Menu */
   .container-menu .menu{

@@ -304,8 +304,6 @@ def RestaurantHome(request):
           return redirect('r-inicio-de-sesion')
         else:
           messages.error(request,"Acepte nuestros terminos y condiciones")
-      else:
-        messages.error(request,"{}".format(form.errors))
   context = {"commensal":False, 'auth':auth, 'form':form, 'restaurant':restaurant}
   return render(request,'restaurant/home.html', context)
 
@@ -459,7 +457,7 @@ def RestaurantPreview(request,name_param):
       new_url = urllib.parse.urlencode(params)
       return redirect('/pagando/?' + new_url)
   context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
-  return render(request,'preview.html', context)
+  return render(request,'restaurant/preview.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')
 @allowed_users(allowed_roles=['Restaurant'])
@@ -598,7 +596,7 @@ def RestaurantBrandPreview(request,name_param,pk_param):
       new_url = urllib.parse.urlencode(params)
       return redirect('/pagando/?' + new_url)
   context = {"commensal":True, 'restaurant':restaurant, 'name':name, 'img':img, 'others':others,'menus':menus, 'promos':promos}
-  return render(request,'preview.html', context)
+  return render(request,'restaurant/preview.html', context)
 
 @login_required(login_url='r-inicio-de-sesion')
 @allowed_users(allowed_roles=['Restaurant'])

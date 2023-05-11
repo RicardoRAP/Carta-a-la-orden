@@ -101,6 +101,8 @@
                 </div>
                 {% if "email" in form.errors %}
                   <p class="message-error">Ese email ya existe</p>
+                {% elif "name" in form.errors %}
+                  <p class="message-error">Ya existe un restaurante con ese nombre</p>
                 {% endif %}
                 {% for message in messages %}
                   <p class="message-{{message.tags}}">{{message}}</p>
