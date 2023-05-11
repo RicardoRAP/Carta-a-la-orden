@@ -235,6 +235,11 @@
   top: 0;
   right: 0;
 }
+.link-to-page{
+  top: 0;
+  right: 50px;
+  z-index: 0;
+}
 .add-brand .content-brand > div{
   row-gap: 12px;
 }

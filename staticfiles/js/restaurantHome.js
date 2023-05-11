@@ -29,16 +29,15 @@ function nextPrev(n) {
     p.remove()
   }catch{}
   if (currentTab >= x.length) {
-    var pass = document.querySelectorAll(".input-pass");
-    pass.forEach(elem => {
-      if (elem.type === "text") {
-        elem.type = "password";
-      }
-    })
+    var pass = x[currentTab-1].querySelectorAll("input.input-pass")
+    for(var j = 0; j < pass.length; j++){
+      pass[j].type = "password";
+    }
     document.getElementById("regForm").submit()
     return false;
+  }else{
+    showTab(currentTab)
   }
-  showTab(currentTab)
 }
 
 function validateForm() {
