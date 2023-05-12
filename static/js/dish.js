@@ -10,7 +10,7 @@ function ValidateBefore() {
 }
 
 function validateForm() {
-  var v, w, x, y, z, i, j, img
+  var x, y, z, i, j, img
   x = document.getElementById("DishForm")
   y = x.getElementsByTagName("input")
   z = x.getElementsByTagName("textarea")
@@ -37,6 +37,10 @@ function validateForm() {
           y[i].className += " invalid"
           return [false,"Uno de los campos está vacío."]
         }
+      }
+      if (y[i].type == "file" && y[i].files.length < 2) {
+        img.parentNode.className += " invalid"
+        return [false,"Ingrese por lo menos 2 imagenes."]
       }
     }else{
       if (z[0].value == "") {

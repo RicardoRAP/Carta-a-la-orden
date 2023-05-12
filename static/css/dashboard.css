@@ -6,11 +6,11 @@
   position: sticky;
   top: 81px;
   max-width: 400px;
-  flex: 1 1 50%
+  flex: 1 1 50%;
 }
 #Sidebar .sidebar-content{
   padding-top: 28px;
-  min-height: calc(100vh - 81px);
+  min-height: calc(100vh - 68px);
 }
 #Sidebar .profile-img .img{
   border: 1px solid #000;
@@ -488,7 +488,7 @@
   background-color: rgba(72, 212, 255, 0.2);
   cursor: pointer;
 }
-.register_multiple_imgs .icon-upload-imgs.invalid{
+.register_multiple_imgs .icon-upload-imgs.invalid, .register_menu_img .icon-upload-imgs.invalid, .register_promo_img .icon-upload-imgs.invalid{
   background-color: rgba(255, 0, 0, 0.2);
   border-color: rgba(255, 0, 0, 0.5);
 }

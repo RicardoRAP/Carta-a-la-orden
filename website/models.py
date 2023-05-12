@@ -137,7 +137,7 @@ class Menu(models.Model):
     menu_name = models.CharField(max_length=200, null=True)
     promo = models.BooleanField(default=False, null=True)
     discount = models.FloatField(validators=[MinValueValidator(0),MaxValueValidator(100)], blank=True, null=True)
-    imagen = models.ImageField(upload_to=img_upload_to, null=True)
+    imagen = models.ImageField(default='icon/front-page.png', upload_to=img_upload_to, blank=True, null=True)
     imagen_promo = models.ImageField(upload_to=img_upload_to, blank=True, null=True)
     active = models.BooleanField(default=False, null=True, verbose_name='Publicar menú')
 

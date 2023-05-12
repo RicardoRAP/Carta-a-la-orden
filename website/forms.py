@@ -830,8 +830,8 @@ class MenuForm(ModelForm):
     )
   )
   imagen = forms.ImageField(
-    required = True, 
-    help_text = 'Ingresa una imagen',
+    required = False, 
+    help_text = 'Ingrese la imagen de la portada',
     widget = forms.FileInput(
       attrs = {
         'type': 'file',
@@ -915,8 +915,8 @@ class PromoForm(ModelForm):
     help_text = "Selecciona por lo menos una sucursal"
   )
   imagen = forms.ImageField(
-    required = True, 
-    help_text = 'Ingresa una imagen para el perfil de la promoción',
+    required = False, 
+    help_text = 'Ingrese la imagen de la portada',
     widget = forms.FileInput(
       attrs = {
         'type': 'file',
@@ -927,7 +927,7 @@ class PromoForm(ModelForm):
   )
   imagen_promo = forms.ImageField(
     required = True, 
-    help_text = 'Ingresa la imagen de la promoción',
+    help_text = 'Ingrese la imagen de la promoción que veran los comensales',
     widget = forms.FileInput(
       attrs = {
         'type': 'file',

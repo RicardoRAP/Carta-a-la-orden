@@ -678,7 +678,8 @@ def RestaurantUpdateDish(request, pk_param):
   all_dish_imgs = dish.imgdish_set.all()
   dish_imgs = all_dish_imgs.filter(select=True)
   if request.method == 'POST':
-    if 'UpdateImg' in request.POST:
+    print(request.POST)
+    if 'updateSelect' in request.POST:
       update_img = request.POST.get("updateSelect")
       newselect = str(update_img)
       newselect = newselect.split(",")
@@ -695,7 +696,7 @@ def RestaurantUpdateDish(request, pk_param):
         redirect('platillos/' + str(pk_param) + "/")
       else:
         messages.error(request,"Debe seleccionar por lo menos 2 imagenes","error_img")
-    if 'UploadImg' in request.POST:
+    if 'upload-img' in request.POST:
       files = request.FILES.getlist("upload-img")
       if len(files) > 0:
         all_img_order = all_dish_imgs.order_by('-order')
@@ -708,7 +709,7 @@ def RestaurantUpdateDish(request, pk_param):
         messages.success(request,"Se han montado y seleccionado las imagenes exitosamente")
       else:
         messages.error(request,"Debe seleccionar por lo menos una imagen","error_upload_img")
-    if 'Update' in request.POST:
+    if 'dish_name' in request.POST:
       form = DishForm(request.POST, instance=dish)
       if form.is_valid():
         f = form.save(commit=False)

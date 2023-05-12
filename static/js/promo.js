@@ -1,3 +1,78 @@
+function ValidateBefore() {
+  var valid = validateForm()
+  if (!valid[0]) return showMessage(valid[1])
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  document.getElementById("PromoForm").submit()
+  return false;
+}
+
+function validateForm() {
+  var x, y, z, i, j, img
+  x = document.getElementById("PromoForm")
+  y = x.getElementsByTagName("input")
+  z = x.getElementsByTagName("select")
+  img = document.querySelectorAll(".icon-upload-imgs img")
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  for(j = 0; j < y.length; j++){
+    y[j].classList.remove("invalid")
+    if(y[j].type == "file"){
+      img[0].parentNode.classList.remove("invalid")
+      img[1].parentNode.classList.remove("invalid")
+    }
+  }
+  z[0].classList.remove("invalid")
+  z[1].classList.remove("invalid")
+  // valida los input por cada pestaña del formulario
+  for (i = 0; i <= y.length; i++) {
+    if(i < y.length){
+      if (y[i].value == "" || y[i].value == " ") {
+        if(y[i].type == "file"){
+          img.parentNode.className += " invalid"
+          if (y[i].id == "Menu_img"){
+            return [false,"Ingrese la imagen de la portada."]
+          }else{
+            return [false,"Ingrese la imagen de la promoción que veran los comensales."]
+          }
+        }else if (y[i].type != "checkbox" && y[i].name != "tags" && y[i].name != "amount"){
+          y[i].className += " invalid"
+          return [false,"Uno de los campos está vacío."]
+        }
+      }
+      if (y[i].type == "file" && y[i].files.length < 2) {
+        img.parentNode.className += " invalid"
+        return [false,"Ingrese por lo menos 2 imagenes."]
+      }
+    }else{
+      if (z[0].value == "") {
+        z[0].className += " invalid"
+        return [false, "De una descripción del platillo."]
+      }
+    } 
+  }
+  return [true, "Se ha guardado con exito."]
+}
+
+function showMessage(message){
+  var form = document.querySelector("#PromoForm")
+  var lastnode = document.querySelector(".modal-bttn")
+  var p = document.querySelector(".message-error")
+  if (p == null){
+    p = document.createElement("p")
+    p.className = "message-error"
+    p.textContent = message
+    form.insertBefore(p,lastnode)
+  }else{
+    p.textContent = message
+  }
+  return false
+}
+
 var input_front_img = document.querySelector('#Menu_img')
 var input_promo_img = document.querySelector('#Menu_promo_img')
 var target1 = document.querySelector('.front-img .form-promo-img .icon-upload-imgs')

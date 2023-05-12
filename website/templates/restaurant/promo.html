@@ -71,7 +71,7 @@
         <h2 class="modal-title fs-2 text-center " id="AgregarPromoLabel">Nueva Promoción</h2>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" class="position-relative needs-validation" onsubmit="return validateForm()" enctype="multipart/form-data">
+        <form action="" method="POST" class="position-relative needs-validation" onsubmit="return validateForm()" enctype="multipart/form-data" id="PromoForm">
           {% csrf_token %}
           <div id="Add-menu-form" class="d-flex justify-content-center flex-column">
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
@@ -155,7 +155,7 @@
           <div class="modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
               <button type="button" class="btn btn-close-modal" data-bs-dismiss="modal">Cancelar</button>
-              <input type="submit" class="btn btn-accept" value="Aceptar">
+              <button type="button" class="btn btn-accept" value="Aceptar" onclick="ValidateBefore()">Aceptar</button>
             </div>
           </div>
         </form>

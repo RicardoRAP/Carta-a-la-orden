@@ -8,13 +8,13 @@
         <h2 class="modal-title fs-2 text-center " id="EditarPlatilloLabel">Editar Platillo</h2>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" class="position-relative" enctype="multipart/form-data">
+        <form action="" method="POST" class="position-relative" enctype="multipart/form-data" id="DishForm">
           {% csrf_token %}
           <div id="Update-dish-form" class="d-flex justify-content-center flex-column">
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Nombre del platillo -->
               <div>
-                <label class="form-label" for="saveName">Ingrese el nombre del platillo:</label>
+                <label class="form-label" for="registerName">Ingrese el nombre del platillo:</label>
                 {{form.dish_name}}
               </div>
               <div></div>
@@ -22,14 +22,14 @@
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Descripcion -->
               <div>
-                <label class="form-label" for="saveDescription">Descripción del platillo:</label>
+                <label class="form-label" for="registerDescription">Descripción del platillo:</label>
                 {{form.description}}
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Precio -->
               <div>
-                <label class="form-label" for="saveDescription">Precio del platillo:</label>
+                <label class="form-label" for="registerPrice">Precio del platillo:</label>
                 {{form.price}}
               </div>
               <div></div>
@@ -37,14 +37,14 @@
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Etiquetas -->
               <div>
-                <label class="form-label" for="saveDescription">Etiquetas:</label>
+                <label class="form-label" for="registerTags">Etiquetas:</label>
                 {{form.tags}}
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
               <!-- Cantidad -->
               <div>
-                <label class="form-label" for="saveDescription">Cantidad disponible:</label>
+                <label class="form-label" for="registerAmount">Cantidad disponible:</label>
                 {{form.amount}}
               </div>
               <div></div>
@@ -60,7 +60,7 @@
             </div>
             <div class="form-outline mb-3">
               <p class="form-label">Imagenes:</p>
-              <label for="formDish_img" class="form-dish-img {% if imgs == 'None' %}none-img{% endif %} d-flex align-items-center justify-content-md-start">
+              <p for="formDish_img" class="form-dish-img {% if imgs == 'None' %}none-img{% endif %} d-flex align-items-center justify-content-md-start">
                 <div class="position-relative d-flex align-items-center column-gap-1 row-gap-1 flex-wrap">
                   {% for img in dish_imgs %}
                     <div class="position-relative">
@@ -71,7 +71,7 @@
                     </div>
                   {% endfor %}
                 </div>
-              </label>
+              </p>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center">
               <!-- Disparador -->
@@ -82,14 +82,14 @@
             </div>
           </div>
           {% for message in messages %}
-            {% if message.tags != "error_img" and message.tags != "error_upload_img" %}
+            {% if message.tags != "error_img error" and message.tags != "error_upload_img error" %}
               <p class="message-{{message.tags}}">{{message}}</p>
             {% endif %}
           {% endfor %}
           <div class="modal-bttn update-modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
               <a href="{% url 'platillos' %}" class="btn btn-close-modal">Cancelar</a>
-              <input type="submit" class="btn btn-accept" value="Aceptar" name="Update">
+              <button type="button" class="btn btn-accept" onclick="ValidateBefore()" name="Update">Aceptar</button>
             </div>
           </div>
         </form>
@@ -140,7 +140,7 @@
         <div class="tab-content" id="NavImgsContent">
           <!-- Selccionar Imagenes -->
           <div class="tab-pane fade show active" id="gallery" role="tabpanel" aria-labelledby="gallery-tab">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data" id="DishImgUpdateForm">
               {% csrf_token %}
               <div class="gallery d-flex justify-content-md-start align-items-center column-gap-2 row-gap-2 flex-wrap p-4">
                 {% for edit_img in all_imgs %}
@@ -153,36 +153,35 @@
                 <input type="text" name="updateSelect" class="form-control d-none">
               </div>
               {% for message in messages %}
-                {% if message.tags == "error_img" %}
+                {% if message.tags == "error_img error" %}
                   <p class="message-error">{{message}}</p>
                 {% endif %}
               {% endfor %}
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <input type="submit" class="btn btn-modal-accept" value="Actualizar" name="UpdateImg">
+                <button type="button" class="btn btn-modal-accept" name="UpdateImg" onclick="ValidateUpdateImgBefore()">Actualizar</button>
               </div>
             </form>
           </div>
           <!-- Subir imagenes -->
           <div class="tab-pane fade" id="upload" role="tabpanel" aria-labelledby="Upload-tab">
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data" id="DishImgUploadForm">
               {% csrf_token %}
               <div class="upload d-flex justify-content-center align-items-center column-gap-2 row-gap-2 p-4 flex-column">
-                <label for="formUpload_img" class="form-upload-img d-flex justify-content-center align-items-center">
+                <label for="upload-img" class="form-upload-img d-flex justify-content-center align-items-center">
                   <input type="file" id="upload-img" name="upload-img" accept="image/*" multiple>
                 </label>
                 <div id="preview-imgs" class="d-flex justify-content-center align-items-center column-gap-2 row-gap-2 flex-wrap">
                 </div>
               </div>
-
               {% for message in messages %}
-                {% if message.tags == "error_upload_img" %}
+                {% if message.tags == "error_upload_img error" %}
                   <p class="message-error">{{message}}</p>
                 {% endif %}
               {% endfor %}
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <input type="submit" class="btn btn-modal-accept" value="Subir" name="UploadImg">
+                <button type="button" class="btn btn-modal-accept" name="UploadImg" onclick="ValidateUploadImgBefore()">Subir</button>
               </div>
             </form>
           </div>
