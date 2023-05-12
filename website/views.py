@@ -676,6 +676,7 @@ def RestaurantDish(request):
 @allowed_users(allowed_roles=['Restaurant'])
 def RestaurantUpdateDish(request, pk_param):
   # Editar sucursal
+  print(request.path)
   dish = Dish.objects.get(id=pk_param)
   form = DishForm(instance=dish)
   all_dish_imgs = dish.imgdish_set.all()
@@ -743,7 +744,11 @@ def RestaurantUpdateDish(request, pk_param):
               os.remove(str(old_img.path))
       dish.delete()
       time.sleep(1)
-      shutil.rmtree(os.path.join("./static/img/restaurants/", str(email) + '/' + str(folder) + '/'))
+      folder_path = os.path.join("./static/img/restaurants/", str(email) + '/' + str(folder) + '/')
+      if os.path.isdir(folder_path):
+        list_dir = os.listdir(folder_path)
+        print(list_dir)
+      shutil.rmtree(os.path.join(folder_path))
       time.sleep(1)
       return redirect('platillos')
   context = {"commensal":False, 'update':True, 'tab':'dish', 'form':form,'dish_imgs':dish_imgs,'item':dish, 'all_imgs':all_dish_imgs}
