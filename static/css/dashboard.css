@@ -440,12 +440,13 @@
   letter-spacing: 0.04em;
   color: #000;
   margin-bottom: 15px;
+  -webkit-line-clamp: 1;
 }
 .description-dish, .tags-dish, .price-dish{
   font-family: 'Roboto', sans-serif;
   color: #000;
 }
-.description-dish, .tags-dish{
+.title-dish, .description-dish, .tags-dish{
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

@@ -6,11 +6,11 @@
   position: sticky;
   top: 81px;
   max-width: 400px;
-  flex: 1 1 50%
+  flex: 1 1 50%;
 }
 #Sidebar .sidebar-content{
   padding-top: 28px;
-  min-height: calc(100vh - 81px);
+  min-height: calc(100vh - 68px);
 }
 #Sidebar .profile-img .img{
   border: 1px solid #000;
@@ -258,6 +258,10 @@
   color: #000;
   text-align: center;
 }
+.brand-link-to-page{
+  top: calc(50% - 15px);
+  right: 0;
+}
 .icon-add{
   width: 50px;
   height: 50px;
@@ -436,12 +440,13 @@
   letter-spacing: 0.04em;
   color: #000;
   margin-bottom: 15px;
+  -webkit-line-clamp: 1;
 }
 .description-dish, .tags-dish, .price-dish{
   font-family: 'Roboto', sans-serif;
   color: #000;
 }
-.description-dish, .tags-dish{
+.title-dish, .description-dish, .tags-dish{
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -483,6 +488,10 @@
   border: 1px dashed #48d4ff;
   background-color: rgba(72, 212, 255, 0.2);
   cursor: pointer;
+}
+.register_multiple_imgs .icon-upload-imgs.invalid, .register_menu_img .icon-upload-imgs.invalid, .register_promo_img .icon-upload-imgs.invalid{
+  background-color: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.5);
 }
 .form-multiple-img, .form-menu-img, .form-promo-img{
   display: flex;
@@ -528,6 +537,13 @@
   }
   .container-brand .brands .address-brand p, .container-brand .brands .name-brand p{
     max-width: 150px;
+  }
+  .brand-link-to-page{
+    top: calc(50% - 12.5px);
+  }
+  .brand-link-to-page img{
+    width: 25px;
+    height: 25px;
   }
   .container-dishes .dishes > a{
     flex: 1 1 50%;
@@ -659,6 +675,15 @@
   .link-to-page {
     top: 35px;
     right: 0;
+  }
+  .brand-link-to-page{
+    top: calc(50% - 13px);
+    height: 20px;
+    width: 20px;
+  }
+  .brand-link-to-page img{
+    width: 20px;
+    height: 20px;
   }
   /* Menu */
   .container-menu .menu{

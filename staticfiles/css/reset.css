@@ -75,7 +75,7 @@ input:focus, input:active, input:hover{
   height: 50px;
   font-family: 'Roboto';
   font-weight: 700;
-  font-size: 13px;
+  font-size: 1.2rem;
   line-height: 15px;
   letter-spacing: 0.04em;
   text-transform: uppercase;

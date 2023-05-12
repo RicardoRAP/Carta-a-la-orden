@@ -628,10 +628,10 @@ def RestaurantUpdateMenu(request, pk_param):
       else:
         messages.error(request,"Error")
     elif 'Delete' in request.POST:
-      old_img = str(menu.imagen.path)
+      old_img = menu.imagen
       menu.delete()
-      if (old_img != None and 'icon/front-page.png' not in old_img):
-        os.remove(old_img)
+      if (old_img != None and 'icon/front-page.png' not in str(old_img)):
+        os.remove(str(old_img.path))
       time.sleep(1)
       return redirect('menus')
   context = {"commensal":False, 'update':True, 'tab':'menu', 'form':form, 'item':menu}
@@ -681,7 +681,6 @@ def RestaurantUpdateDish(request, pk_param):
   all_dish_imgs = dish.imgdish_set.all()
   dish_imgs = all_dish_imgs.filter(select=True)
   if request.method == 'POST':
-    print(request.POST)
     if 'updateSelect' in request.POST:
       update_img = request.POST.get("updateSelect")
       newselect = str(update_img)
@@ -725,10 +724,26 @@ def RestaurantUpdateDish(request, pk_param):
     elif 'Delete' in request.POST:
       folder = dish_imgs[0].folder
       email = Restaurant.objects.get(id=dish.restaurant.id).email
-      menus_dish = MenuDish.objects.get(dish=pk_param)
-      print(menus_dish)
+      menus_dish = MenuDish.objects.filter(dish=pk_param)
+      m = []
+      if len(menus_dish) > 0:
+        for menu_d in menus_dish:
+          m.append(menu_d.menu.id)
+        menus_dishes = MenuDish.objects.filter(menu__in=m).order_by("menu")
+        exclude_dish = menus_dishes.exclude(dish=pk_param)
+        e = []
+        for exclu_dish in exclude_dish:
+          e.append(exclu_dish.menu.id)
+        for m_d in menus_dishes:
+          if m_d not in exclude_dish and m_d.menu.id not in e:
+            menu_delete = dish.restaurant.menu_set.get(id=m_d.menu.id)
+            old_img = menu_delete.imagen
+            menu_delete.delete()
+            if (old_img != None and 'icon/front-page.png' not in str(old_img)):
+              os.remove(str(old_img.path))
       dish.delete()
-      shutil.rmtree("./static/img/restaurants/" + str(email) + '/' + str(folder) + '/')
+      time.sleep(1)
+      shutil.rmtree(os.path.join("./static/img/restaurants/", str(email) + '/' + str(folder) + '/'))
       time.sleep(1)
       return redirect('platillos')
   context = {"commensal":False, 'update':True, 'tab':'dish', 'form':form,'dish_imgs':dish_imgs,'item':dish, 'all_imgs':all_dish_imgs}
@@ -794,11 +809,11 @@ def RestaurantUpdatePromo(request, pk_param):
       else:
         messages.error(request,"Error")
     elif 'Delete' in request.POST:
-      old_img = str(promo.imagen.path)
+      old_img = promo.imagen
       old_promo_img = str(promo.imagen_promo.path)
       promo.delete()
-      if (old_img != None and 'icon/front-page.png' not in old_img):
-        os.remove(old_img)
+      if (old_img != None and 'icon/front-page.png' not in str(old_img)):
+        os.remove(str(old_img.path))
       if (old_promo_img != None):
         os.remove(old_promo_img)
       time.sleep(1)

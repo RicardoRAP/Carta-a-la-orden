@@ -35,7 +35,6 @@ function validateForm() {
     }
   }
   z = x.querySelectorAll("input[type='time']")
-  console.log(z)
   hms = z[0].value
   hms2 = z[1].value
   target = new Date(nowDate + 'T' + hms)
