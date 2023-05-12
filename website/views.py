@@ -582,15 +582,18 @@ def RestaurantMenu(request):
     form = MenuForm(request.user.id, data=request.POST, files=request.FILES)
     if form.is_valid:
       select_brand = request.POST.getlist("brands")
+      img = request.FILES.get('imagen')
       if len(select_brand) > 0:
         f = form.save(commit=False)
         f.restaurant = restaurant
+        if img != None:
+          f.imagen = img
         f.save()
         form.save_m2m()
         restaurant.refresh_from_db()
         return redirect('menus')
       else:
-        messages.error(request,"Selecione una sucursal o la sede principal")
+        messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
     else:
       messages.error(request,form.errors)
   else:
@@ -610,7 +613,7 @@ def RestaurantUpdateMenu(request, pk_param):
   print()
   form = MenuForm(restaurant, instance=menu)
   if request.method == 'POST':
-    if 'Update' in request.POST:
+    if 'menu_name' in request.POST:
       form = MenuForm(restaurant, data=request.POST, files=request.FILES, instance=menu)
       if form.is_valid:
         select_brand = request.POST.getlist("brands")
@@ -621,13 +624,13 @@ def RestaurantUpdateMenu(request, pk_param):
             os.remove(old_img)
           return redirect('menus')
         else:
-          messages.error(request,"Selecione una sucursal o la sede principal")
+          messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
       else:
         messages.error(request,"Error")
     elif 'Delete' in request.POST:
       old_img = str(menu.imagen.path)
       menu.delete()
-      if (old_img != None):
+      if (old_img != None and 'icon/front-page.png' not in old_img):
         os.remove(old_img)
       time.sleep(1)
       return redirect('menus')
@@ -722,6 +725,8 @@ def RestaurantUpdateDish(request, pk_param):
     elif 'Delete' in request.POST:
       folder = dish_imgs[0].folder
       email = Restaurant.objects.get(id=dish.restaurant.id).email
+      menus_dish = MenuDish.objects.get(dish=pk_param)
+      print(menus_dish)
       dish.delete()
       shutil.rmtree("./static/img/restaurants/" + str(email) + '/' + str(folder) + '/')
       time.sleep(1)
@@ -737,7 +742,7 @@ def RestaurantPromo(request):
   dishes = restaurant.dish_set.all()
   if len(dishes) > 0:
     alarm = "off"
-  # Crear Menu
+  # Crear Promo
   if request.method == 'POST':
     form = PromoForm(request.user.id, data=request.POST, files=request.FILES)
     if form.is_valid:
@@ -748,14 +753,15 @@ def RestaurantPromo(request):
         f = form.save(commit=False)
         f.restaurant = restaurant
         f.promo = True
-        f.imagen = img
+        if img != None:
+          f.imagen = img
         f.imagen_promo = img_promo
         f.save()
         form.save_m2m()
         restaurant.refresh_from_db()
         return redirect('promociones')
       else:
-        messages.error(request,"Selecione una sucursal o la sede principal")
+        messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
     else:
       messages.error(request,form.errors)
   else:
@@ -773,7 +779,8 @@ def RestaurantUpdatePromo(request, pk_param):
   restaurant = promo.restaurant
   # Editar Promo
   if request.method == 'POST':
-    if 'Update' in request.POST:
+    print(request.POST)
+    if 'menu_name' in request.POST:
       form = PromoForm(restaurant, request.POST, request.FILES, instance=promo)
       if form.is_valid:
         old_img = str(promo.imagen.path)
@@ -790,7 +797,7 @@ def RestaurantUpdatePromo(request, pk_param):
       old_img = str(promo.imagen.path)
       old_promo_img = str(promo.imagen_promo.path)
       promo.delete()
-      if (old_img != None):
+      if (old_img != None and 'icon/front-page.png' not in old_img):
         os.remove(old_img)
       if (old_promo_img != None):
         os.remove(old_promo_img)

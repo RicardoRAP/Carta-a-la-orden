@@ -1,3 +1,70 @@
+function ValidateBefore() {
+  var valid = validateForm()
+  if (!valid[0]) return showMessage(valid[1])
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  document.getElementById("MenuForm").submit()
+  return false;
+}
+
+function validateForm() {
+  var x, y, z, i, j, img
+  x = document.getElementById("MenuForm")
+  y = x.getElementsByTagName("input")
+  z = x.getElementsByTagName("select")
+  img = document.querySelector(".icon-upload-imgs img")
+  try{
+    var p = document.querySelector(".message-error")
+    p.remove()
+  }catch{}
+  for(j = 0; j < y.length; j++){
+    y[j].classList.remove("invalid")
+    if(y[j].type == "file"){
+      img.parentNode.classList.remove("invalid")
+    }
+  }
+  z[0].classList.remove("invalid")
+  z[1].classList.remove("invalid")
+  // valida los input por cada pestaña del formulario
+  for (i = 0; i <= y.length; i++) {
+    if(i < y.length){
+      if (y[i].value == "" || y[i].value == " ") {
+        if (y[i].type != "checkbox" && y[i].name != "discount" && y[i].type != "file"){
+          y[i].className += " invalid"
+          return [false,"Uno de los campos está vacío."]
+        }
+      }
+    }else{
+      if (z[0].value == "") {
+        z[0].className += " invalid"
+        return [false, "Seleccione por lo menos un platillo."]
+      }
+      if (z[1].value == "") {
+        z[1].className += " invalid"
+        return [false, "Selecione por lo menos una sucursal o la sede principal."]
+      }
+    } 
+  }
+  return [true, "Se ha guardado con exito."]
+}
+
+function showMessage(message){
+  var form = document.querySelector("#MenuForm")
+  var lastnode = document.querySelector(".modal-bttn")
+  var p = document.querySelector(".message-error")
+  if (p == null){
+    p = document.createElement("p")
+    p.className = "message-error mb-2"
+    p.textContent = message
+    form.insertBefore(p,lastnode)
+  }else{
+    p.textContent = message
+  }
+  return false
+}
+
 var input_menu_img = document.querySelector('#Menu_img')
 var target = document.querySelector('.form-menu-img .icon-upload-imgs')
 
@@ -46,32 +113,21 @@ function ResetAll(id_select){
   })
 }
 
-function validateForm() {
+function validateFormAfter() {
   let form = document.forms[0]
   let brands = form['brands']
   let brands_value = brands.selectedOptions
-  let in_principal = form['in_principal']
-  let in_principal_value = in_principal.checked
-  if (in_principal_value == false && brands_value.length <= 0) {
+  if (brands_value.length <= 0) {
     try{
       document.querySelectorAll(".text-error").forEach(elem => {
         elem.remove()
       })
     }catch{}
-    if (brands_value.length <= 0){
-      brands.classList.add("invalid")
-      error = document.createElement("p")
-      error.setAttribute("class","text-error")
-      error.innerText  = "Seleccione una sucursal"
-      brands.parentNode.append(error)
-    }
-    if (in_principal_value == false){
-      in_principal.classList.add("invalid")
-      error = document.createElement("p")
-      error.setAttribute("class","text-error")
-      error.innerText  = "Active la sede principal"
-      in_principal.parentNode.append(error)
-    }
+    brands.classList.add("invalid")
+    error = document.createElement("p")
+    error.setAttribute("class","text-error")
+    error.innerText  = "Seleccione una sucursal"
+    brands.parentNode.append(error)
     return false;
   }
   

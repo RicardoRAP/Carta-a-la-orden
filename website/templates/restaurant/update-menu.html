@@ -8,7 +8,7 @@
         <h2 class="modal-title fs-2 text-center " id="EditarPlatilloLabel">Editar Platillo</h2>
       </div>
       <div class="modal-body">
-        <form action="" method="POST" class="position-relative needs-validation" enctype="multipart/form-data">
+        <form action="" method="POST" class="position-relative needs-validation" onsubmit="return validateFormAfter()" enctype="multipart/form-data" id="MenuForm">
           {% csrf_token %}
           <div id="Update-menu-form" class="d-flex justify-content-center flex-column">
             <div class="form-outline mb-3 d-flex align-content-center inputs_2">
@@ -22,7 +22,7 @@
             <div class="form-outline mb-3 d-flex justify-content-center flex-column">
               <!-- Seleccione los platillos -->
               <div>
-                <label class="form-label" for="">Seleccione los platillos:</label>
+                <label class="form-label" for="id_dishes">Seleccione los platillos:</label>
                 {{form.dishes}}
               </div>
               <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
@@ -56,7 +56,7 @@
                     </div>
                   </div>
                 </label>
-                <p class="recommend">El tamaño de la imagen recomendada es de 250x250</p>
+                <p class="recommend">El tamaño de la imagen recomendada es de 250x210</p>
               </div>
             </div>
             <div class="form-outline mb-3 d-flex align-content-center">
@@ -84,7 +84,7 @@
           <div class="modal-bttn update-modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
               <a href="{% url 'menus' %}" class="btn btn-close-modal">Cancelar</a>
-              <input type="submit" class="btn btn-accept" value="Aceptar" name="Update">
+              <button type="button" class="btn btn-accept" onclick="ValidateBefore()">Aceptar</button>
             </div>
           </div>
         </form>
