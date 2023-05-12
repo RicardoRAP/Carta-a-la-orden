@@ -415,6 +415,11 @@
   line-height: 23px;
   letter-spacing: 0.04em;
   color: #000;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 }
 .add-menu{
   width: 250px;
