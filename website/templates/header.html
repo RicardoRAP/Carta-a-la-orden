@@ -45,6 +45,9 @@
       <button class="btn btn-register" {% if commensal == True %} disabled {% endif %}><a href="{% if commensal == True %}{% url 'proximamente' %}{% else %}#Register{% endif %}">Registrarse</a></button>
     </div>
     <div class="d-flex mobile">
+      {% if home == True %}
+        <a href="{% url 'afiliacion' %}" style="width: auto;margin-right: 20px;"><img src="{% static 'img/icon/brand-office.png' %}" style="max-width: 40px;"></a>
+      {% endif %}
       <button class="btn btn-login" {% if commensal == True %} disabled {% endif %}><a href="{% if commensal == True %}{% url 'proximamente' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}"><img src="{% static 'img/icon/login.png' %}" class="icon"></a></button>
       <button class="btn btn-register" {% if commensal == True %} disabled {% endif %}><a href="{% if commensal == True %}{% url 'proximamente' %}{% else %}#Register{% endif %}"><img src="{% static 'img/icon/register.png' %}" class="icon"></a></button>
     </div>
