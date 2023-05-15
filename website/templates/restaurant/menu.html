@@ -88,6 +88,7 @@
                 <label class="form-label" for="id_dishes">Seleccione los platillos:</label>
                 {{form.dishes}}
               </div>
+              <p class="recommend" style="margin-top: 5px;">Haga Ctrl + click para marcar o desmarcar multiples opciones</p>
               <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
                 <a class="btn btn-primary" onclick="SelectAll('#id_dishes')">Seleccionar Todo</a>
                 <a class="btn btn-secondary" onclick="ResetAll('#id_dishes')">Desmarcar todo</a>
@@ -99,6 +100,7 @@
                 <label class="form-label select-label" for="id_brands">Seleccione las sucursales:</label>
                 {{form.brands}}
               </div>
+              <p class="recommend" style="margin-top: 5px;">Haga Ctrl + click para marcar o desmarcar multiples opciones</p>
               <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
                 <a class="btn btn-primary"  onclick="SelectAll('#id_brands')">Seleccionar Todo</a>
                 <a class="btn btn-secondary"  onclick="ResetAll('#id_brands')">Desmarcar todo</a>
