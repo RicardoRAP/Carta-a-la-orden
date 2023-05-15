@@ -28,8 +28,12 @@
   width: 128px;
   height: 38px;
 }
+#addRestaurants{
+  position: relative;
+  top: 21px;
+}
 #addRestaurants:hover{
-  padding-bottom: 19px;
+  padding-bottom: 35px;
   border-bottom: 5px solid #28A745;
 }
 .btn-login{
