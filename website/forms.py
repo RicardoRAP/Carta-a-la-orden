@@ -54,10 +54,10 @@ class CreateRestaurantForm(UserCreationForm):
       }
     )
   )
-  phone_regex = RegexValidator(regex=r'^\+?\d{9,15}$', message="Coloque un número de teléfono válido.")
+  phone_regex = RegexValidator(regex=r'^\+?\d{11,15}$', message="Coloque un número de teléfono válido.")
   phone = forms.CharField(
     validators = [phone_regex], 
-    max_length = 17, 
+    max_length = 15, 
     required = True,
     help_text = 'Se requiere: Número de télefono',
     widget = forms.TextInput(

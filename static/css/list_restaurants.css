@@ -35,6 +35,12 @@
 #FiltersInputs .dropdown-zone{
   max-width: 100%;
 }
+#SelectState{
+  position: absolute;
+  z-index: 1000000;
+  top:-100px;
+  opacity: 0;
+}
 .btn-filter{
   background-color: #7F30FF !important;
   color: #fff !important;

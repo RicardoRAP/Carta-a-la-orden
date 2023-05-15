@@ -40,7 +40,7 @@ function validateForm() {
       }
       if (y[i].type == "file" && y[i].files.length < 2) {
         img.parentNode.className += " invalid"
-        return [false,"Ingrese por lo menos 2 imagenes."]
+        return [false,"Ingrese por lo menos 2 imagenes. Deje precionado Ctrl para seleccionar más de una imagen."]
       }
     }else{
       if (z[0].value == "") {

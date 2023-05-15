@@ -100,9 +100,11 @@
                   </div>
                 </div>
                 {% if "email" in form.errors %}
-                  <p class="message-error">Ese email ya existe</p>
+                  <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ese email ya existe</p>
                 {% elif "name" in form.errors %}
-                  <p class="message-error">Ya existe un restaurante con ese nombre</p>
+                  <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ya existe un restaurante con ese nombre</p>
+                {% elif "phone" in form.errors %}
+                  <p class="message-error {% if messages != None %} mb-2 {% endif %}">El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX</p>
                 {% endif %}
                 {% for message in messages %}
                   <p class="message-{{message.tags}}">{{message}}</p>

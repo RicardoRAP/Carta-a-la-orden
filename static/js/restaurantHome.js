@@ -70,11 +70,11 @@ function validateForm() {
       }
       if(y[i].type == "tel"){
         // valida que el número de teléfono tenga 11 o mas números y es opcional el +
-        patt = new RegExp("^[+]?[0-9]{11,}$", "g");
+        patt = new RegExp("^[+]?[0-9]{11,15}$", "g");
         result = patt.test(y[i].value)
         if(result == false){
           y[i].className += " invalid"
-          return [false, "El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX"]
+          return [false, "El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX"]
         }
       }
       if(y[i].type == "password"){

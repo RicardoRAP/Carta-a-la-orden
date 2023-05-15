@@ -341,7 +341,6 @@ class RestaurantsFilter(FilterSet):
         'name':'state',
         'aria-placeholder':'Estado',
         'required':True,
-        'hidden':True
       }
     ),
     choices=([(state, state) for state in states]),

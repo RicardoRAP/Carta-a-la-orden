@@ -148,6 +148,8 @@
         <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ese email ya existe</p>
       {% elif "username" in form.errors %}
         <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ese nombre de usuario ya existe</p>
+      {% elif "phone" in form.errors %}
+        <p class="message-error {% if messages != None %} mb-2 {% endif %}">El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX</p>
       {% elif form.errors %}
         <p class="message-error {% if messages != None %} mb-2 {% endif %}">{{form.errors}}</p>
       {% endif %}
