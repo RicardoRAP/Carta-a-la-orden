@@ -28,6 +28,10 @@
   width: 128px;
   height: 38px;
 }
+#addRestaurants:hover{
+  padding-bottom: 19px;
+  border-bottom: 5px solid #28A745;
+}
 .btn-login{
   background-color: #FFFFFF;
   border: 1px solid #7F30FF;

@@ -39,7 +39,7 @@
   <div class="container-btn">
     <div class="d-flex desktop">
       {% if home == True %}
-        <a href="{% url 'afiliacion' %}" style="width: 146px;margin-right: 20px;">Afilia tu restaurante</a>
+        <a href="{% url 'afiliacion' %}" style="width: 146px;margin-right: 20px;" id="addRestaurants">Afilia tu restaurante</a>
       {% endif %}
       <button class="btn btn-login" {% if commensal == True %} disabled {% endif %}><a href="{% if commensal == True %}{% url 'proximamente' %}{% else %}{% url 'r-inicio-de-sesion' %}{% endif %}">Iniciar sesión</a></button>
       <button class="btn btn-register" {% if commensal == True %} disabled {% endif %}><a href="{% if commensal == True %}{% url 'proximamente' %}{% else %}#Register{% endif %}">Registrarse</a></button>
