@@ -18,7 +18,7 @@ const preview = async event => {
 
 input_profile_img.addEventListener('change', preview);
 
-var address = document.querySelectorAll('input.address')
+var address = document.querySelectorAll('.address')
 var full = document.querySelector('input#saveFull_address')
 var show_full = document.querySelector('input#showFull_address')
 
@@ -102,6 +102,7 @@ function validateForm() {
     }
   }
   z[0].classList.remove("invalid")
+  z[1].classList.remove("invalid")
   // valida los input por cada pestaña del formulario
   for (i = 0; i <= y.length; i++) {
     if(i < y.length){
@@ -137,6 +138,10 @@ function validateForm() {
     }else{
       if (z[0].value == "") {
         z[0].className += " invalid"
+        return [false, "Seleccione un Estado."]
+      }
+      if (z[1].value == "") {
+        z[1].className += " invalid"
         return [false, "Seleccione uno de nuestros planes."]
       }
     } 
@@ -181,6 +186,12 @@ function showMessage(message){
 }
 
 var select = document.querySelector("#savePlan")
+var selectState = document.querySelector("#saveState")
+selectState.addEventListener("input",function(){
+  if(this.classList.contains("invalid")){
+    this.classList.remove("invalid")
+  }
+})
 select.addEventListener("input",function(){
   if(this.classList.contains("invalid")){
     this.classList.remove("invalid")
@@ -190,7 +201,6 @@ window.addEventListener("load", ValideateMessage)
 function ValideateMessage(){
   let text, inputerror
   var messages = document.querySelectorAll(".message-error")
-  console.log(messages, "Error")
   if (messages.length >= 1){
     for(var i = 0; i < messages.length; i++){
       text = messages[i].textContent

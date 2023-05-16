@@ -50,7 +50,7 @@ function validateForm() {
     document.querySelector("#showPass").checked = false
   }
   y = x[currentTab].getElementsByTagName("input")
-  if(currentTab == 0){
+  if(currentTab == 0 || currentTab == 1){
     z = x[currentTab].getElementsByTagName("select")
   }
   try{
@@ -117,6 +117,12 @@ function validateForm() {
           return [false, "Seleccione uno de nuestros planes."]
         }
       }
+      if(currentTab == 1){
+        if (z[0].value == "") {
+          z[0].className += " invalid"
+          return [false, "Seleccione un Estado."]
+        }
+      }
     } 
   }
   return [true, "pass"]
@@ -137,7 +143,13 @@ function showMessage(message){
 }
 
 var select = document.querySelector("#registerPlan")
+var selectState = document.querySelector("#registerState")
 select.addEventListener("input",function(){
+  if(this.classList.contains("invalid")){
+    this.classList.remove("invalid")
+  }
+})
+selectState.addEventListener("input",function(){
   if(this.classList.contains("invalid")){
     this.classList.remove("invalid")
   }
