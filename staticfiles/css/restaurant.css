@@ -179,30 +179,6 @@
   top: -15px;
   left: calc(50% + 10px);
 }
-.order-checkout{
-  width: 50px;
-  height: 50px;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-}
-.order-bg{
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.link-checkout{
-  height: 100%;
-  width: 100%;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  border: 2px solid #28A745;
-}
 /* Responsive */
 /* Mobile */
 @media only screen and (max-width:992px){
@@ -226,5 +202,15 @@
   }
   .list_dishes{
     flex-wrap: wrap;
+  }
+  #Pay{
+    width:60px;
+    height:60px;
+    background-size: 30px;
+    margin-right: -50px;
+  }
+  #Count_dishes{
+    width:30px;
+    height:30px;
   }
 }

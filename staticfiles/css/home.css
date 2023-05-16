@@ -333,6 +333,10 @@ a:hover .img-home{
     width: 29px;
     height: 40px;
   }
+  .card-info-restaurant .col:nth-child(1) .card-img img{
+    width: 35px;
+    height: 30px;
+  }
   .col:nth-child(2) .card-img img{
     width: 34px;
     height: 22px;
@@ -340,6 +344,10 @@ a:hover .img-home{
   .col:nth-child(3) .card-img img{
     width: 34px;
     height: 24px;
+  }
+  .card-info-restaurant .col:nth-child(3) .card-img img{
+    width: 31px;
+    height: 31px;
   }
   .card-description{
     margin: 10px 20px 20px 0;
