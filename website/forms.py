@@ -813,13 +813,14 @@ class DishForm(ModelForm):
   )
   amount = forms.IntegerField(
     min_value = 0,
-    label = 'Cantidad disponible (opcional)',
+    label = 'Cantidad disponible',
     required = False,
     widget = forms.NumberInput(
       attrs = {
         'type':'number',
         'id': 'registerAmount',
         'class':'form-control',
+        'placeholder': 'Cantidad disponible (Opcional)'
       }
     ),
     help_text = 'Deje el campo vacio o coloque 0 para indicar que la cantidad es ilimitada',
