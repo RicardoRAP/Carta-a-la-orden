@@ -51,6 +51,32 @@ class Restaurant(ProfileUser):
         ('Plan Oro', 'Plan Oro'),
         ('Plan Platino','Plan Platino'),
     )
+    STATES = (
+        ('Amazonas','Amazonas'),
+        ('Anzoátegui', 'Anzoátegui'),
+        ('Apure', 'Apure'),
+        ('Aragua','Aragua'),
+        ('Barinas','Barinas'),
+        ('Bolívar','Bolívar'),
+        ('Carabobo','Carabobo'),
+        ('Cojedes','Cojedes'),
+        ('Delta Amacuro','Delta Amacuro'),
+        ('Distrito Capital','Distrito Capital'),
+        ('Falcón','Falcón'),
+        ('Guárico','Guárico'),
+        ('Lara','Lara'),
+        ('Mérida','Mérida'),
+        ('Miranda','Miranda'),
+        ('Monagas','Monagas'),
+        ('Nueva Esparta','Nueva Esparta'),
+        ('Portuguesa','Portuguesa'),
+        ('Sucre','Sucre'),
+        ('Táchira','Táchira'),
+        ('Trujillo','Trujillo'),
+        ('Vargas','Vargas'),
+        ('Yaracuy','Yaracuy'),
+        ('Zulia','Zulia'),
+    )
     name = models.CharField(max_length=300, blank=True, null=True, unique=True, verbose_name='Nombre del restaurante')
     plan = models.CharField(max_length=200, choices=PLAN, blank=True, null=True)
     start_schedule = models.TimeField(auto_now=False, auto_now_add=False, blank=True, null=True, verbose_name='Horario de apertura')
@@ -60,7 +86,7 @@ class Restaurant(ProfileUser):
     external_delivery = models.BooleanField(blank=True, null=True, verbose_name='Servicio de delivery externo')
     others_services = models.BooleanField(blank=True, null=True, verbose_name='Otros tipos de servicios')
     delivery = models.TextField(default=None, blank=True, null=True, verbose_name='Servicios externos')
-    state = models.CharField(max_length=100, blank=True, null=True, verbose_name='Estado')
+    state = models.CharField(max_length=200, choices=STATES, blank=True, null=True,verbose_name='Estado')
     city = models.CharField(max_length=100, blank=True, null=True, verbose_name='Ciudad')
     parish = models.CharField(max_length=100, blank=True, null=True, verbose_name='Parroquia')
     avenue = models.CharField(max_length=100, blank=True, null=True, verbose_name='Avenida')

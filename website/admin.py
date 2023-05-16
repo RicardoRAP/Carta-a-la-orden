@@ -9,3 +9,4 @@ from .models import *
 
 admin.site.register(ProfileUser, CustomUserAdmin)
 admin.site.register(Restaurant, CustomUserRestaurant)
+admin.site.register(BrandOffice)

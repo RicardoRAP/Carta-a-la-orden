@@ -27,10 +27,10 @@ class CustomUserRestaurant(UserAdmin):
   add_form = CustomUserCreationForm
   form = CustomUserChangeForm
   model = Restaurant
-  list_display = ("name", "email", "username", "phone", "plan", "is_active", "last_login")
+  list_display = ("name", "email", "username", "phone", "plan", "is_active", "state", "last_login")
   list_filter = ("name", "email", "username", "phone", "plan", "is_active", "last_login")
   fieldsets = (
-    (None, {"fields": ("name", "email", "username", "phone", "plan", "password")}),
+    (None, {"fields": ("name", "email", "username", "phone", "plan", "state", "state2", "city", "parish", "avenue", "street", "full_address", "password")}),
     ("Permisos", {"fields": ("is_staff", "is_active", "is_superuser","groups")}),
   )
   add_fieldsets = (

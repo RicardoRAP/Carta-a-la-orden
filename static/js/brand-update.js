@@ -10,12 +10,13 @@ function ValidateBefore() {
 }
 
 function validateForm() {
-  var v, w, x, y, z, i, j, hms, hms2, target, target2
+  var s, v, w, x, y, z, i, j, hms, hms2, target, target2
   var now = new Date()
   var nowDateTime = now.toISOString()
   var nowDate = nowDateTime.split('T')[0]
   x = document.getElementById("FormBrand")
   y = x.getElementsByTagName("input")
+  s = x.getElementsByTagName("select")
   try{
     var p = document.querySelector(".message-error")
     p.remove()
@@ -23,6 +24,7 @@ function validateForm() {
   for(j = 0; j < y.length; j++){
     y[j].classList.remove("invalid")
   }
+  s[0].classList.remove("invalid")
   // valida los input del formulario
   for (i = 0; i <= y.length; i++) {
     if(i < y.length){
@@ -31,6 +33,11 @@ function validateForm() {
         if (y[i].type != "checkbox" && y[i].name != "delivery" && y[i].type != "hidden" && y[i].id != "showFull_address"){
           return [false,"Uno de los campos está vacío."]
         }
+      }
+    }else{
+      if (s[0].value == "") {
+        s[0].className += " invalid"
+        return [false, "Seleccione un Estado."]
       }
     }
   }
@@ -85,6 +92,13 @@ function showMessage(message){
   return false
 }
 
+var selectState = document.querySelector("#registerState")
+selectState.addEventListener("input",function(){
+  if(this.classList.contains("invalid")){
+    this.classList.remove("invalid")
+  }
+})
+
 var others_serv = document.querySelectorAll('input.others-serv')
 var others_s = document.querySelector('input#registerDelivery')
 
@@ -107,7 +121,7 @@ others_serv[1].addEventListener('click', function(e){
   }
 })
 
-var address = document.querySelectorAll('input.address')
+var address = document.querySelectorAll('.address')
 var full = document.querySelector('input#registerFull_address')
 var show_full = document.querySelector('input#showFull_address')
 

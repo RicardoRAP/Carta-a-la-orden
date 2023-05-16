@@ -121,6 +121,7 @@
               </button>
             </div>
           </div>
+          {{form.errors}}
           {% for message in messages %}
             <p class="message-{{message.tags}}">{{message}}</p>
           {% endfor %}

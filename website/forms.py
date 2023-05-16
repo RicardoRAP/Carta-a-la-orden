@@ -88,16 +88,41 @@ class CreateRestaurantForm(UserCreationForm):
       }
     )
   )
-  state = forms.CharField(
-    max_length = 100,  
-    required = True, 
-    help_text = 'Se requiere: Estado',
-    widget = forms.TextInput(
+  STATES = (
+    ("", "Selecciona un Estado"),
+    ('Amazonas','Amazonas'),
+    ('Anzoátegui', 'Anzoátegui'),
+    ('Apure', 'Apure'),
+    ('Aragua','Aragua'),
+    ('Barinas','Barinas'),
+    ('Bolívar','Bolívar'),
+    ('Carabobo','Carabobo'),
+    ('Cojedes','Cojedes'),
+    ('Delta Amacuro','Delta Amacuro'),
+    ('Distrito Capital','Distrito Capital'),
+    ('Falcón','Falcón'),
+    ('Guárico','Guárico'),
+    ('Lara','Lara'),
+    ('Mérida','Mérida'),
+    ('Miranda','Miranda'),
+    ('Monagas','Monagas'),
+    ('Nueva Esparta','Nueva Esparta'),
+    ('Portuguesa','Portuguesa'),
+    ('Sucre','Sucre'),
+    ('Táchira','Táchira'),
+    ('Trujillo','Trujillo'),
+    ('Vargas','Vargas'),
+    ('Yaracuy','Yaracuy'),
+    ('Zulia','Zulia'),
+  )
+  state = forms.ChoiceField(
+    choices = STATES,
+    required = True,
+    widget = forms.Select(
       attrs = {
-        'type': 'text',
         'id': 'registerState',
-        'class': 'form-control address', 
-        'placeholder': 'Estado'
+        'class': 'form-select form-control address', 
+        'placeholder': 'Selecciona un Estado',
       }
     )
   )
@@ -156,9 +181,6 @@ class CreateRestaurantForm(UserCreationForm):
 
   def clean_email(self):
     return self.cleaned_data['email'].lower()
-
-  def clean_state(self):
-    return self.cleaned_data['state'].lower().capitalize()
   
   def clean_city(self):
     return self.cleaned_data['city'].lower().capitalize()
@@ -278,16 +300,42 @@ class ProfileForm(ModelForm):
       }
     )
   )
-  state = forms.CharField(
-    max_length = 100,  
-    required = True, 
-    help_text = 'Se requiere: Estado',
-    widget = forms.TextInput(
+  STATES = (
+    ("", "Selecciona un Estado"),
+    ('Amazonas','Amazonas'),
+    ('Anzoátegui', 'Anzoátegui'),
+    ('Apure', 'Apure'),
+    ('Aragua','Aragua'),
+    ('Barinas','Barinas'),
+    ('Bolívar','Bolívar'),
+    ('Carabobo','Carabobo'),
+    ('Cojedes','Cojedes'),
+    ('Delta Amacuro','Delta Amacuro'),
+    ('Distrito Capital','Distrito Capital'),
+    ('Falcón','Falcón'),
+    ('Guárico','Guárico'),
+    ('Lara','Lara'),
+    ('Mérida','Mérida'),
+    ('Miranda','Miranda'),
+    ('Monagas','Monagas'),
+    ('Nueva Esparta','Nueva Esparta'),
+    ('Portuguesa','Portuguesa'),
+    ('Sucre','Sucre'),
+    ('Táchira','Táchira'),
+    ('Trujillo','Trujillo'),
+    ('Vargas','Vargas'),
+    ('Yaracuy','Yaracuy'),
+    ('Zulia','Zulia'),
+  )
+  state = forms.ChoiceField(
+    choices = STATES,
+    required = True,
+    help_text = 'Se requiere que seleccione un Estado',
+    widget = forms.Select(
       attrs = {
-        'type': 'text',
         'id': 'saveState',
-        'class': 'form-control address', 
-        'placeholder': 'Estado'
+        'class': 'form-select form-control address', 
+        'placeholder': 'Selecciona un Estado',
       }
     )
   )
@@ -429,9 +477,6 @@ class ProfileForm(ModelForm):
   def clean_email(self):
     return self.cleaned_data['email'].lower()
   
-  def clean_state(self):
-    return self.cleaned_data['state'].lower().capitalize()
-  
   def clean_city(self):
     return self.cleaned_data['city'].lower().capitalize()
   
@@ -558,16 +603,42 @@ class BrandForm(ModelForm):
       }
     )
   )
-  state = forms.CharField(
+  STATES = (
+    ("", "Selecciona un Estado"),
+    ('Amazonas','Amazonas'),
+    ('Anzoátegui', 'Anzoátegui'),
+    ('Apure', 'Apure'),
+    ('Aragua','Aragua'),
+    ('Barinas','Barinas'),
+    ('Bolívar','Bolívar'),
+    ('Carabobo','Carabobo'),
+    ('Cojedes','Cojedes'),
+    ('Delta Amacuro','Delta Amacuro'),
+    ('Distrito Capital','Distrito Capital'),
+    ('Falcón','Falcón'),
+    ('Guárico','Guárico'),
+    ('Lara','Lara'),
+    ('Mérida','Mérida'),
+    ('Miranda','Miranda'),
+    ('Monagas','Monagas'),
+    ('Nueva Esparta','Nueva Esparta'),
+    ('Portuguesa','Portuguesa'),
+    ('Sucre','Sucre'),
+    ('Táchira','Táchira'),
+    ('Trujillo','Trujillo'),
+    ('Vargas','Vargas'),
+    ('Yaracuy','Yaracuy'),
+    ('Zulia','Zulia'),
+  )
+  state = forms.ChoiceField(
     label = 'Estado',
-    max_length = 100,  
-    required = True, 
-    widget = forms.TextInput(
+    choices = STATES,
+    required = True,
+    widget = forms.Select(
       attrs = {
-        'type': 'text',
         'id': 'registerState',
-        'class': 'form-control address', 
-        'placeholder': 'Estado'
+        'class': 'form-select form-control address', 
+        'placeholder': 'Selecciona un Estado',
       }
     )
   )
@@ -652,9 +723,6 @@ class BrandForm(ModelForm):
     model = BrandOffice
     fields = '__all__'
     exclude = ['restaurant','is_restaurant']
-  
-  def clean_state(self):
-    return self.cleaned_data['state'].lower().capitalize()
   
   def clean_city(self):
     return self.cleaned_data['city'].lower().capitalize()

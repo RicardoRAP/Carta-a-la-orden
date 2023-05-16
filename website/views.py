@@ -529,7 +529,7 @@ def RestaurantUpdateBrand(request, pk_param):
     show = 'True'
   form = BrandForm(instance=brand)
   if request.method == 'POST':
-    if 'Update' in request.POST:
+    if 'brand_name' in request.POST:
       form = BrandForm(request.POST, instance=brand)
       if form.is_valid():
         form.save()
