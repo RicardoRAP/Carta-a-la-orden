@@ -45,6 +45,10 @@ function nextPrev(n) {
 function validateForm() {
   var x, y, i, z, patt, patt1, patt2, patt3, passwordall, pass1, pass2, result, result1, result2, result3, result4;
   x = document.getElementsByClassName("contact-form__block")
+  if (currentTab == 2){
+    HiddenPass()
+    document.querySelector("#showPass").checked = false
+  }
   y = x[currentTab].getElementsByTagName("input")
   if(currentTab == 0){
     z = x[currentTab].getElementsByTagName("select")
@@ -95,9 +99,9 @@ function validateForm() {
           return [false, "La contraseña debe tener por lo menos 9 caracteres, 4 números, 4 letras y alguno de estos símbolos /, $, &, * y #."]
         }
         passwordall = document.querySelectorAll("input.input-pass")
-        pass1 = passwordall[0]
-        pass2 = passwordall[1]
-        if (pass1.value != pass2.value){
+        pass1 = passwordall[0].value
+        pass2 = passwordall[1].value
+        if (pass1 != pass2){
           return [false, "La contraseña no coincide con la confirmación."]
         }
       }
@@ -155,6 +159,13 @@ function ShowPass(){
     } else {
       elem.type = "password";
     }
+  })
+}
+
+function HiddenPass(){
+  var x = document.querySelectorAll(".input-pass");
+  x.forEach(elem => {
+    elem.type = "password";
   })
 }
 

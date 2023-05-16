@@ -38,7 +38,7 @@ class CreateRestaurantForm(UserCreationForm):
         'type': 'text',
         'id': 'registerName',
         'class': 'form-control', 
-        'placeholder': 'Nombre'
+        'placeholder': 'Nombre del restaurante'
       }
     )
   )

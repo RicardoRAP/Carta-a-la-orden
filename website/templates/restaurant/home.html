@@ -23,7 +23,7 @@
         <div class="form-container d-flex align-items-center {% if auth == False %} justify-content-md-end {% else %}justify-content-center flex-column {% endif %}">
           {% if auth == False %}
             <div class="form">
-              <div class="form-title d-flex justify-content-center align-items-center"><h2>Regista tu local</h2></div>
+              <div class="form-title d-flex justify-content-center align-items-center"><h2>Registra tu local</h2></div>
               <form id="regForm" action="" method="POST">
                 {% csrf_token %}
                 <fieldset class="contact-form__block current">
@@ -105,6 +105,8 @@
                   <p class="message-error {% if messages != None %} mb-2 {% endif %}">Ya existe un restaurante con ese nombre</p>
                 {% elif "phone" in form.errors %}
                   <p class="message-error {% if messages != None %} mb-2 {% endif %}">El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX</p>
+                {% elif "password2" in form.errors %}
+                  <p class="message-error {% if messages != None %} mb-2 {% endif %}">La contraseña no coincide con la confirmación.</p>
                 {% endif %}
                 {% for message in messages %}
                   <p class="message-{{message.tags}}">{{message}}</p>

@@ -395,7 +395,10 @@ def RestaurantProfile(request):
             messages.success(request,"Los cambios se han guardado con éxito.")
             restaurant.refresh_from_db()
             if (request.FILES.get("profile_img") != None and "restaurants/profile.png" not in str(old_img)):
-              os.remove(str(old_img.path))
+              try:
+                os.remove(str(old_img.path))
+              except:
+                pass
             redirect("perfil")
           else:
             messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&'.")
@@ -622,7 +625,10 @@ def RestaurantUpdateMenu(request, pk_param):
           old_img = str(menu.imagen.path)
           form.save()
           if (old_img != str(menu.imagen.path)):
-            os.remove(old_img)
+            try:
+              os.remove(old_img)
+            except:
+              pass
           return redirect('menus')
         else:
           messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
@@ -632,7 +638,10 @@ def RestaurantUpdateMenu(request, pk_param):
       old_img = menu.imagen
       menu.delete()
       if (old_img != None and 'icon/front-page.png' not in str(old_img)):
-        os.remove(str(old_img.path))
+        try:
+          os.remove(str(old_img.path))
+        except:
+          pass
       time.sleep(1)
       return redirect('menus')
   context = {"commensal":False, 'update':True, 'tab':'menu', 'form':form, 'item':menu}
@@ -741,11 +750,17 @@ def RestaurantUpdateDish(request, pk_param):
             old_img = menu_delete.imagen
             menu_delete.delete()
             if (old_img != None and 'icon/front-page.png' not in str(old_img)):
-              os.remove(str(old_img.path))
+              try:
+                os.remove(str(old_img.path))
+              except:
+                pass
       dish.delete()
       time.sleep(1)
       folder_path = os.path.join("./static/img/restaurants/", str(email) + '/dishes/' + str(folder) + '/')
-      shutil.rmtree(folder_path)
+      try:
+        shutil.rmtree(folder_path)
+      except:
+        pass
       time.sleep(1)
       return redirect('platillos')
   context = {"commensal":False, 'update':True, 'tab':'dish', 'form':form,'dish_imgs':dish_imgs,'item':dish, 'all_imgs':all_dish_imgs}
@@ -804,9 +819,15 @@ def RestaurantUpdatePromo(request, pk_param):
         old_promo_img = str(promo.imagen_promo.path)
         form.save()
         if (old_img != str(promo.imagen.path) and old_img != None):
-          os.remove(old_img)
+          try:
+            os.remove(old_img)
+          except:
+            pass
         if (old_promo_img != str(promo.imagen_promo.path) and old_promo_img != None):
-          os.remove(old_promo_img)
+          try:
+            os.remove(old_promo_img)
+          except:
+            pass
         return redirect('promociones')
       else:
         messages.error(request,"Error")
@@ -815,9 +836,15 @@ def RestaurantUpdatePromo(request, pk_param):
       old_promo_img = str(promo.imagen_promo.path)
       promo.delete()
       if (old_img != None and 'icon/front-page.png' not in str(old_img)):
-        os.remove(str(old_img.path))
+        try:
+          os.remove(str(old_img.path))
+        except:
+          pass
       if (old_promo_img != None):
-        os.remove(old_promo_img)
+        try:
+          os.remove(old_promo_img)
+        except:
+          pass
       time.sleep(1)
       return redirect('promociones')
   else:

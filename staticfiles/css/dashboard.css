@@ -519,6 +519,12 @@
   border: 3px solid #28A745;
 }
 /* Responsive */
+@media only screen and (max-width:1200px){
+  .container-brand .brands .address-brand p,
+  .container-brand .brands .name-brand p{
+    max-width: 400px;
+  }
+}
 @media only screen and (max-width:992px){
   .profile-link-to-page{
     top: calc(50% - 12.5px);
