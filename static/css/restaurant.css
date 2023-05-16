@@ -1,3 +1,6 @@
+#less_result{
+  height:calc(100% - 119px)
+}
 #Hero{
   background: linear-gradient(180deg, #7F30FF 0.22%, rgba(40, 167, 69, 0.8) 82.57%, rgba(40, 167, 69, 0.8) 107.05%);
   padding: 24px 85px;
@@ -179,11 +182,17 @@
 /* Responsive */
 /* Mobile */
 @media only screen and (max-width:992px){
+  #less_result{
+    height:calc(100% - 143px)
+  }
   .separation{
     gap: 2.5rem;
   }
 }
 @media only screen and (max-width:768px){
+  #less_result{
+    height:calc(100% - 290px)
+  }
   #Hero{
     padding: 24px 20px;
     align-items: center;
@@ -193,5 +202,15 @@
   }
   .list_dishes{
     flex-wrap: wrap;
+  }
+  #Pay{
+    width:60px;
+    height:60px;
+    background-size: 30px;
+    margin-right: -50px;
+  }
+  #Count_dishes{
+    width:30px;
+    height:30px;
   }
 }

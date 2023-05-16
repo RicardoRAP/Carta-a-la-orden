@@ -31,7 +31,7 @@
 #addRestaurants:hover{
   position: relative;
   top: 21px;
-  padding-bottom: 35px;
+  padding-bottom: 33px;
   border-bottom: 5px solid #28A745;
 }
 .btn-login{
@@ -53,8 +53,8 @@
   border-radius: 0 6px 6px 0;
   padding: 0;
 }
-.btn-register:hover{
-  background: #28A745;
+.btn-register:hover, .btn-register:active{
+  background-color: #28A745 !important;
 }
 .btn-register:disabled{
   background-color: #28A745;
