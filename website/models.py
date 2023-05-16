@@ -105,7 +105,7 @@ class Dish(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     dish_name = models.CharField(max_length=500, null=True, verbose_name="Nombre del platillo")
     description = models.TextField(null=True, verbose_name="Descipción del platillo")
-    price = models.FloatField(validators=[MinValueValidator(1)], null=True, verbose_name="Precio del platillo")
+    price = models.FloatField(validators=[MinValueValidator(0.01)], null=True, verbose_name="Precio del platillo")
     tags = models.TextField(blank=True, null=True, verbose_name="Etiquetas del platillo")
     amount = models.PositiveIntegerField(blank=True, null=True, verbose_name="Cantidad disponible")
     active = models.BooleanField(default=False, null=True, verbose_name='Mostrar platillo')

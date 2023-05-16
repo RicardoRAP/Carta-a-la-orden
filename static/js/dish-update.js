@@ -31,6 +31,12 @@ function validateForm() {
           return [false,"Uno de los campos está vacío."]
         }
       }
+      if(y[i].id == "registerPrice"){
+        if((y[i].value * 1) < 0.01){
+          y[i].className += " invalid"
+          return [false,"El precio debe ser mayor o igual a 0,01."]
+        }
+      }
     }else{
       if (z[0].value == "") {
         z[0].className += " invalid"

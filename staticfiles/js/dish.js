@@ -38,9 +38,20 @@ function validateForm() {
           return [false,"Uno de los campos está vacío."]
         }
       }
+      if(y[i].id == "registerPrice"){
+        if((y[i].value * 1) < 0.01){
+          y[i].className += " invalid"
+          return [false,"El precio debe ser mayor o igual a 0,01."]
+        }
+      }
       if (y[i].type == "file" && y[i].files.length < 2) {
         img.parentNode.className += " invalid"
-        return [false,"Ingrese por lo menos 2 imagenes. Deje precionado Ctrl para seleccionar más de una imagen."]
+        if (window.screen.width > 992){
+          return [false,"Ingrese por lo menos 2 imagenes. Deje precionado la tecla Ctrl para seleccionar más de una imagen."]
+        }else{
+          return [false,"Ingrese por lo menos 2 imagenes."]
+        }
+        
       }
     }else{
       if (z[0].value == "") {
