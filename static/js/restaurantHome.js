@@ -3,6 +3,7 @@ showTab(currentTab)
 
 function showTab(n) {
   var x = document.getElementsByClassName("contact-form__block")
+  document.querySelector(".form-container").scrollIntoView()
   x[n].style.display = "block"
   if (n == 0) {
     document.getElementById("prevBtn").style.display = "none"
@@ -42,7 +43,7 @@ function nextPrev(n) {
 }
 
 function validateForm() {
-  var x, y, i, z, patt, patt1, patt2, patt3, result, result1, result2, result3, result4;
+  var x, y, i, z, patt, patt1, patt2, patt3, passwordall, pass1, pass2, result, result1, result2, result3, result4;
   x = document.getElementsByClassName("contact-form__block")
   y = x[currentTab].getElementsByTagName("input")
   if(currentTab == 0){
@@ -74,7 +75,7 @@ function validateForm() {
         result = patt.test(y[i].value)
         if(result == false){
           y[i].className += " invalid"
-          return [false, "El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX"]
+          return [false, "El formato del número de teléfono es invalido. ejemplo: XXXXXXXXXXX o +58XXXXXXXXXX."]
         }
       }
       if(y[i].type == "password"){
@@ -83,20 +84,26 @@ function validateForm() {
         result1 = patt1.test(y[i].value)
         // valida que tenga 4 letras
         patt2 = new RegExp("(?=(.*?[a-z-A-Z]){4})")
-        result2 = patt1.test(y[i].value)
+        result2 = patt2.test(y[i].value)
         // valida que tenga uno de los siguientes símbolos /, $, &, * y #
         patt3 = new RegExp("(?=(.*?([/]|[&]|[$]|[*]|[#])))")
-        result3 = patt1.test(y[i].value)
+        result3 = patt3.test(y[i].value)
         // valida que por lo menos tenga 9 caracteres
         result4 = y[i].value.length >= 9
         if(result1 == false || result2 == false || result3 == false || result4 == false){
           y[i].className += " invalid"
-          return [false, "La contraseña debe tener por lo menos 9 caracteres, 4 números, 4 letras y alguno de estos símbolos /, $, &, * y #"]
+          return [false, "La contraseña debe tener por lo menos 9 caracteres, 4 números, 4 letras y alguno de estos símbolos /, $, &, * y #."]
+        }
+        passwordall = document.querySelectorAll("input.input-pass")
+        pass1 = passwordall[0]
+        pass2 = passwordall[1]
+        if (pass1.value != pass2.value){
+          return [false, "La contraseña no coincide con la confirmación."]
         }
       }
       if (y[i].id == "registerCheck"){
         if(y[i].checked == false){
-          return [false, "Acepte nuestros terminos y condiciones"]
+          return [false, "Acepte nuestros terminos y condiciones."]
         }
       }
     }else{
