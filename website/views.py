@@ -63,7 +63,8 @@ def Home(request):
 
 def ListRestaurants(request):
   menus = MenuBrand.objects.all().filter(menu__active=True).distinct("brand_id").values_list('brand_id', flat=True)
-  brands = BrandOffice.objects.filter(id__in=menus, active=True, start_schedule__isnull=False, end_schedule__isnull=False).exclude(restaurant__profile_img='restaurants/profile.png').order_by('?')
+  brands = BrandOffice.objects.filter(id__in=menus, active=True, start_schedule__isnull=False, end_schedule__isnull=False).exclude(restaurant__profile_img='restaurants/profile.png')
+  print(brands)
   states = list(brands.order_by('state').values_list('state', flat=True).distinct())
   filter_brands = RestaurantsFilter(request.GET, queryset=brands)
   all_restaurant = filter_brands.qs

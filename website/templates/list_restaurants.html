@@ -81,25 +81,23 @@
             {% else %}
               <p class="fs-3">No se ha encontrado ningun restaurante por esta zona</p>
             {% endif %}
-            {% if restaurant_page_obj|length > 3 %}
-              <nav aria-label="Page-navigation" class="pagination-restaurants">
-                <ul class="pagination justify-content-center">
-                  {% if restaurant_page_obj.has_previous %}
-                    <li class="page-item arrow_page">
-                      <a class="page-link" href="{% pagination_url restaurant_page_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true"><img src="{% static '/img/icon/arrow-left.png' %}" height="20"></a>
-                    </li>
-                  {% endif %}
-                    {% for page_index in pagination %}
-                      <li class="page-item {% if restaurant_page_obj.number == page_index %}active{% endif %}"><a class="page-link fw-bold" href="{% pagination_url page_index 'page' request.GET.urlencode %}">{{page_index}}</a></li>
-                    {% endfor %}
-                  {% if restaurant_page_obj.has_next %}
-                    <li class="page-item arrow_page">
-                      <a class="page-link" href="{% pagination_url restaurant_page_obj.next_page_number 'page' request.GET.urlencode %}"><img src="{% static '/img/icon/arrow-right.png' %}" height="20"></a>
-                    </li>
-                  {% endif %}
-                </ul>
-              </nav>
-            {% endif %}
+            <nav aria-label="Page-navigation" class="pagination-restaurants">
+              <ul class="pagination justify-content-center">
+                {% if restaurant_page_obj.has_previous %}
+                  <li class="page-item arrow_page">
+                    <a class="page-link" href="{% pagination_url restaurant_page_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true"><img src="{% static '/img/icon/arrow-left.png' %}" height="20"></a>
+                  </li>
+                {% endif %}
+                  {% for page_index in pagination %}
+                    <li class="page-item {% if restaurant_page_obj.number == page_index %}active{% endif %}"><a class="page-link fw-bold" href="{% pagination_url page_index 'page' request.GET.urlencode %}">{{page_index}}</a></li>
+                  {% endfor %}
+                {% if restaurant_page_obj.has_next %}
+                  <li class="page-item arrow_page">
+                    <a class="page-link" href="{% pagination_url restaurant_page_obj.next_page_number 'page' request.GET.urlencode %}"><img src="{% static '/img/icon/arrow-right.png' %}" height="20"></a>
+                  </li>
+                {% endif %}
+              </ul>
+            </nav>
           </div>
           <div class="widget-orderns sticky-top desktop">
             <div class="title-orders">
