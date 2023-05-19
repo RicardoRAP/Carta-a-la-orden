@@ -138,7 +138,7 @@ function ValidateUploadImgBefore() {
 function validateUploadImgForm() {
   var x, y, i
   x = document.getElementById("DishImgUploadForm")
-  y = x.getElementsByTagName("input")
+  y = x.getElementsByTagName("input[type='file']")
   try{
     var p = document.querySelector(".message-error")
     p.remove()
@@ -168,7 +168,7 @@ function showMessageUploadImg(message){
   return false
 }
 
-var input_multiple_img = document.querySelector('#upload-img')
+var input_multiple_img = document.querySelector('#uploadimgFiles')
 var img = document.querySelector('#preview-imgs')
 
 const readURL = file => {
