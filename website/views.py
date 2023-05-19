@@ -81,30 +81,31 @@ def ListRestaurants(request):
   if current_page + 3 <= total_pages:
     if current_page == 1:
       pagination = range(current_page, current_page + 3)
-      print(pagination, 1)
+      print(current_page,total_pages,pagination, 1)
     else:
       pagination = range(current_page - 1, current_page + 3)
-      print(pagination, 2)
+      print(current_page,total_pages,pagination, 2)
   else:
     if current_page == total_pages:
       if total_pages - 2 == 0:
         pagination = range(1, total_pages + 1)
-        print(pagination, 3)
+        print(current_page,total_pages,pagination, 3)
       elif total_pages - 1 == 0:
         pagination = range(1, total_pages + 1)
+        print(current_page,total_pages,pagination, 4)
       else:
         pagination = range(total_pages - 2, total_pages + 1)
-        print(pagination, 4)
+        print(current_page,total_pages,pagination, 5)
     elif current_page + 3 - total_pages == 1:
-      pagination = range(total_pages - 3, total_pages + 1)
-      print(pagination, 5)
+      pagination = range(current_page, total_pages + 1)
+      print(current_page,total_pages,pagination, 6)
     else:
       if total_pages - 2 == 0:
         pagination = range(1, total_pages + 1)
-        print(pagination, 6)
+        print(current_page,total_pages,pagination, 7)
       else:
         pagination = range(total_pages - 2, total_pages + 1)
-        print(pagination, 7)
+        print(current_page,total_pages,pagination, 8)
   context = {"commensal":True, 'alphabet':alphabet, 'filters':filter_brands, 'all_restaurant':all_restaurant, 'restaurant_page_obj':restaurant_page_obj, 'pagination':pagination}
   return render(request,'list_restaurants.html', context)
 
