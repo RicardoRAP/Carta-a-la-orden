@@ -10,4 +10,4 @@ from .models import *
 admin.site.register(ProfileUser, CustomUserAdmin)
 admin.site.register(Restaurant, CustomUserRestaurant)
 admin.site.register(BrandOffice, BrandPanel)
-admin.site.register(ImgDish, BrandPanel)
+admin.site.register(ImgDish, ImgDishPanel)
