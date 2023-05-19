@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import *
 from .forms import CustomUserCreationForm, CustomUserChangeForm
@@ -30,7 +31,7 @@ class CustomUserRestaurant(UserAdmin):
   list_display = ("name", "email", "username", "phone", "plan", "is_active", "state", "last_login")
   list_filter = ("name", "email", "username", "phone", "plan", "is_active", "last_login")
   fieldsets = (
-    (None, {"fields": ("name", "email", "username", "phone", "plan", "state", "state2", "city", "parish", "avenue", "street", "full_address", "password")}),
+    (None, {"fields": ("name", "email", "username", "phone", "plan", "state", "city", "parish", "avenue", "street", "full_address", "password")}),
     ("Permisos", {"fields": ("is_staff", "is_active", "is_superuser","groups")}),
   )
   add_fieldsets = (
@@ -43,3 +44,11 @@ class CustomUserRestaurant(UserAdmin):
   )
   search_fields = ("email",)
   ordering = ("email",)
+
+class BrandPanel(admin.ModelAdmin):
+  list_display = ("brand_name", "state")
+  list_filter = ("brand_name", "state")
+
+class ImgDishPanel(admin.ModelAdmin):
+  list_display = ("img", "folder")
+  list_filter = ("img", "folder")

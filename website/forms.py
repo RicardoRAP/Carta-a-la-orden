@@ -953,7 +953,7 @@ class PromoForm(ModelForm):
       attrs={
         'id':'Discount',
         'class': 'form-control input-number',
-        'placeholder': 'Descuento (%) opcional'
+        'placeholder': 'Descuento % (Opcional)'
       }
     )
   )
