@@ -64,7 +64,7 @@ def Home(request):
 def ListRestaurants(request):
   menus = MenuBrand.objects.all().filter(menu__active=True).distinct("brand_id").values_list('brand_id', flat=True)
   brands = BrandOffice.objects.filter(id__in=menus, active=True, start_schedule__isnull=False, end_schedule__isnull=False).exclude(restaurant__profile_img='restaurants/profile.png')
-  print(brands)
+  print(brands.values_list('state', flat=True).distinct())
   states = list(brands.order_by('state').values_list('state', flat=True).distinct())
   filter_brands = RestaurantsFilter(request.GET, queryset=brands)
   all_restaurant = filter_brands.qs
@@ -90,6 +90,8 @@ def ListRestaurants(request):
       if total_pages - 2 == 0:
         pagination = range(1, total_pages + 1)
         print(pagination, 3)
+      elif total_pages - 1 == 0:
+        pagination = range(1, total_pages + 1)
       else:
         pagination = range(total_pages - 2, total_pages + 1)
         print(pagination, 4)
