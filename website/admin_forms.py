@@ -28,8 +28,8 @@ class CustomUserRestaurant(UserAdmin):
   add_form = CustomUserCreationForm
   form = CustomUserChangeForm
   model = Restaurant
-  list_display = ("name", "email", "username", "phone", "plan", "is_active", "state", "last_login")
-  list_filter = ("name", "email", "username", "phone", "plan", "is_active", "last_login")
+  list_display = ("name", "email", "username", "phone", "plan", "is_active", "state", "full_address", "last_login")
+  list_filter = ("name", "email", "username", "phone", "plan", "is_active", "state", "full_address", "last_login")
   fieldsets = (
     (None, {"fields": ("name", "email", "username", "phone", "plan", "state", "city", "parish", "avenue", "street", "full_address", "password")}),
     ("Permisos", {"fields": ("is_staff", "is_active", "is_superuser","groups")}),
@@ -46,8 +46,8 @@ class CustomUserRestaurant(UserAdmin):
   ordering = ("email",)
 
 class BrandPanel(admin.ModelAdmin):
-  list_display = ("restaurant","brand_name", "state","is_restaurant")
-  list_filter = ("restaurant","brand_name", "state", "is_restaurant")
+  list_display = ("restaurant","brand_name", "state", "full_address", "is_restaurant")
+  list_filter = ("restaurant","brand_name", "state", "full_address", "is_restaurant")
 
 class ImgDishPanel(admin.ModelAdmin):
   list_display = ("dish","img", "folder")
