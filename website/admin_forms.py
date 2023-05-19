@@ -46,9 +46,9 @@ class CustomUserRestaurant(UserAdmin):
   ordering = ("email",)
 
 class BrandPanel(admin.ModelAdmin):
-  list_display = ("brand_name", "state")
-  list_filter = ("brand_name", "state")
+  list_display = ("restaurant","brand_name", "state","is_restaurant")
+  list_filter = ("restaurant","brand_name", "state", "is_restaurant")
 
 class ImgDishPanel(admin.ModelAdmin):
-  list_display = ("img", "folder")
-  list_filter = ("img", "folder")
+  list_display = ("dish","img", "folder")
+  list_filter = ("dish","img", "folder")
