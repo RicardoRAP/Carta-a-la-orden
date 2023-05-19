@@ -167,8 +167,8 @@
             <form action="" method="POST" enctype="multipart/form-data" id="DishImgUploadForm">
               {% csrf_token %}
               <div class="upload d-flex justify-content-center align-items-center column-gap-2 row-gap-2 p-4 flex-column">
-                <label for="upload-img" class="form-upload-img d-flex justify-content-center align-items-center">
-                  <input type="file" id="upload-img" name="upload-img" accept="image/*" multiple>
+                <label for="uploadimgFiles" class="form-upload-img d-flex justify-content-center align-items-center">
+                  <input type="file" id="uploadimgFiles" name="uploadImgFiles" accept="image/*" multiple>
                 </label>
                 <div id="preview-imgs" class="d-flex justify-content-center align-items-center column-gap-2 row-gap-2 flex-wrap">
                 </div>
@@ -181,6 +181,7 @@
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-modal-accept" name="UploadImg" onclick="ValidateUploadImgBefore()">Subir</button>
+                <input type="submit" name="Upload" onclick="ValidateUploadImgBefore()" hidden>
               </div>
             </form>
           </div>

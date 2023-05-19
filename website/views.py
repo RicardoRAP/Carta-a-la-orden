@@ -711,8 +711,8 @@ def RestaurantUpdateDish(request, pk_param):
         redirect('platillos/' + str(pk_param) + "/")
       else:
         messages.error(request,"Debe seleccionar por lo menos 2 imagenes","error_img")
-    if 'upload-img' in request.POST:
-      files = request.FILES.getlist("upload-img")
+    if 'uploadImgFiles' in request.POST or len(request.FILES.getlist("uploadImgFiles")) > 0:
+      files = request.FILES.getlist("uploadImgFiles")
       if len(files) > 0:
         all_img_order = all_dish_imgs.order_by('-order')
         last_order = all_img_order[0].order
