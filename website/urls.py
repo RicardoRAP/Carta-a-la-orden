@@ -40,7 +40,7 @@ urlpatterns = [
   path('cambio_de_contraseña_hecho/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name="password_change_done"), # Url de mensaje de exito al cambiar de contraseña 
 
   path('reinicio_de_clave/', auth_views.PasswordResetView.as_view(template_name='password_reset.html'), name="reset_password"), # Url para el reinicio de la contraseña
-  path('reinicio_de_clave_envido/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_sent.html'), name="password_reset_done"), # Url de mensaje de instrucciones a segir para el reiniciar la contraseña
+  path('reinicio_de_clave/enviado/', auth_views.PasswordResetDoneView.as_view(template_name='password_reset_sent.html'), name="password_reset_done"), # Url de mensaje de instrucciones a segir para el reiniciar la contraseña
   path('reinicio/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_form.html'), name="password_reset_confirm"), # Url con el formulario para reiniciar la contraseña
-  path('reinicio_de_clave_completado/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name="password_reset_complete"), # Url de mensaje de exito al reiniciar la contraseña 
+  path('reinicio/cambio_de_clave_completado/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name="password_reset_complete"), # Url de mensaje de exito al reiniciar la contraseña 
 ]
