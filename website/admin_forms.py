@@ -49,6 +49,14 @@ class BrandPanel(admin.ModelAdmin):
   list_display = ("restaurant","brand_name", "state", "full_address", "is_restaurant")
   list_filter = ("restaurant","brand_name", "state", "full_address", "is_restaurant")
 
+class MenuPanel(admin.ModelAdmin):
+  list_display = ("restaurant", "menu_name", "active")
+  list_filter = ("restaurant", "menu_name", "active")
+
+class DishPanel(admin.ModelAdmin):
+  list_display = ("restaurant","dish_name", "active")
+  list_filter = ("restaurant","dish_name", "active")
+
 class ImgDishPanel(admin.ModelAdmin):
   list_display = ("dish","img", "folder")
   list_filter = ("dish","img", "folder")

@@ -1,4 +1,7 @@
-#less_result{
+html{
+  height: 100%;
+}
+.less_result{
   height:calc(100% - 119px)
 }
 #Hero{
@@ -182,7 +185,7 @@
 /* Responsive */
 /* Mobile */
 @media only screen and (max-width:992px){
-  #less_result{
+  .less_result{
     height:calc(100% - 143px)
   }
   .separation{
@@ -190,7 +193,7 @@
   }
 }
 @media only screen and (max-width:768px){
-  #less_result{
+  .less_result{
     height:calc(100% - 290px)
   }
   #Hero{
