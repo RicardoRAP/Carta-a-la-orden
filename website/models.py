@@ -37,6 +37,11 @@ class ProfileUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username if self.username != None else self.email
     
+    def existImg(self):
+        if os.path.exists(str(self.profile_img.path)):
+            return True
+        return False
+    
 # class Comensale(Usuario):
 #   username = models.CharField(max_length=200, null=True, unique=True)
 #   address = models.TextField(null=True)
@@ -125,7 +130,10 @@ class BrandOffice(models.Model):
         return self.brand_name
     
     def brand_img(self):
-        return self.restaurant.profile_img
+        if os.path.exists(str(self.restaurant.profile_img.path)):
+            return self.restaurant.profile_img
+        else:
+            return '/restaurants/profile-down-hosting.jpg'
 
 class Dish(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
@@ -146,11 +154,16 @@ class ImgDish(models.Model):
             return os.path.join('restaurants/', str(self.dish.restaurant.email) + "/dishes/" + str(self.folder), instance)
         return None
     dish = models.ForeignKey(Dish, on_delete=models.CASCADE)
-    img = models.ImageField(upload_to=img_upload_to, null=True)
+    img = models.ImageField(default='icon/pizza.png',upload_to=img_upload_to, null=True)
     select = models.BooleanField(default=True, null=True)
     order = models.PositiveIntegerField(default=None, null=True)
     folder = models.TextField(null=True, editable=False)
     date_upload = models.DateTimeField(default=timezone.now, null=True, editable=False)
+
+    def existImg(self):
+        if os.path.exists(str(self.img.path)):
+            return True
+        return False
 
 class Menu(models.Model):
     def img_upload_to(self, instance=None):

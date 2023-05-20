@@ -38,7 +38,7 @@
           <div class="other-dish position-relative">
             <div class="content-dish">
               <div class="img-dish">
-                <img src="{% static d.1.img %}" width="250" height="250"></div>
+                <img src="{% if d.2 == False %}{% static d.1 %}{% else %}{% static d.1.img %}{% endif %}" width="250" height="250"></div>
               <div class="info-dish">
                 <h4 class="title-dish">{{d.0.dish_name}}</h4>
                 <p class="description-dish">{{d.0.description}}</p>

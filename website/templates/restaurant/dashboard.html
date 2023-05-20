@@ -24,7 +24,7 @@
         <div id="Sidebar" class="h-100">
           <div class="sidebar-content position-relative d-flex align-items-center flex-column justify-content-start">
             <div class="profile-img position-relative">
-              <div class="img d-flex justify-content-center align-items-center"><img src="{% if tab == 'profile' %}{% static img %}{% else %}{% static request.user.profile_img %}{% endif %}" width="150" height="150"></div>
+              <div class="img d-flex justify-content-center align-items-center"><img src="{% if tab == 'profile' %}{% static img %}{% else %}{% if request.user.existImg %}{% static request.user.profile_img %}{% else %}{% static '/restaurants/profile-down-hosting.jpg' %}{% endif %}{% endif %}" width="150" height="150"></div>
               <div class="replace-img"><a href="{% url 'perfil' %}"><img src="{% static '/img/icon/plus.png' %}" width="20" height="20"></a></div>
             </div>
             <div class="name-restaurant d-flex justify-content-center align-items-center desktop">

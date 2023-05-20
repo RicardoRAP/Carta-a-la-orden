@@ -6,7 +6,7 @@
   <div class="dropdown-center justify-content-end tablet-show">
     <button class="btn dropdown-toggle header-profile d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       <p class="header-username desktop">{% if request.user.username != None %}{{request.user.username}}{% elif request.user.restaurant.name != None %}{{request.user.restaurant.name}}{% endif %}</p>
-      <img class="header-profile-img" src="{% if tab == 'profile' %}{% static img %}{% else %}{% static request.user.profile_img %}{% endif %}" width="40" height="40">
+      <img class="header-profile-img" src="{% if tab == 'profile' %}{% static img %}{% else %}{% if request.user.existImg %}{% static request.user.profile_img %}{% else %}{% static '/restaurants/profile-down-hosting.jpg' %}{% endif %}{% endif %}" width="40" height="40">
     </button>
     <ul class="dropdown-menu position-absolute profile-menu">
       {% if request.user.is_superuser != True %}

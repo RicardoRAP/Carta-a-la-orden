@@ -188,6 +188,8 @@ def RestaurantPage(request,name_param):
   restaurant = principal.brandoffice_set.get(is_restaurant=True)
   name = restaurant.restaurant.name
   img = restaurant.restaurant.profile_img
+  if not os.path.exists(str(img.path)):
+    img = os.path.join('/img/restaurants','profile-down-hosting.jpg')
   delivery = restaurant.delivery
   pk_param = restaurant.id
   if delivery == "" or delivery == " ":
@@ -203,7 +205,14 @@ def RestaurantPage(request,name_param):
         price_discount = dish.price - (dish.price * discount)
       else:
         price_discount = None
-      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list(dish.imgdish_set.filter(select=True).values_list('img', flat=True))]) 
+      validate_img = dish.imgdish_set.filter(select=True)
+      list_v_i = []
+      for v_i in validate_img:
+        if v_i.existImg():
+          list_v_i.append(str(v_i.img))
+        else:
+          list_v_i.append('icon/pizza.png')
+      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list_v_i]) 
     if sep.promo == True:
       promos.append([sep,array_dish_img])
     else:
@@ -231,6 +240,8 @@ def RestaurantBrandPage(request,name_param,pk_param):
   restaurant = BrandOffice.objects.get(id=pk_param)
   name = restaurant.restaurant.name
   img = restaurant.restaurant.profile_img
+  if not os.path.exists(str(img.path)):
+    img = os.path.join('/img/restaurants','profile-down-hosting.jpg')
   delivery = restaurant.delivery
   if delivery == "" or delivery == " ":
     others = None
@@ -245,7 +256,14 @@ def RestaurantBrandPage(request,name_param,pk_param):
         price_discount = dish.price - (dish.price * discount)
       else:
         price_discount = None
-      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list(dish.imgdish_set.filter(select=True).values_list('img', flat=True))]) 
+      validate_img = dish.imgdish_set.filter(select=True)
+      list_v_i = []
+      for v_i in validate_img:
+        if v_i.existImg():
+          list_v_i.append(str(v_i.img))
+        else:
+          list_v_i.append('icon/pizza.png')
+      array_dish_img.append([dish,price_discount,dish.imgdish_set.filter(order=0)[0], list_v_i])  
     if sep.promo == True:
       promos.append([sep,array_dish_img])
     else:
@@ -413,10 +431,15 @@ def RestaurantProfile(request):
         print(form.errors)
     else:
       messages.error(request,"El comienzo del horario no puede ser mayor o igual al final del horario.")
-  photo = str(restaurant.profile_img)
+  photo = restaurant.profile_img
+  print(photo)
   img = 'None'
-  if photo != 'None' and 'restaurant/profile.png' not in photo:
-    img = os.path.join('img', photo)
+  if str(photo) != 'None' and 'restaurant/profile.png' not in str(photo):
+    exist_img = str(photo.path)
+    if not os.path.exists(exist_img):
+      img = os.path.join('/img/restaurants','profile-down-hosting.jpg')
+    else:
+      img = os.path.join('/img',str(photo))
   context = {"commensal":False, 'tab':'profile', 'form':form, 'img':img, 'show':show, 'alarm':alarm}
   return render(request,'restaurant/profile.html', context)
 
@@ -429,6 +452,8 @@ def RestaurantPreview(request,name_param):
   restaurant = principal.brandoffice_set.get(is_restaurant=True)
   name = restaurant.restaurant.name
   img = restaurant.restaurant.profile_img
+  if not os.path.exists(str(img.path)):
+    img = os.path.join('/img/restaurants','profile-down-hosting.jpg')
   delivery = restaurant.delivery
   pk_param = restaurant.id
   if delivery == "" or delivery == " ":
@@ -555,6 +580,8 @@ def RestaurantBrandPreview(request,name_param,pk_param):
   restaurant = BrandOffice.objects.get(id=pk_param)
   name = restaurant.restaurant.name
   img = restaurant.restaurant.profile_img
+  if not os.path.exists(str(img.path)):
+    img = os.path.join('/img/restaurants','profile-down-hosting.jpg')
   delivery = restaurant.delivery
   if delivery == "" or delivery == " ":
     others = None
@@ -682,7 +709,11 @@ def RestaurantDish(request):
   dishes = dish_filter.qs
   dishes_imgs = []
   for d in dishes:
-    dishes_imgs.append([d,d.imgdish_set.all().filter(order=0)[0]])
+    first_img = d.imgdish_set.all().filter(order=0)[0]
+    if os.path.exists(str(first_img.img.path)):
+      dishes_imgs.append([d,first_img,True])
+    else:
+      dishes_imgs.append([d,os.path.join('/icon','pizza.png'),False])
   context = {"commensal":False, 'update':False, 'tab':'dish', 'dishes':dishes_imgs, 'filters':dish_filter,'add_dish':addform, 'add_img':addimgform}
   return render(request,'restaurant/dish.html', context)
 
@@ -714,8 +745,10 @@ def RestaurantUpdateDish(request, pk_param):
         messages.error(request,"Debe seleccionar por lo menos 2 imagenes","error_img")
     if 'uploadImgFiles' in request.POST or len(request.FILES.getlist("uploadImgFiles")) > 0:
       files = request.FILES.getlist("uploadImgFiles")
+      print(files)
       if len(files) > 0:
-        all_img_order = all_dish_imgs.order_by('-order')
+        all_img_order = all_dish_imgs.filter(select=True).order_by('-order')
+        print(all_img_order[0].order)
         last_order = all_img_order[0].order
         k = int(last_order) + 1
         for m in files:

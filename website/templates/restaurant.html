@@ -53,7 +53,7 @@
                     <div class="item-dish">
                       <a onclick='ShowModal(this,"{{dish.0.dish_name}}", "{{dish.0.tags}}", "{{dish.0.description}}", "{{dish.1}}", "{{dish.0.price}}", "{{dish.3}}", "{{promo.0.discount}}", "{{promo.0.id}}_{{dish.0.id}}")'>
                         <div class="dish_img">
-                          <img src="{% static dish.2.img %}" alt="" srcset="" width="150" height="150">
+                          <img src="{% if dish.2.existImg %}{% static dish.2.img %}{% else %}{% static 'icon/pizza.png' %}{% endif %}" alt="" srcset="" width="150" height="150">
                         </div>
                         <div class="dish_info">
                           <h5 class="title-dish">{{dish.0.dish_name}}</h5>
@@ -76,7 +76,7 @@
                     <div class="item-dish">
                       <a onclick='ShowModal(this,"{{dish.0.dish_name}}", "{{dish.0.tags}}", "{{dish.0.description}}", "{{dish.1}}", "{{dish.0.price}}", "{{dish.3}}", "{{menu.0.discount}}", "{{menu.0.id}}_{{dish.0.id}}")'>
                         <div class="dish_img">
-                          <img src="{% static dish.2.img %}" alt="" srcset="" width="150" height="150">
+                          <img src="{% if dish.2.existImg %}{% static dish.2.img %}{% else %}{% static 'icon/pizza.png' %}{% endif %}" alt="" srcset="" width="150" height="150">
                         </div>
                         <div class="dish_info">
                           <h5 class="title-dish">{{dish.0.dish_name}}</h5>
