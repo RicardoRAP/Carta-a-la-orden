@@ -8,3 +8,8 @@
     min-height: calc(100vh - 91.17px - 198px - 290px);
   }
 }
+@media only screen and (max-width:768px){
+  .less_result{
+    height:calc(100% - 290px)
+  }
+}
