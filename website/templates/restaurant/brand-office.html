@@ -32,6 +32,11 @@
     </div>
   </div>
   <div class="container-brand w-100 h-100">
+    {% for message in messages %}
+      {% if "success" in message.tags %}
+        <p class="message-{{message.tags}} mb-2 mt-2">{{message}}</p>
+      {% endif %}
+    {% endfor %}
     <div class="brands">
       <div class="principal-brand position-relative">
         <a href="{% url 'perfil' %}" class="w-100">

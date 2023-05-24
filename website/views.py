@@ -499,6 +499,7 @@ def RestaurantBrand(request):
       addform.save()
       time.sleep(1)
       restaurant.refresh_from_db()
+      messages.success(request,"Se ha creado la sucursal exitosamente")
       return redirect('sucursales')
     else:
       messages.error(request,"Error")
@@ -699,6 +700,7 @@ def RestaurantDish(request):
           j += 1
         time.sleep(1)
         restaurant.refresh_from_db()
+        messages.success(request,"Se ha creado el platillo exitosamente")
         return redirect('platillos')
       else:
         messages.error(request,"Debe seleccionar por lo menos 2 imagenes")
@@ -828,6 +830,7 @@ def RestaurantPromo(request):
         f.save()
         form.save_m2m()
         restaurant.refresh_from_db()
+        messages.success(request,"Se ha creado la promoción exitosamente")
         return redirect('promociones')
       else:
         messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
