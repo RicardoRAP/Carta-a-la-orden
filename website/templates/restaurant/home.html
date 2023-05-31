@@ -117,7 +117,7 @@
             <div class="d-flex justify-content-center align-items-center flex-column py-4 row-gap-3">
               <div>
                 <div>
-                  <a href="{% url 'perfil' %}"><img class="img-home" src="{% static restaurant.profile_img %}" width="200" height="200"></a>
+                  <a href="{% url 'perfil' %}"><img class="img-home" src="{% if restaurant.existImg %}{% static restaurant.profile_img %}{% else %}{% static '/restaurants/profile-down-hosting.jpg' %}{% endif %}" width="200" height="200"></a>
                 </div>
               </div>
               <div>

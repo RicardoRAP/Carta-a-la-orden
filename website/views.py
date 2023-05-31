@@ -414,13 +414,13 @@ def RestaurantProfile(request):
               full_address = request.POST.get("full_address")
             )
             profile.save()
-            messages.success(request,"Los cambios se han guardado con éxito.")
             restaurant.refresh_from_db()
             if (request.FILES.get("profile_img") != None and "restaurants/profile.png" not in str(old_img)):
               try:
                 os.remove(str(old_img.path))
               except:
                 pass
+            messages.success(request,"Los cambios se han guardado con éxito.")
             redirect("perfil")
           else:
             messages.error(request,"El formato del nombre de usuario es invalido. Recuerde que puede usar '_' , '.' y '&'.")
@@ -499,7 +499,7 @@ def RestaurantBrand(request):
       addform.save()
       time.sleep(1)
       restaurant.refresh_from_db()
-      messages.success(request,"Se ha creado la sucursal exitosamente")
+      messages.success(request,"Se ha creado la sucursal exitosamente.")
       return redirect('sucursales')
     else:
       messages.error(request,"Error")
@@ -565,6 +565,7 @@ def RestaurantUpdateBrand(request, pk_param):
         form.save()
         time.sleep(1)
         brand.refresh_from_db()
+        messages.success(request,"Sea han guardado exitosamente los cambios realizados.")
         return redirect('sucursales')
     elif 'Delete' in request.POST:
       brand.delete()
@@ -627,6 +628,7 @@ def RestaurantMenu(request):
         f.save()
         form.save_m2m()
         restaurant.refresh_from_db()
+        messages.success(request,"Sea creado el menú exitosamente.")
         return redirect('menus')
       else:
         messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
@@ -661,6 +663,7 @@ def RestaurantUpdateMenu(request, pk_param):
               os.remove(old_img)
             except:
               pass
+          messages.success(request,"Sea han guardado exitosamente los cambios realizados.")
           return redirect('menus')
         else:
           messages.error(request,"Selecione por lo menos una sucursal o la sede principal.")
@@ -769,6 +772,7 @@ def RestaurantUpdateDish(request, pk_param):
         f.save()
         time.sleep(1)
         dish.refresh_from_db()
+        messages.success(request,"Sea han guardado exitosamente los cambios realizados.")
         return redirect('platillos')
     elif 'Delete' in request.POST:
       folder = dish_imgs[0].folder
@@ -868,6 +872,7 @@ def RestaurantUpdatePromo(request, pk_param):
             os.remove(old_promo_img)
           except:
             pass
+        messages.success(request,"Sea han guardado exitosamente los cambios realizados.")
         return redirect('promociones')
       else:
         messages.error(request,"Error")

@@ -34,7 +34,7 @@
   <div class="container-brand w-100 h-100">
     {% for message in messages %}
       {% if "success" in message.tags %}
-        <p class="message-{{message.tags}} mb-2 mt-2">{{message}}</p>
+        <p class="message-{{message.tags}} mb-4 mt-2">{{message}}</p>
       {% endif %}
     {% endfor %}
     <div class="brands">
@@ -143,9 +143,10 @@
             <div id="Add-brand-form" class="d-flex justify-content-center flex-wrap">
               {{add_brand.as_div}}
             </div>
-            {{form.errors}}
             {% for message in messages %}
-              <p class="message-{{message.tags}}">{{message}}</p>
+              {% if message.tags == "error" %}
+                <p class="message-{{message.tags}}">{{message}}</p>
+              {% endif %}
             {% endfor %}
             <div class="modal-bttn">
               <div class="d-flex justify-content-center align-items-center">

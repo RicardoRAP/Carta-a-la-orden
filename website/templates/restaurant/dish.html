@@ -34,7 +34,7 @@
   <div class="container-dishes w-100 h-100">
     {% for message in messages %}
       {% if "success" in message.tags %}
-        <p class="message-{{message.tags}} mb-2 mt-2">{{message}}</p>
+        <p class="message-{{message.tags}} mb-4 mt-2">{{message}}</p>
       {% endif %}
     {% endfor %}
     <div class="dishes">
@@ -148,13 +148,15 @@
           </div>
           <div class="messages-info">
             {% for message in messages %}
-              <p class="message-{{message.tags}}">{{message}}</p>
-              <script>
-                document.addEventListener("DOMContentLoaded", function(){
-                  var modal = new bootstrap.Modal(document.querySelector('#Agregar_platillo'))
-                  modal.show()
-                });
-              </script>
+              {% if message.tags == "error" %}
+                <p class="message-{{message.tags}}">{{message}}</p>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function(){
+                    var modal = new bootstrap.Modal(document.querySelector('#Agregar_platillo'))
+                    modal.show()
+                  });
+                </script>
+              {% endif %}
             {% endfor %}
           </div>
           <div class="modal-bttn">

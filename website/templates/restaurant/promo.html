@@ -39,7 +39,7 @@
   <div class="container-menu w-100 h-100">
     {% for message in messages %}
       {% if "success" in message.tags %}
-        <p class="message-{{message.tags}} mb-2 mt-2">{{message}}</p>
+        <p class="message-{{message.tags}} mb-4 mt-2">{{message}}</p>
       {% endif %}
     {% endfor %}
     <div class="menu">
@@ -155,7 +155,9 @@
             </div>
           </div>
           {% for message in messages %}
-            <p class="message-{{message.tags}}">{{message}}</p>
+            {% if message.tags == "error" %}
+              <p class="message-{{message.tags}}">{{message}}</p>
+              {% endif %}
           {% endfor %}
           <div class="modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
@@ -168,7 +170,7 @@
     </div>
   </div>
 </div>
-{% if form.errors or messages %}
+{% if form.errors or message.tags == "error" %}
 <script>
   document.addEventListener("DOMContentLoaded", function(){
     var modal = new bootstrap.Modal(document.querySelector('#Agregar_promo'))

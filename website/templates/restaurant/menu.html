@@ -37,6 +37,11 @@
     </div>
   </div>
   <div class="container-menu w-100 h-100">
+    {% for message in messages %}
+      {% if "success" in message.tags %}
+        <p class="message-{{message.tags}} mb-4 mt-2">{{message}}</p>
+      {% endif %}
+    {% endfor %}
     <div class="menu">
       {% for m in menus %}
       <a href="{% url 'editar-menu' m.id %}">
@@ -89,6 +94,7 @@
                 {{form.dishes}}
               </div>
               <p class="recommend tablet-hidden" style="margin-top: 5px;">Haga Ctrl + click para marcar o desmarcar multiples opciones</p>
+              <p class="recommend tablet-show" style="margin-top: 5px;">Toque el campo para marcar o desmarcar multiples opciones</p>
               <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
                 <a class="btn btn-primary" onclick="SelectAll('#id_dishes')">Seleccionar Todo</a>
                 <a class="btn btn-secondary" onclick="ResetAll('#id_dishes')">Desmarcar todo</a>
@@ -101,6 +107,7 @@
                 {{form.brands}}
               </div>
               <p class="recommend tablet-hidden" style="margin-top: 5px;">Haga Ctrl + click para marcar o desmarcar multiples opciones</p>
+              <p class="recommend tablet-show" style="margin-top: 5px;">Toque el campo para marcar o desmarcar multiples opciones</p>
               <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
                 <a class="btn btn-primary"  onclick="SelectAll('#id_brands')">Seleccionar Todo</a>
                 <a class="btn btn-secondary"  onclick="ResetAll('#id_brands')">Desmarcar todo</a>
@@ -132,7 +139,9 @@
             </div>
           </div>
           {% for message in messages %}
-            <p class="message-{{message.tags}}" onload="this.scrollIntoView()">{{message}}</p>
+            {% if message.tags == "error" %}
+              <p class="message-{{message.tags}}" onload="this.scrollIntoView()">{{message}}</p>
+            {% endif %}
           {% endfor %}
           <div class="modal-bttn">
             <div class="d-flex justify-content-center align-items-center">
@@ -145,7 +154,7 @@
     </div>
   </div>
 </div>
-{% if form.errors or messages %}
+{% if form.errors or message.tags == "error" %}
 <script>
   document.addEventListener("DOMContentLoaded", function(){
     var modal = new bootstrap.Modal(document.querySelector('#Agregar_menu'))

@@ -78,6 +78,7 @@
   flex: 1 1 50%;
   padding-right: 40px;
   padding-bottom: 20px;
+  width: 65%
 }
 #Content .title{
   padding: 12px 0;
@@ -205,7 +206,16 @@
   align-items: end;
   column-gap: 6px;
   margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  text-transform: capitalize;
+}
+.container-brand .brands .name-brand{
+  max-width: 30%;
+}
+.container-brand .brands .address-brand{
+  max-width: 60%;
 }
 .container-brand .brands .address-brand p,
 .container-brand .brands .name-brand p{
@@ -213,7 +223,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   text-transform: capitalize;
-  max-width: 700px;
 }
 .container-brand .brands .description-brand{
   column-gap: 90px;
@@ -520,12 +529,25 @@
 }
 /* Responsive */
 @media only screen and (max-width:1200px){
-  .container-brand .brands .address-brand p,
-  .container-brand .brands .name-brand p{
-    max-width: 400px;
+  .container-brand .brands .other-offices{
+    max-height: 151px;
+    min-height: 151px;
+  }
+  .container-brand .brands .name_address{
+    align-items: start;
+    flex-direction: column;
+  }
+  .container-brand .brands .name-brand{
+    max-width: 80%;
+  }
+  .container-brand .brands .address-brand {
+    max-width: 100%;
   }
 }
 @media only screen and (max-width:992px){
+  #Content {
+    width: 54%;
+  }
   .profile-link-to-page{
     top: calc(50% - 12.5px);
     right: -40px;
@@ -546,8 +568,8 @@
     flex-direction: column;
     column-gap: 0;
   }
-  .container-brand .brands .address-brand p, .container-brand .brands .name-brand p{
-    max-width: 150px;
+  .container-brand .brands .name-brand{
+    max-width: 100%;
   }
   .brand-link-to-page{
     top: calc(50% - 12.5px);
@@ -672,7 +694,6 @@
   .container-brand .brands .address-brand p, 
   .container-brand .brands .name-brand p{
     white-space: normal;
-    max-width: 200px;
     text-align: center;
   }
   .container-brand .brands .description-brand{
